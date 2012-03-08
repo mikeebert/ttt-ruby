@@ -39,25 +39,17 @@ class Game
   
   def win?
     @board.each do |row| 
-      if row.uniq == ["X"] || row.uniq == ["O"] #rewrite this so it's independent of symbol
-        return true
-      end
+      return true if row.uniq == ["X"] || row.uniq == ["O"] #rewrite this so it's independent of symbol
     end
     
     horizontal_positions = (0..(@board[0].count - 1)).to_a
     horizontal_positions.each do |x|
-      if @board[0][x] == @board[1][x] && @board[0][x] == @board[2][x]
-        return true
-      end
+     return true if @board[0][x] == @board[1][x] && @board[0][x] == @board[2][x]
     end    
     
-    if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2]
-      return true
-    end
-
-    if @board[0][2] == @board[1][1] && @board[1][1] == @board[2][0]
-      return true
-    end
+    #two horizontal methods are not independent of board size. REWRITE?
+    return true if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2]
+    return true if @board[0][2] == @board[1][1] && @board[1][1] == @board[2][0]
   end
   
   def draw?
