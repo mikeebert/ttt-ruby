@@ -13,7 +13,7 @@ while @game.win? != true
     @game.player_move(move)
     if @game.win? != true
       @game.computer_move
-      puts "Nice Move, check out mine (the O's)."
+      puts "Nice Move, check out mine (the o's)."
     end
   else
     puts "Not a valid move. Please try again"

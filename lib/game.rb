@@ -8,12 +8,16 @@ class Game
               [7,8,9]]
   end
   
+  def valid_move(n)
+    @board.flatten.include?(n)
+  end
+  
   def player_move(n)
     row_number = 0
     @board.each do |row|
       if row.include?(n)
         position = row.find_index(n)
-        @board[row_number][position] = "X"        
+        @board[row_number][position] = "x"        
       end
       row_number += 1
     end
@@ -21,25 +25,19 @@ class Game
   
   def computer_move
     if move_count == 1
-      @board[1][1] == 5 ? @board[1][1] = "O" : @board[0][0] = "O"
+      @board[1][1] == 5 ? @board[1][1] = "o" : @board[0][0] = "o"
     elsif move_count == 3
-      if @board[0][0] == "X" && @board[2][1] == "X"
-        @board[2][0] = "O"
-      # elsif @board[0][1] == "X" && @board[1][0] 
-      #   @board[0][0] = "O"
+      if @board[0][0] == "x" && @board[2][1] == "x"
+        @board[2][0] = "o"
       else 
-        #brute force to fill the board
+        #write a random move method
       end
     end
   end
   
-  def valid_move(n)
-    @board.flatten.include?(n)
-  end
-  
   def win?
     @board.each do |row| 
-      return true if row.uniq == ["X"] || row.uniq == ["O"] #rewrite this so it's independent of symbol
+      return true if row.uniq == ["x"] || row.uniq == ["o"] #rewrite this so it's independent of symbol
     end
     
     horizontal_positions = (0..(@board[0].count - 1)).to_a
