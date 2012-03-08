@@ -9,17 +9,13 @@ class Game
   end
   
   def player_move(n)
-    if valid_move(n)
-      row_number = 0
-      @board.each do |row|
-        if row.include?(n)
-          position = row.find_index(n)
-          @board[row_number][position] = "X"        
-        end
-        row_number += 1
+    row_number = 0
+    @board.each do |row|
+      if row.include?(n)
+        position = row.find_index(n)
+        @board[row_number][position] = "X"        
       end
-    else
-      puts "Please enter a valid move"
+      row_number += 1
     end
   end
   
@@ -29,13 +25,15 @@ class Game
     elsif move_count == 3
       if @board[0][0] == "X" && @board[2][1] == "X"
         @board[2][0] = "O"
-      elsif @board[0][1] == "X" && @board[1][0]
-        @board[0][0] = "O"
+      # elsif @board[0][1] == "X" && @board[1][0] 
+      #   @board[0][0] = "O"
+      else 
+        #brute force to fill the board
       end
     end
   end
   
-  def valid_move(n) #how to use this?
+  def valid_move(n)
     @board.flatten.include?(n)
   end
   
@@ -73,7 +71,11 @@ class Game
   end
   
   def display_board
-    @board.each {|line| print line, "\n"}
+    @board.each do |line| 
+      line.each {|value| print "#{value} "}
+      print "\n"
+    end
+    print "-------\n"
   end
   
 private
