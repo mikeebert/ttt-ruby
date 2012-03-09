@@ -6,12 +6,12 @@ puts "Welcome to Tic-Tac-Toe. You will be X's. Enter a number corresponding to a
 
 game.display_board
   
-while game.winner? != true
+while game.winner? == nil
   move = gets.chomp.to_i
   
   if game.valid_move(move)
     game.player_move(move)
-    if game.winner? != true
+    if game.winner? == nil
       game.computer_move
       puts "Nice Move, check out mine (the o's)."
     end
