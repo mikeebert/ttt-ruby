@@ -36,28 +36,28 @@ describe "a tic tac toe game" do
     @game.player_move(1)
     @game.player_move(2)
     @game.player_move(3)
-    @game.win?.should == true
+    @game.winner?.should == true
   end
   
   it "should check for a vertical win" do
     @game.player_move(1)
     @game.player_move(4)
     @game.player_move(7)
-    @game.win?.should == true
+    @game.winner?.should == true
   end
   
   it "should check for a forward-slash diagonal win" do
     @game.player_move(1)
     @game.player_move(5)
     @game.player_move(9)
-    @game.win?.should == true    
+    @game.winner?.should == true    
   end
   
   it "should check for a back-slash win" do
     @game.player_move(3)
     @game.player_move(5)
     @game.player_move(7)
-    @game.win?.should == true
+    @game.winner?.should == true
   end
   
   it "should check for a draw" do

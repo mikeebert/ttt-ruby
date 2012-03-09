@@ -35,7 +35,7 @@ class Game
     end
   end
   
-  def win?
+  def winner?
     @board.each do |row| 
       return true if row.uniq == ["x"] || row.uniq == ["o"] #rewrite this so it's independent of symbol
     end
@@ -51,7 +51,7 @@ class Game
   end
   
   def draw?
-    move_count == @board.flatten.count && win? != true
+    move_count == @board.flatten.count && winner? != true
   end
       
   def move_count
