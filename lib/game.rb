@@ -1,11 +1,19 @@
+require 'board'
+
 class Game
   
   attr_accessor :board
   
-  def initialize
-    @board = [[1,2,3],
-              [4,5,6],
-              [7,8,9]]
+  def initialize(size)
+    @board = new_array = (1..size).to_a
+             start_of_row = 1
+             end_of_row = size
+             new_array.each do |n| 
+              row = new_array.find_index(n)
+              new_array[row] = (start_of_row..end_of_row).to_a
+              start_of_row = end_of_row + 1
+              end_of_row = end_of_row + size
+            end
   end
   
   def valid_move(n)
@@ -40,12 +48,8 @@ class Game
   def random_move
     y = rand(@board.count)
     x = rand(@board[0].count)
-    print "#{y},#{x} "
-    print @board[y][x] ; print " #{@board}\n"
     if @board[y][x].class == Fixnum
-      puts "it got here \n"
       @board[y][x] = "o"
-      puts "but not here"
     else 
       random_move
     end
