@@ -18,6 +18,4 @@ class Board
     @grid.flatten.include?(n)
   end
   
-  
-  
 end

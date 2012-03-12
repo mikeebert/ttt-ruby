@@ -6,7 +6,6 @@ describe "a tic tac toe game" do
     @game = Game.new
   end
   
-
   it "should allow a move to replace a value on the board" do
     @game.player_move(1)
     @game.player_move(9)
