@@ -110,11 +110,11 @@ describe "a tic tac toe game" do
     @game.computer_move
     @game.player_move(2)
     @game.computer_move
-    @game.player_move(4)
-    @game.computer_move
-    @game.player_move(7)
-    @game.computer_move
-    @game.player_move(9)
+    @game.random_move
+    @game.random_move
+    @game.random_move
+    @game.random_move
+    @game.random_move
     @game.move_count.should == 9
   end
   

@@ -33,10 +33,24 @@ class Game
         first_available_space_move
       end
     else
-      first_available_space_move
+      random_move
     end
   end
   
+  def random_move
+    y = rand(@board.count)
+    x = rand(@board[0].count)
+    print "#{y},#{x} "
+    print @board[y][x] ; print " #{@board}\n"
+    if @board[y][x].class == Fixnum
+      puts "it got here \n"
+      @board[y][x] = "o"
+      puts "but not here"
+    else 
+      random_move
+    end
+  end
+
   def first_available_space_move
     y = 0
     @board.each do |row|
