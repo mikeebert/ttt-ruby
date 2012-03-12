@@ -14,4 +14,10 @@ class Board
             end
   end
   
+  def valid_move(n)
+    @grid.flatten.include?(n)
+  end
+  
+  
+  
 end
