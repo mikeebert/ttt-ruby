@@ -97,6 +97,27 @@ describe "a tic tac toe game" do
     @game.board[0][0].should == "o"
   end
   
+  it "should make a random move in response to 2 player moves" do
+    @game.player_move(5)
+    @game.computer_move
+    @game.player_move(2)
+    @game.computer_move
+    @game.move_count.should == 4
+  end
+  
+  it "should make random moves to fill the board" do
+    @game.player_move(1)
+    @game.computer_move
+    @game.player_move(2)
+    @game.computer_move
+    @game.player_move(4)
+    @game.computer_move
+    @game.player_move(7)
+    @game.computer_move
+    @game.player_move(9)
+    @game.move_count.should == 9
+  end
+  
   # it "should make the first available move" do
   #   @game.player_move(5)
   #   @game.computer

@@ -29,9 +29,25 @@ class Game
     elsif move_count == 3
       if @board[0][0] == "x" && @board[2][1] == "x"
         @board[2][0] = "o"
-      else 
-        #write a random move method
+      else
+        first_available_space_move
       end
+    else
+      first_available_space_move
+    end
+  end
+  
+  def first_available_space_move
+    y = 0
+    @board.each do |row|
+      row.each do |value|
+        if value.class == Fixnum
+          x = row.find_index(value)
+          @board[y][x] = "o"
+          return
+        end
+      end
+      y += 1
     end
   end
   
