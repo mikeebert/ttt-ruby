@@ -51,7 +51,7 @@ class Game
   end
   
   def draw?
-    move_count == @board.flatten.count && winner? != true
+    move_count == @board.flatten.count && winner? == nil
   end
       
   def move_count
@@ -72,3 +72,7 @@ private
 
 
 end
+
+#rename and divide out Play, Game, TTT, Road
+#hide away dependency from game class
+# test UI (without gets and puts)
