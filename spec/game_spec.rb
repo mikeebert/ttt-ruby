@@ -6,11 +6,7 @@ describe "a tic tac toe game" do
     @game = Game.new(3)
   end
   
-  it "should have an array of arrays representing the size of the board" do
-    @game.board.flatten.count.should == 9
-    @game = Game.new(5)
-    @game.board.flatten.count.should == 25
-  end
+
   
   it "should have values of 1 through 9 representing the positions on the board" do
     @game.board[0][0].should == 1

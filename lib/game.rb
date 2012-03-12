@@ -1,5 +1,3 @@
-require 'board'
-
 class Game
   
   attr_accessor :board
