@@ -1,4 +1,4 @@
-require 'board.rb'
+require './board.rb'
 
 class Game
   
@@ -37,11 +37,7 @@ class Game
   def random_move
     y = rand(@grid.count)
     x = rand(@grid[0].count)
-    if @grid[y][x].class == Fixnum
-      @grid[y][x] = "o"
-    else 
-      random_move
-    end
+    @grid[y][x].class == Fixnum ? @grid[y][x] = "o" : random_move
   end
 
   # def first_available_space_move
@@ -84,7 +80,7 @@ class Game
   end
   
   def display_board
-    @board.each do |line| 
+    @grid.each do |line| 
       line.each {|value| print "#{value} "}
       print "\n"
     end
