@@ -1,14 +1,16 @@
-require_relative 'board'
-# puts $:
+require 'board'
+
 class Game
   
   attr_accessor :board
+  attr_accessor :human_symbol
+  attr_accessor :computer_symbol
   
   def initialize
     @board = Board.new(3)
     @grid = @board.grid
   end
-    
+      
   def human_move(n)
     row_number = 0
     @grid.each do |row|

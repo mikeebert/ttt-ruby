@@ -1,3 +1,4 @@
+require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'game'
 
 describe "a tic tac toe game" do
@@ -6,14 +7,24 @@ describe "a tic tac toe game" do
     @game = Game.new
   end
   
+  it "should allow any letter to exist for a player symbol" do
+    @game.human_symbol = "X"
+    @game.human_symbol.should == "X"
+    @game.human_symbol.should_not == "x"
+  end
+  
+  it "should allow any letter to exist for a player symbol" do
+    @game.computer_symbol = "X"
+    @game.computer_symbol.should == "X"
+    @game.computer_symbol.should_not == 9
+  end
+  
   it "should allow a move to replace a value on the board" do
     @game.human_move(1)
     @game.human_move(9)
     @game.board.grid[0][0].should == "x"
     @game.board.grid[2][2].should == "x"
   end
-  
-
   
   it "should check for a draw" do
     [1,3,6,7,8].each {|n| @game.human_move(n)}
@@ -72,7 +83,6 @@ describe "a tic tac toe game" do
     @game.random_move
     @game.move_count.should == 9
   end
-  
   
   # it "should make the first available move" do
   #   @game.human_move(5)
