@@ -2,7 +2,16 @@ require 'board'
 
 class Ai
   
-  def self.computer_move
+  def initialize
+      move = rand(@board.grid.flatten.count + 1)
+      if @board.valid_move(move)
+        location = @board.coordinates_of(move)
+        y = location[0]
+        x = location[1]      
+        @board.grid[y][x] = "o"
+      else
+        random_move
+      end
   end
   
   # def computer_move

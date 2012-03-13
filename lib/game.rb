@@ -1,4 +1,5 @@
 require 'board'
+require 'ai'
 
 class Game
   
@@ -22,6 +23,9 @@ class Game
     end
   end
   
+  def computer_move
+    Ai.new
+  end
 
 
   # def first_available_space_move
@@ -54,13 +58,7 @@ class Game
   end
   
   def draw?
-    move_count == @grid.flatten.count && winner? == nil
-  end
-      
-  def move_count
-    count = 0
-    @grid.flatten.each {|position| count += 1 if position.class == String}
-    return count
+    @board.move_count == @grid.flatten.count && winner? == nil
   end
   
   def display_board

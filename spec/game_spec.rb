@@ -40,15 +40,6 @@ describe "the tic tac toe game" do
     @game.human_move(3)
     @game.draw?.should == false
   end
-
-  
-  it "should know how many moves are in a game" do
-    @game.human_move(1)
-    @game.human_move(2)
-    @game.human_move(3)
-    @game.human_move(4)
-    @game.move_count.should == 4
-  end
   
   it "should make a computer move in an open center square for the first move" do
     @game.human_move(1)
@@ -67,7 +58,7 @@ describe "the tic tac toe game" do
     @game.computer_move
     @game.human_move(2)
     @game.computer_move
-    @game.move_count.should == 4
+    @board.move_count.should == 4
   end
   
   it "should make random moves to fill the board" do
@@ -80,7 +71,7 @@ describe "the tic tac toe game" do
     @game.random_move
     @game.random_move
     @game.random_move
-    @game.move_count.should == 9
+    @board.move_count.should == 9
   end
   
   # it "should make the first available move" do
