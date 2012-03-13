@@ -1,6 +1,6 @@
 require 'game'
 
-describe "a tic tac toe game" do
+describe "the tic tac toe game" do
   
   before(:each) do
     @game = Game.new

@@ -22,31 +22,7 @@ class Game
     end
   end
   
-  def computer_move
-    if move_count == 1
-      @grid[1][1] == 5 ? @grid[1][1] = "o" : @grid[0][0] = "o"
-    elsif move_count == 3
-      if @grid[0][0] == "x" && @grid[2][1] == "x"
-        @grid[2][0] = "o"
-      else
-        random_move
-      end
-    else
-      random_move
-    end
-  end
-  
-  def random_move
-    move = rand(@grid.flatten.count + 1)
-    if @board.valid_move(move)
-      location = @board.coordinates_of(move)
-      y = location[0]
-      x = location[1]      
-      @grid[y][x] = "o"
-    else
-      random_move
-    end
-  end
+
 
   # def first_available_space_move
   #   y = 0

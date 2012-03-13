@@ -37,5 +37,14 @@ class Board
     end
     return @row, @column
   end
+  
+  def move_count
+    positions = @grid.flatten.count
+    counter = 0
+    (1..positions).each do |position|
+      counter += 1 if self.space_available?(position) == false
+    end
+    return counter
+  end
 
 end

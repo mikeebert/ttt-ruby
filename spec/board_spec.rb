@@ -42,11 +42,18 @@ describe "the tic tac toe board" do
     @board.coordinates_of(1).should == [0,0]
     @board.coordinates_of(9).should == [2,2]
   end
-
-  it "should place a move on the board" do
-    @board.place_move(human, 1)
-    @grid[0][0].should == human_symbol
+   
+  it "should know how many moves are on the board" do
+    @grid[0][0] = "x"
+    @grid[1][0] = "x"
+    @grid[2][0] = "o"
+    @board.move_count.should == 3    
   end
+   
+  it "should place a move on the board"
+    # @board.place_move(human, 1)
+    # @grid[0][0].should == human_symbol
+   
    
   # it "should check for a horizontal win" do
   #   @game.player_move(1)
