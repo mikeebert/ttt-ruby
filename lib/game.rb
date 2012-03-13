@@ -1,5 +1,5 @@
-require './board.rb'
-
+require_relative 'board'
+# puts $:
 class Game
   
   attr_accessor :board
@@ -35,9 +35,15 @@ class Game
   end
   
   def random_move
-    y = rand(@grid.count)
-    x = rand(@grid[0].count)
-    @grid[y][x].class == Fixnum ? @grid[y][x] = "o" : random_move
+    move = rand(@grid.flatten.count + 1)
+    if @board.valid_move(move)
+      location = @board.coordinates_of(move)
+      y = location[0]
+      x = location[1]      
+      @grid[y][x] = "o"
+    else
+      random_move
+    end
   end
 
   # def first_available_space_move

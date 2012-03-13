@@ -14,8 +14,34 @@ class Board
             end
   end
   
-  def valid_move(n)
-    @grid.flatten.include?(n)
+  def valid_move(move)
+    @grid.flatten.include?(move) && self.space_available?(move) == true
   end
   
+  def space_available?(move)
+    blank_grid = Board.new(@grid.count).grid
+    row_count = 0
+    blank_grid.each do |row|
+      if row.include?(move)        
+        @row = row_count
+        @column = row.find_index(move)
+      end
+      row_count += 1
+    end
+    @grid[@row][@column] != "x" && @grid[@row][@column] != "o"
+  end  
+  
+  def coordinates_of(move)
+    blank_grid = Board.new(@grid.count).grid
+    row_count = 0
+    blank_grid.each do |row|
+      if row.include?(move)        
+        @row = row_count
+        @column = row.find_index(move)
+      end
+      row_count += 1
+    end
+    return @row, @column
+  end
+
 end
