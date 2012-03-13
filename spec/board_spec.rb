@@ -1,4 +1,4 @@
-require 'board.rb'
+require 'board'
 
 describe "the tic tac toe board" do
   
@@ -42,5 +42,38 @@ describe "the tic tac toe board" do
     @board.coordinates_of(1).should == [0,0]
     @board.coordinates_of(9).should == [2,2]
   end
-    
+
+  it "should place a move on the board" do
+    @board.place_move(human, 1)
+    @grid[0][0].should == human_symbol
+  end
+   
+  # it "should check for a horizontal win" do
+  #   @game.player_move(1)
+  #   @game.player_move(2)
+  #   @game.player_move(3)
+  #   @game.winner?.should == true
+  # end
+  
+  # it "should check for a vertical win" do
+  #   @game.player_move(1)
+  #   @game.player_move(4)
+  #   @game.player_move(7)
+  #   @game.winner?.should == true
+  # end
+  # 
+  # it "should check for a forward-slash diagonal win" do
+  #   @game.player_move(1)
+  #   @game.player_move(5)
+  #   @game.player_move(9)
+  #   @game.winner?.should == true    
+  # end
+  # 
+  # it "should check for a back-slash win" do
+  #   @game.player_move(3)
+  #   @game.player_move(5)
+  #   @game.player_move(7)
+  #   @game.winner?.should == true
+  # end
+  
 end

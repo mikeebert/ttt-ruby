@@ -1,4 +1,4 @@
-require 'play.rb'
+require 'play'
 
 describe "playing the game" do
 

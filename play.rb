@@ -10,7 +10,7 @@ while game.winner? == nil
   move = gets.chomp.to_i
   
   if game.board.valid_move(move)
-    game.player_move(move)
+    game.human_move(move)
     if game.winner? == nil && game.draw? == false
       game.computer_move
       puts "Nice Move, check out mine (the o's)."

@@ -9,7 +9,7 @@ class Game
     @grid = @board.grid
   end
     
-  def player_move(n)
+  def human_move(n)
     row_number = 0
     @grid.each do |row|
       if row.include?(n)
