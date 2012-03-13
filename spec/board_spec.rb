@@ -1,4 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'board'
 
 describe "the tic tac toe board" do

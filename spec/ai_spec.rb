@@ -1,4 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
 require 'ai'
 
 describe "a computer's move on a tic tac toe board" do
