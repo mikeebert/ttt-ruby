@@ -1,7 +1,7 @@
 $: << File.expand_path(File.dirname(__FILE__) + "./lib")
 require 'game'
 
-game = Game.new
+game = Game.new(3)
 
 # puts "Welcome to Tic-Tac-Toe. What letter would you like to represent your moves? (hit return after you're done.)"
 

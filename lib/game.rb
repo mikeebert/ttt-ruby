@@ -7,8 +7,8 @@ class Game
   attr_accessor :human_symbol
   attr_accessor :computer_symbol
   
-  def initialize
-    @board = Board.new(3)
+  def initialize(n)
+    @board = Board.new(n)
     @grid = @board.grid
   end
       
@@ -24,23 +24,9 @@ class Game
   end
   
   def computer_move
-    Ai.new
+    Ai.move(@board)
   end
 
-
-  # def first_available_space_move
-  #   y = 0
-  #   @grid.each do |row|
-  #     row.each do |value|
-  #       if value.class == Fixnum
-  #         x = row.find_index(value)
-  #         @grid[y][x] = "o"
-  #         return
-  #       end
-  #     end
-  #     y += 1
-  #   end
-  # end
   
   def winner?
     @grid.each do |row| 
@@ -69,11 +55,4 @@ class Game
     print "-------\n"
   end
   
-private
-
-
 end
-
-#rename and divide out Play, Game, TTT, Road
-#hide away dependency from game class
-# test UI (without gets and puts)

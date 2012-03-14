@@ -3,7 +3,7 @@ require 'game'
 describe "the tic tac toe game" do
   
   before(:each) do
-    @game = Game.new
+    @game = Game.new(3)
   end
   
   it "should allow any letter to exist for a player symbol" do
@@ -41,24 +41,12 @@ describe "the tic tac toe game" do
     @game.draw?.should == false
   end
   
-  it "should make a computer move in an open center square for the first move" do
-    @game.human_move(1)
-    @game.computer_move
-    @game.board.grid[1][1].should == "o"
-  end
-  
-  it "should make a computer move in the upper left corner if the center is taken" do
-    @game.human_move(5)
-    @game.computer_move
-    @game.board.grid[0][0].should == "o"
-  end
-  
   it "should make a random move in response to 2 player moves" do
     @game.human_move(5)
     @game.computer_move
     @game.human_move(2)
     @game.computer_move
-    @board.move_count.should == 4
+    @game.board.move_count.should == 4
   end
   
   it "should make random moves to fill the board" do
@@ -66,39 +54,12 @@ describe "the tic tac toe game" do
     @game.computer_move
     @game.human_move(2)
     @game.computer_move
-    @game.random_move
-    @game.random_move
-    @game.random_move
-    @game.random_move
-    @game.random_move
-    @board.move_count.should == 9
+    @game.computer_move
+    @game.computer_move
+    @game.computer_move
+    @game.computer_move
+    @game.computer_move
+    @game.board.move_count.should == 9
   end
-  
-  # it "should make the first available move" do
-  #   @game.human_move(5)
-  #   @game.computer
-  # end
-  
-  #only tests for one knight set-up
-  # describe "protect against the knight set-up" do
-  #   it "should protect against a knight (l-shaped) set-up" do
-  #     @game.human_move(1)
-  #     @game.computer_move
-  #     @game.human_move(8)
-  #     @game.computer_move
-  #     @game.board[2][0].should == "o"
-  #   end    
-  # end
-
-  # removed the test below while I spiked through the UI.
-  # it "should protect against the diagonal edge set-up" do
-  #   @game.human_move(2)
-  #   @game.computer_move
-  #   @game.human_move(4)
-  #   @game.computer_move
-  #   @game.board[0][0].should == "o"
-  # end
-  
-  # it "should protect against the double-edge setup"
 
 end
