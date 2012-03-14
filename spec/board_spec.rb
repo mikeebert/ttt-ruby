@@ -80,14 +80,23 @@ describe "the tic tac toe board" do
     @board.move_count.should == 1
     @grid[0][0].should == "o"      
   end
+
+  it "should check for a horizontal winner" do
+    @grid[0][0] = "x"
+    @grid[0][1] = "x"
+    @grid[0][2] = "x"
+    @board.has_winner.should == true
+  end
    
-  it "should check for a winner" # do
-  #     @grid[0][0] = "x"
-  #     @grid[1][0] = "x"
-  #     @grid[2][0] = "x"
-  #     @board.has_winner.should == true
-  #   end
+  it "should check for a vertical winner" do
+    @grid[0][0] = "x"
+    @grid[1][0] = "x"
+    @grid[2][0] = "x"
+    @board.has_winner.should == true
+  end
    
+  it "should check for a diagonal winner"
+    
   # it "should check for a horizontal win" do
   #   @game.player_move(1)
   #   @game.player_move(2)

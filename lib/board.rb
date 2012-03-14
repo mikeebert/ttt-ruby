@@ -57,22 +57,17 @@ class Board
     @grid[@column][@row] = player
   end
   
-  # def has_winner #the board shouldn't care who the winner is or what the symbol is
-  #   @grid.each do |row|
-  #     return true if row.uniq.count == 1
-  #   end
-  #   
-  #   columns = []
-  #   number_of_rows = @grid.count
-  #   
-  #   return true if any x position in all the rows matches up
-  #   
-  #   number_of_rows = (1..@grid.count).to_a
-  #   number_of_rows.each do |position|
-  #     return true if column = @grid.map {|row| row[position]}
-  #   end
-  #   
-  # end
+  def has_winner 
+    @grid.each do |row|
+      return true if row.uniq.count == 1
+    end
+
+    column_values = @grid[0].count - 1
+    (0..column_values).to_a.each do |x_position|
+      column = @grid.map {|row| row[x_position]}
+      return true if column.uniq.count == 1
+    end    
+  end
   # 
   # @grid.each do |row| 
   #   return true if row.uniq == ["x"] || row.uniq == ["o"]

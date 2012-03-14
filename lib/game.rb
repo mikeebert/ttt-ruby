@@ -9,7 +9,7 @@ class Game
     @board = Board.new(n)
     @grid = @board.grid
   end
-      
+        
   def human_move(n)
     @board.place_human_move(n)
   end
@@ -17,7 +17,6 @@ class Game
   def computer_move
     Ai.move(@board)
   end
-
   
   def winner?
     @board.has_winner
