@@ -10,9 +10,9 @@ class Ai
   end
   
   def self.random_move(board)
-    position = rand(board.grid.flatten.count + 1)    
+    position = rand(9)
     if board.valid_move(position)
-      board.place_move(board.computer_symbol, position)
+      board.place_computer_move(position)
     else
       random_move(board)
     end

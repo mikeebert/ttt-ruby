@@ -49,14 +49,14 @@ class Board
 
   def place_human_move(n)
     self.coordinates_of(n)
-    @grid[@column][@row] = "x"
+    @grid[@column][@row] = @board.human_symbol
   end
   
-  def place_move(player, n)
+  def place_computer_move(n)
     self.coordinates_of(n)
-    @grid[@column][@row] = player
+    @grid[@column][@row] = @board.computer_symbol
   end
-  
+    
   def has_winner 
     @grid.each do |row|
       return true if row.uniq.count == 1
@@ -67,6 +67,7 @@ class Board
       column = @grid.map {|row| row[x_position]}
       return true if column.uniq.count == 1
     end    
+    
   end
   # 
   # @grid.each do |row| 

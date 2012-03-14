@@ -7,8 +7,11 @@ game = Game.new(3)
 puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board below to make your first move."
 
 game.display_board
-  
-while game.winner? == nil
+
+print game.board.has_winner 
+
+while game.board.has_winner == nil
+
   input = gets.chomp.to_i
   
   if game.board.valid_move(input)
@@ -34,4 +37,3 @@ while game.winner? == nil
   end
 
 end
-

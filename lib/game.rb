@@ -22,9 +22,6 @@ class Game
     @board.has_winner
   end
   
-  def draw?
-    @board.move_count == @grid.flatten.count && winner? == nil
-  end
   
   def display_board
     @grid.each do |line| 

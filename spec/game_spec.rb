@@ -6,6 +6,13 @@ describe "the tic tac toe game" do
     @game = Game.new(3)
   end
   
+  it "should have a board with a grid" do
+    @game = Game.new(3)
+    @game.board.should
+  end
+  
+  
+  
   it "should allow a move to replace a value on the board" do
     @game.human_move(1)
     @game.human_move(9)
@@ -29,25 +36,26 @@ describe "the tic tac toe game" do
     @game.draw?.should == false
   end
   
-  it "should make a random move in response to 2 player moves" do
-    @game.human_move(5)
-    @game.computer_move
-    @game.human_move(2)
-    @game.computer_move
-    @game.board.move_count.should == 4
-  end
-  
-  it "should make random moves to fill the board" do
-    @game.human_move(1)
-    @game.computer_move
-    @game.human_move(2)
-    @game.computer_move
-    @game.computer_move
-    @game.computer_move
-    @game.computer_move
-    @game.computer_move
-    @game.computer_move
-    @game.board.move_count.should == 9
-  end
+  it "should make a computer move"
+  # it "should make a random move in response to 2 player moves" do
+  #   @game.human_move(5)
+  #   @game.computer_move
+  #   @game.human_move(2)
+  #   @game.computer_move
+  #   @game.board.move_count.should == 4
+  # end
+  # 
+  # it "should make random moves to fill the board" do
+  #   @game.human_move(1)
+  #   @game.computer_move
+  #   @game.human_move(2)
+  #   @game.computer_move
+  #   @game.computer_move
+  #   @game.computer_move
+  #   @game.computer_move
+  #   @game.computer_move
+  #   @game.computer_move
+  #   @game.board.move_count.should == 9
+  # end
 
 end
