@@ -1,6 +1,8 @@
 class Board
   
   attr_accessor :grid
+  attr_accessor :human_symbol
+  attr_accessor :computer_symbol
   
   def initialize(size)
     @grid = new_array = (1..size).to_a
@@ -19,10 +21,8 @@ class Board
   end
   
   def space_available?(move)
-    location = self.coordinates_of(move)
-    y = location[0]
-    x = location[1]
-    @grid[y][x] != "x" && @grid[y][x] != "o"
+    self.coordinates_of(move)
+    @grid[@column][@row] != "x" && @grid[@column][@row] != "o"
   end  
   
   def coordinates_of(move)
@@ -35,7 +35,7 @@ class Board
       end
       row_count += 1
     end
-    return @row, @column
+    return {:row => @row, :column => @column}
   end
   
   def move_count
@@ -46,5 +46,46 @@ class Board
     end
     return counter
   end
+
+  def place_human_move(n)
+    self.coordinates_of(n)
+    @grid[@column][@row] = "x"
+  end
+  
+  def place_move(player, n)
+    self.coordinates_of(n)
+    @grid[@column][@row] = player
+  end
+  
+  # def has_winner #the board shouldn't care who the winner is or what the symbol is
+  #   @grid.each do |row|
+  #     return true if row.uniq.count == 1
+  #   end
+  #   
+  #   columns = []
+  #   number_of_rows = @grid.count
+  #   
+  #   return true if any x position in all the rows matches up
+  #   
+  #   number_of_rows = (1..@grid.count).to_a
+  #   number_of_rows.each do |position|
+  #     return true if column = @grid.map {|row| row[position]}
+  #   end
+  #   
+  # end
+  # 
+  # @grid.each do |row| 
+  #   return true if row.uniq == ["x"] || row.uniq == ["o"]
+  # end
+  # 
+  # horizontal_positions = (0..(@grid[0].count - 1)).to_a
+  # horizontal_positions.each do |x|
+  #  return true if @grid[0][x] == @grid[1][x] && @grid[0][x] == @grid[2][x]
+  # end    
+  # 
+  # #two horizontal methods are not independent of board size. REWRITE?
+  # return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
+  # return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
+  # 
 
 end

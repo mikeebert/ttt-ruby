@@ -6,18 +6,6 @@ describe "the tic tac toe game" do
     @game = Game.new(3)
   end
   
-  it "should allow any letter to exist for a player symbol" do
-    @game.human_symbol = "X"
-    @game.human_symbol.should == "X"
-    @game.human_symbol.should_not == "x"
-  end
-  
-  it "should allow any letter to exist for a player symbol" do
-    @game.computer_symbol = "X"
-    @game.computer_symbol.should == "X"
-    @game.computer_symbol.should_not == 9
-  end
-  
   it "should allow a move to replace a value on the board" do
     @game.human_move(1)
     @game.human_move(9)

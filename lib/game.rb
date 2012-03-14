@@ -4,8 +4,6 @@ require 'ai'
 class Game
   
   attr_accessor :board
-  attr_accessor :human_symbol
-  attr_accessor :computer_symbol
   
   def initialize(n)
     @board = Board.new(n)
@@ -13,14 +11,7 @@ class Game
   end
       
   def human_move(n)
-    row_number = 0
-    @grid.each do |row|
-      if row.include?(n)
-        position = row.find_index(n)
-        @grid[row_number][position] = "x"        
-      end
-      row_number += 1
-    end
+    @board.place_human_move(n)
   end
   
   def computer_move
@@ -29,18 +20,7 @@ class Game
 
   
   def winner?
-    @grid.each do |row| 
-      return true if row.uniq == ["x"] || row.uniq == ["o"] #rewrite this so it's independent of symbol
-    end
-    
-    horizontal_positions = (0..(@grid[0].count - 1)).to_a
-    horizontal_positions.each do |x|
-     return true if @grid[0][x] == @grid[1][x] && @grid[0][x] == @grid[2][x]
-    end    
-    
-    #two horizontal methods are not independent of board size. REWRITE?
-    return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
-    return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
+    @board.has_winner
   end
   
   def draw?

@@ -1,21 +1,8 @@
 $: << File.expand_path(File.dirname(__FILE__) + "./lib")
 require 'game'
+require 'board'
 
 game = Game.new(3)
-
-# puts "Welcome to Tic-Tac-Toe. What letter would you like to represent your moves? (hit return after you're done.)"
-
-# while input.class != String
-#   input = gets.chomp.slice(0).upcase
-#   game.player_symbol = input
-# end
-#     
-# puts "What letter would you like the computer symbol to be?"
-# 
-# while input.class != String || 
-#   input = gets.chomp.slice(0).upcase
-#   game.computer_symbol = input
-# end
 
 puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board below to make your first move."
 

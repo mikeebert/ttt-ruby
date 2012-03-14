@@ -4,6 +4,8 @@ describe "the tic tac toe board" do
   
   before(:each) do
     @board = Board.new(3)
+    @human_symbol = "x"
+    @computer_symbol = "o"
     @grid = @board.grid 
   end
 
@@ -16,6 +18,18 @@ describe "the tic tac toe board" do
   it "should have values from 1 to n representing locations on the grid" do
     @grid[0][0].should == 1
     @grid[2][2].should == 9
+  end
+
+  it "should allow any letter to exist for a player symbol" do
+    @board.human_symbol = "X"
+    @board.human_symbol.should == "X"
+    @board.human_symbol.should_not == "x"
+  end
+  
+  it "should allow any letter to exist for a computer symbol" do
+    @board.computer_symbol = "X"
+    @board.computer_symbol.should == "X"
+    @board.computer_symbol.should_not == 9
   end
   
   it "should check to see if a move is valid on the grid" do
@@ -39,8 +53,8 @@ describe "the tic tac toe board" do
   end
   
   it "should know the coordinates of a move" do
-    @board.coordinates_of(1).should == [0,0]
-    @board.coordinates_of(9).should == [2,2]
+    @board.coordinates_of(1).should == {row: 0, column: 0}
+    @board.coordinates_of(9).should == {row: 2, column: 2}
   end
    
   it "should know how many moves are on the board" do
@@ -50,10 +64,29 @@ describe "the tic tac toe board" do
     @board.move_count.should == 3    
   end
    
-  it "should place a move on the board"
-    # @board.place_move(human, 1)
-    # @grid[0][0].should == human_symbol
+  it "should place a human move on the board" do
+    @board.place_human_move(1)
+    @grid[0][0].should == "x"
+  end
+  
+  it "should place a human move on the board" do
+    @board.place_move(@human_symbol, 1)
+    @board.move_count.should == 1
+    @grid[0][0].should == "x"  
+  end
+  
+  it "should place a computer move on the board" do
+    @board.place_move(@computer_symbol, 1)
+    @board.move_count.should == 1
+    @grid[0][0].should == "o"      
+  end
    
+  it "should check for a winner" # do
+  #     @grid[0][0] = "x"
+  #     @grid[1][0] = "x"
+  #     @grid[2][0] = "x"
+  #     @board.has_winner.should == true
+  #   end
    
   # it "should check for a horizontal win" do
   #   @game.player_move(1)
