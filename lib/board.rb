@@ -67,7 +67,7 @@ class Board
     @grid[@row][@column] = self.computer_symbol
   end
     
-  def has_winning_move? 
+  def has_winner 
     @grid.each do |row|
       return true if row.uniq.count == 1
     end
@@ -84,8 +84,8 @@ class Board
     #    
   end
   
-  def is_full_with_no_winner
-    self.move_count == @size && self.has_winning_move? != true
+  def is_draw
+    self.move_count == @size && self.has_winner != true
   end
   
 

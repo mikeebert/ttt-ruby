@@ -72,62 +72,66 @@ describe "the tic tac toe board" do
    
   it "should place a human move on the board" do
     @board.place_human_move(1)
+    @board.place_human_move(7)
     @grid[0][0].should == "x"
+    @grid[2][0].should == "x"
   end
   
   it "should place a computer move on the board" do
     @board.place_computer_move(1)
-    @board.move_count.should == 1
-    @grid[0][0].should == "o"      
+    @board.place_computer_move(4)
+    @grid[0][0].should == "o"  
+    @grid[1][0].should == "o"  
   end
 
   it "should check for a row of the same symbols" do
     @grid[0][0] = "x"
     @grid[0][1] = "x"
     @grid[0][2] = "x"
-    @board.has_winning_move?.should == true
+    @board.has_winner.should == true
   end
    
   it "should check for a column of the same symbols" do
     @grid[0][0] = "x"
     @grid[1][0] = "x"
     @grid[2][0] = "x"
-    @board.has_winning_move?.should == true
+    @board.has_winner.should == true
   end
   
   it "should check for a vertical winner in the last row" do
     @grid[0][2] = "x"
     @grid[1][2] = "x"
     @grid[2][2] = "x"
-    @board.has_winning_move?.should == true    
+    @board.has_winner.should == true    
   end
    
   it "should not say there is a winner if there isn't one" do
     @board.place_human_move(1)
     @board.place_human_move(2)
-    @board.has_winning_move?.should_not == true
+    @board.has_winner.should_not == true
   end
     
+  it "should check for a draw" do
+    [1,3,6,7,8].each {|n| @board.place_human_move(n)}
+    @grid[0][1] = "o" #fake computer moves
+    @grid[1][0] = "o"   
+    @grid[1][1] = "o"   
+    @grid[2][2] = "o"   
+    @board.is_draw.should == true
+  end
+  
+  it "should not return a draw when a player wins" do
+    @board.place_human_move(1)
+    @board.place_human_move(2)
+    @board.place_human_move(3)
+    @board.is_draw.should == false
+  end
     
   it "should return an array of available spaces to play in" do
     @grid[0][0] = "x"
     @board.available_spaces.should == [2,3,4,5,6,7,8,9]
   end
     
-  # it "should check for a horizontal win" do
-  #   @game.player_move(1)
-  #   @game.player_move(2)
-  #   @game.player_move(3)
-  #   @game.winner?.should == true
-  # end
-  
-  # it "should check for a vertical win" do
-  #   @game.player_move(1)
-  #   @game.player_move(4)
-  #   @game.player_move(7)
-  #   @game.winner?.should == true
-  # end
-  # 
   # it "should check for a forward-slash diagonal win" do
   #   @game.player_move(1)
   #   @game.player_move(5)
