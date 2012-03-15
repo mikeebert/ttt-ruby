@@ -78,10 +78,10 @@ class Board
       return true if column.uniq.count == 1
     end        
     
-    # #two horizontal methods are not independent of board size. REWRITE?
-    # return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
-    # return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
-    #    
+    #two horizontal methods are not independent of board size. REWRITE?
+    return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
+    return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
+       
   end
   
   def is_draw

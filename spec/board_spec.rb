@@ -132,18 +132,20 @@ describe "the tic tac toe board" do
     @board.available_spaces.should == [2,3,4,5,6,7,8,9]
   end
     
-  # it "should check for a forward-slash diagonal win" do
-  #   @game.player_move(1)
-  #   @game.player_move(5)
-  #   @game.player_move(9)
-  #   @game.winner?.should == true    
-  # end
-  # 
-  # it "should check for a back-slash win" do
-  #   @game.player_move(3)
-  #   @game.player_move(5)
-  #   @game.player_move(7)
-  #   @game.winner?.should == true
-  # end
+  it "should check for a forward-slash diagonal win" do
+    @board.place_human_move(1)
+    @board.place_human_move(5)
+    @board.place_human_move(9)
+    @board.has_winner.should == true    
+  end
+
+  it "should check for a backward-slash diagonal win" do
+    @board.place_human_move(3)
+    @board.place_human_move(5)
+    @board.place_human_move(7)
+    @board.has_winner.should == true    
+  end
+  
+
   
 end
