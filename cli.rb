@@ -3,6 +3,8 @@ require 'game'
 require 'board'
 
 game = Game.new(3)
+game.board.human_symbol = "x"
+game.board.computer_symbol = "o"
 
 puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board below to make your first move."
 
@@ -14,7 +16,7 @@ while game.winner? != true
   
   if game.board.valid_move(input)
     game.human_move(input)
-    if game.winner? != true k
+    if game.winner? != true && game.draw? == false
       game.computer_move
       puts "Nice Move, check out mine (the o's)."
     end

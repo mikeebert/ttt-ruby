@@ -84,5 +84,9 @@ class Board
     #    
   end
   
+  def is_full_with_no_winner
+    self.move_count == @size && self.has_winning_move? != true
+  end
+  
 
 end

@@ -88,7 +88,7 @@ describe "the tic tac toe board" do
     @board.has_winning_move?.should == true
   end
    
-  it "should check for a column of the sam symbols" do
+  it "should check for a column of the same symbols" do
     @grid[0][0] = "x"
     @grid[1][0] = "x"
     @grid[2][0] = "x"
@@ -102,7 +102,11 @@ describe "the tic tac toe board" do
     @board.has_winning_move?.should == true    
   end
    
-  it "should check for a diagonal winner"
+  it "should not say there is a winner if there isn't one" do
+    @board.place_human_move(1)
+    @board.place_human_move(2)
+    @board.has_winning_move?.should_not == true
+  end
     
     
   it "should return an array of available spaces to play in" do

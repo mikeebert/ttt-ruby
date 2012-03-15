@@ -23,7 +23,7 @@ class Game
   end
   
   def draw?
-    @board.is_full_with_no_
+    @board.is_full_with_no_winner
   end
   
   def display_board
