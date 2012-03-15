@@ -8,15 +8,13 @@ puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the 
 
 game.display_board
 
-print game.board.has_winner 
-
-while game.board.has_winner == nil
+while game.winner? != true
 
   input = gets.chomp.to_i
   
   if game.board.valid_move(input)
     game.human_move(input)
-    if game.winner? == nil && game.draw? == false
+    if game.winner? != true k
       game.computer_move
       puts "Nice Move, check out mine (the o's)."
     end
@@ -26,7 +24,7 @@ while game.board.has_winner == nil
   
   game.display_board
   
-  if game.winner?
+  if game.winner? == true
     puts "Winner. Game Over"
   elsif game.draw?
     game.display_board

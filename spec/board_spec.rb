@@ -4,9 +4,15 @@ describe "the tic tac toe board" do
   
   before(:each) do
     @board = Board.new(3)
-    @human_symbol = "x"
-    @computer_symbol = "o"
+    @board.human_symbol = "x"
+    @board.computer_symbol = "o"
     @grid = @board.grid 
+  end
+  
+  it "should know how the size of itself" do
+    @board.size.should == 9
+    @board = Board.new(9)
+    @board.size.should == 81
   end
 
   it "should have an array of arrays representing the size of the grid" do
@@ -69,33 +75,40 @@ describe "the tic tac toe board" do
     @grid[0][0].should == "x"
   end
   
-  it "should place a human move on the board" do
-    @board.place_move(@human_symbol, 1)
-    @board.move_count.should == 1
-    @grid[0][0].should == "x"  
-  end
-  
   it "should place a computer move on the board" do
-    @board.place_move(@computer_symbol, 1)
+    @board.place_computer_move(1)
     @board.move_count.should == 1
     @grid[0][0].should == "o"      
   end
 
-  it "should check for a horizontal winner" do
+  it "should check for a row of the same symbols" do
     @grid[0][0] = "x"
     @grid[0][1] = "x"
     @grid[0][2] = "x"
-    @board.has_winner.should == true
+    @board.has_winning_move?.should == true
   end
    
-  it "should check for a vertical winner" do
+  it "should check for a column of the sam symbols" do
     @grid[0][0] = "x"
     @grid[1][0] = "x"
     @grid[2][0] = "x"
-    @board.has_winner.should == true
+    @board.has_winning_move?.should == true
+  end
+  
+  it "should check for a vertical winner in the last row" do
+    @grid[0][2] = "x"
+    @grid[1][2] = "x"
+    @grid[2][2] = "x"
+    @board.has_winning_move?.should == true    
   end
    
   it "should check for a diagonal winner"
+    
+    
+  it "should return an array of available spaces to play in" do
+    @grid[0][0] = "x"
+    @board.available_spaces.should == [2,3,4,5,6,7,8,9]
+  end
     
   # it "should check for a horizontal win" do
   #   @game.player_move(1)

@@ -11,7 +11,7 @@ class Game
   end
         
   def human_move(n)
-    @board.place_human_move(n)
+    self.board.place_human_move(n)
   end
   
   def computer_move
@@ -19,9 +19,12 @@ class Game
   end
   
   def winner?
-    @board.has_winner
+    @board.has_winning_move?
   end
   
+  def draw?
+    @board.is_full_with_no_
+  end
   
   def display_board
     @grid.each do |line| 

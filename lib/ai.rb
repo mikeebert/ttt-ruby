@@ -10,13 +10,14 @@ class Ai
   end
   
   def self.random_move(board)
-    position = rand(9)
+    # position = rand(9)
+    position = board.available_spaces[rand(board.available_spaces.count - 1)]
     if board.valid_move(position)
       board.place_computer_move(position)
     else
       random_move(board)
-    end
-  end
+    end    
+  end  
   
   # def first_available_space_move
   #   y = 0

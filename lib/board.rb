@@ -1,19 +1,21 @@
 class Board
   
   attr_accessor :grid
+  attr_accessor :size
   attr_accessor :human_symbol
   attr_accessor :computer_symbol
   
   def initialize(size)
-    @grid = new_array = (1..size).to_a
-            start_of_row = 1
-            end_of_row = size
-            new_array.each do |n| 
-              row = new_array.find_index(n)
-              new_array[row] = (start_of_row..end_of_row).to_a
-              start_of_row = end_of_row + 1
-              end_of_row = end_of_row + size
-            end
+    @grid = (1..size).to_a    
+    start_of_row = 1
+    end_of_row = size
+    @grid.each do |n| 
+      row = @grid.find_index(n)
+      @grid[row] = (start_of_row..end_of_row).to_a
+      start_of_row = end_of_row + 1
+      end_of_row = end_of_row + size
+    end
+    @size = size * size
   end
   
   def valid_move(move)
@@ -22,8 +24,16 @@ class Board
   
   def space_available?(move)
     self.coordinates_of(move)
-    @grid[@column][@row] != "x" && @grid[@column][@row] != "o"
+    @grid[@row][@column] != self.human_symbol && @grid[@row][@column] != self.computer_symbol
   end  
+
+  def available_spaces
+    open_spaces = []
+    @grid.flatten.each do |value| 
+      open_spaces << value if value != self.computer_symbol && value != self.human_symbol
+    end
+    return open_spaces
+  end
   
   def coordinates_of(move)
     blank_grid = Board.new(@grid.count).grid
@@ -35,11 +45,11 @@ class Board
       end
       row_count += 1
     end
-    return {:row => @row, :column => @column}
+    return {row: @row, column: @column}
   end
   
   def move_count
-    positions = @grid.flatten.count
+    positions = self.size
     counter = 0
     (1..positions).each do |position|
       counter += 1 if self.space_available?(position) == false
@@ -49,15 +59,15 @@ class Board
 
   def place_human_move(n)
     self.coordinates_of(n)
-    @grid[@column][@row] = @board.human_symbol
+    @grid[@row][@column] = self.human_symbol
   end
   
   def place_computer_move(n)
     self.coordinates_of(n)
-    @grid[@column][@row] = @board.computer_symbol
+    @grid[@row][@column] = self.computer_symbol
   end
     
-  def has_winner 
+  def has_winning_move? 
     @grid.each do |row|
       return true if row.uniq.count == 1
     end
@@ -66,22 +76,13 @@ class Board
     (0..column_values).to_a.each do |x_position|
       column = @grid.map {|row| row[x_position]}
       return true if column.uniq.count == 1
-    end    
+    end        
     
+    # #two horizontal methods are not independent of board size. REWRITE?
+    # return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
+    # return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
+    #    
   end
-  # 
-  # @grid.each do |row| 
-  #   return true if row.uniq == ["x"] || row.uniq == ["o"]
-  # end
-  # 
-  # horizontal_positions = (0..(@grid[0].count - 1)).to_a
-  # horizontal_positions.each do |x|
-  #  return true if @grid[0][x] == @grid[1][x] && @grid[0][x] == @grid[2][x]
-  # end    
-  # 
-  # #two horizontal methods are not independent of board size. REWRITE?
-  # return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
-  # return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
-  # 
+  
 
 end

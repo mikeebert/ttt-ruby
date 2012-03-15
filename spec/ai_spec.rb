@@ -17,6 +17,20 @@ describe "the computer AI" do
     Ai.random_move(@board)
     @board.move_count.should == 2
   end
+  
+  it "should make random moves to fill the board" do
+    Ai.random_move(@board)
+    Ai.random_move(@board)
+    Ai.random_move(@board)
+    Ai.random_move(@board)
+    Ai.random_move(@board)
+    Ai.random_move(@board)    
+    Ai.random_move(@board)
+    Ai.random_move(@board)
+    Ai.random_move(@board)    
+    @board.move_count.should == 9
+  end
+  
 
   # it "should make a computer move in an open center square for the first move"
 
