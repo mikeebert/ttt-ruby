@@ -14,11 +14,12 @@ class Game
   def play
     @ui.display_board(@board)
     @ui.welcome_message 
-    while self.is_over == false
-      input = @ui.input
+    
+    while self.game_is_over == false
+      input = @ui.get_input
       if @board.valid_move(input) 
         self.human_move(input)
-        if self.is_over == false 
+        if self.game_is_over == false 
           self.computer_move 
         end
       else
@@ -27,9 +28,10 @@ class Game
       @ui.display_board(@board)
       self.check_for_winner
     end  
+    
   end
   
-  def is_over
+  def game_is_over
     @board.has_winner == true || @board.is_draw == true
   end
   

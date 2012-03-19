@@ -4,7 +4,7 @@ class CommandLineInterface
   
   attr_accessor :input
 
-  def input 
+  def get_input 
     self.input = gets.chomp.to_i
   end
   
