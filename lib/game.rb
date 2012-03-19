@@ -11,28 +11,31 @@ class Game
     @ui = CommandLineInterface.new
   end
   
-  def play
+  def play #still too much?
     @ui.display_board(@board)
     @ui.welcome_message     
-    self.play_script until self.game_is_over == true    
+    play_script until game_is_over    
+  end
+
+  def play_script #still too much?
+    get_human_move
+    computer_move unless game_is_over
+    @ui.display_board(@board)
+    check_for_winner
   end
   
-  def play_script
+  def get_human_move #still too much?
     input = @ui.get_input
-    if @board.valid_move(input) 
-      self.human_move(input)
-      if self.game_is_over == false 
-        self.computer_move 
-      end
+    if @board.valid_move(input)
+      human_move(input)
     else
-      @ui.invalid_move_message 
-    end 
-    @ui.display_board(@board)
-    self.check_for_winner
+      @ui.invalid_move_message
+      get_human_move
+    end
   end
   
   def game_is_over
-    @board.has_winner == true || @board.is_draw == true
+    @board.has_winner || @board.is_draw
   end
   
   def human_move(n)
