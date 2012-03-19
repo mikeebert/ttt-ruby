@@ -8,22 +8,23 @@ class Game
   
   def initialize(n)
     @board = Board.new(n)
+    @ui = CommandLineInterface.new
   end
   
   def play
-    CommandLine.display_board(@board)
-    CommandLine.welcome_message 
+    @ui.display_board(@board)
+    @ui.welcome_message 
     while self.is_over == false
-      input = gets.chomp.to_i
+      input = @ui.input
       if @board.valid_move(input) 
         self.human_move(input)
         if self.is_over == false 
           self.computer_move 
         end
       else
-        CommandLine.invalid_move_message 
+        @ui.invalid_move_message 
       end 
-      CommandLine.display_board(@board)
+      @ui.display_board(@board)
       self.check_for_winner
     end  
   end
@@ -38,16 +39,16 @@ class Game
   
   def computer_move
     Ai.move(@board)
-    CommandLine.computer_move_message
+    @ui.computer_move_message
   end
   
   def check_for_winner
     if @board.has_winner
-      CommandLine.winning_message
+      @ui.winning_message
     elsif @board.is_draw
-      CommandLine.draw_message
+      @ui.draw_message
     else
-      CommandLine.prompt_for_next_move
+      @ui.prompt_for_next_move
     end
   end
   

@@ -1,8 +1,14 @@
 require 'game'
 
-class CommandLine
+class CommandLineInterface
   
-  def self.display_board(board)
+  attr_accessor :input
+
+  def input 
+    self.input = gets.chomp.to_i
+  end
+  
+  def display_board(board)
     board.grid.each do |line| 
       line.each {|value| print "#{value} "}
       print "\n"
@@ -10,27 +16,27 @@ class CommandLine
     print "-------\n"
   end
 
-  def self.welcome_message
+  def welcome_message
     puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board to make your first move."
   end
   
-  def self.invalid_move_message
+  def invalid_move_message
     puts "Not a valid move. Please try again"
   end
   
-  def self.computer_move_message
+  def computer_move_message
     puts "Nice Move, check out mine (the o's)."
   end
   
-  def self.winning_message
+  def winning_message
     puts "Winner. Game Over"
   end
   
-  def self.draw_message
+  def draw_message
     puts "Tie Game."
   end
   
-  def self.prompt_for_next_move
+  def prompt_for_next_move
     puts "Enter your next move:"
   end
   
