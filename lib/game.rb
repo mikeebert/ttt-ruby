@@ -12,13 +12,12 @@ class Game
   
   def play
     CommandLine.display_board(@board)
-    CommandLine.welcome_message
-    
-    while self.game_is_over == false
+    CommandLine.welcome_message 
+    while self.is_over == false
       input = gets.chomp.to_i
       if @board.valid_move(input) 
         self.human_move(input)
-        if self.game_is_over == false 
+        if self.is_over == false 
           self.computer_move 
         end
       else
@@ -26,11 +25,10 @@ class Game
       end 
       CommandLine.display_board(@board)
       self.check_for_winner
-    end
-    
+    end  
   end
   
-  def game_is_over
+  def is_over
     @board.has_winner == true || @board.is_draw == true
   end
   

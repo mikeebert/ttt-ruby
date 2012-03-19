@@ -28,13 +28,13 @@ describe "the tic tac toe game" do
     @game.human_move(1)
     @game.human_move(2)
     @game.human_move(3)
-    @game.game_is_over.should == true
+    @game.is_over.should == true
   end
   
   it "should know when a game is over after a draw" do
     [1,3,5,8,9].each {|n| @game.human_move(n)}
     4.times {@game.computer_move}
-    @game.game_is_over.should == true
+    @game.is_over.should == true
   end
   
   it "should not allow a human to make a move in a space that is already taken" 
