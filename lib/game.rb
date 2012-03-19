@@ -13,22 +13,22 @@ class Game
   
   def play
     @ui.display_board(@board)
-    @ui.welcome_message 
-    
-    while self.game_is_over == false
-      input = @ui.get_input
-      if @board.valid_move(input) 
-        self.human_move(input)
-        if self.game_is_over == false 
-          self.computer_move 
-        end
-      else
-        @ui.invalid_move_message 
-      end 
-      @ui.display_board(@board)
-      self.check_for_winner
-    end  
-    
+    @ui.welcome_message     
+    self.play_script until self.game_is_over == true    
+  end
+  
+  def play_script
+    input = @ui.get_input
+    if @board.valid_move(input) 
+      self.human_move(input)
+      if self.game_is_over == false 
+        self.computer_move 
+      end
+    else
+      @ui.invalid_move_message 
+    end 
+    @ui.display_board(@board)
+    self.check_for_winner
   end
   
   def game_is_over
