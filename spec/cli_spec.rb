@@ -1,6 +1,10 @@
-# require 'play'
+# require 'cli'
 
-describe "playing the game" do
+describe "the Command Line Interface" do
+  
+  # it "should get input from the user" do
+  #   Cli.get_input.should be_an_instance_of(String)
+  # end
 
   # it "should instantiate an instance of a new game" do
   #   @game = Game.new
