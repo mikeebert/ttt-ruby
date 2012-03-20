@@ -1,6 +1,6 @@
 require 'board'
 require 'ai'
-require 'commandline'
+require 'commandlineinterface'
 
 class Game
   
@@ -11,20 +11,20 @@ class Game
     @ui = CommandLineInterface.new
   end
   
-  def play #still too much?
+  def play
     @ui.display_board(@board)
-    @ui.welcome_message     
+    @ui.welcome_message
     play_script until game_is_over    
   end
 
-  def play_script #still too much?
+  def play_script
     get_human_move
     computer_move unless game_is_over
     @ui.display_board(@board)
     check_for_winner
   end
   
-  def get_human_move #still too much?
+  def get_human_move
     input = @ui.get_input
     if @board.valid_move(input)
       human_move(input)

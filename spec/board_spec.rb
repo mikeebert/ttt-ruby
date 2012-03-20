@@ -9,16 +9,16 @@ describe "the tic tac toe board" do
     @grid = @board.grid 
   end
   
-  it "should know how the size of itself" do
-    @board.size.should == 9
-    @board = Board.new(9)
-    @board.size.should == 81
-  end
-
   it "should have an array of arrays representing the size of the grid" do
     @grid.flatten.count.should == 9
     @board = Board.new(5)
     @board.grid.flatten.count.should == 25
+  end
+  
+  it "should know how the size of itself" do
+    @board.size.should == 9
+    @board = Board.new(9)
+    @board.size.should == 81
   end
 
   it "should have values from 1 to n representing locations on the grid" do

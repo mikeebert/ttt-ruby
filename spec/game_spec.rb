@@ -37,7 +37,12 @@ describe "the tic tac toe game" do
     @game.game_is_over.should == true
   end
   
-  it "should not allow a human to make a move in a space that is already taken" 
+  it "should know when a game is not over" do
+    @game.human_move(1)
+    @game.game_is_over.should == false
+  end
+  
+  it "should not allow a human to make a move in a space that is already taken"
     # @game.human_move(1)
     # @game.human_move(1).should == nil
 

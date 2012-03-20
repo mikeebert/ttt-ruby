@@ -6,20 +6,20 @@ class Board
   attr_accessor :computer_symbol
   
   def initialize(size)
-    @grid = (1..size).to_a    
-    start_of_row = 1
-    end_of_row = size
-    @grid.each do |n| 
-      row = @grid.find_index(n)
-      @grid[row] = (start_of_row..end_of_row).to_a
-      start_of_row = end_of_row + 1
-      end_of_row = end_of_row + size
-    end
+    first_row = (1..size).to_a    
+    row_start = 1
+    row_end = size
+    @grid = first_row.each do |n| 
+              row = first_row.find_index(n)
+              first_row[row] = (row_start..row_end).to_a
+              row_start = row_end + 1
+              row_end = row_end + size
+            end
     @size = size * size
   end
   
   def valid_move(move)
-    @grid.flatten.include?(move) && self.space_available?(move) == true
+    @grid.flatten.include?(move) && self.space_available?(move)
   end
   
   def space_available?(move)
@@ -28,11 +28,7 @@ class Board
   end  
 
   def available_spaces
-    open_spaces = []
-    @grid.flatten.each do |value| 
-      open_spaces << value if value != self.computer_symbol && value != self.human_symbol
-    end
-    return open_spaces
+    @grid.flatten.select {|value| value != self.computer_symbol && value != self.human_symbol }
   end
   
   def coordinates_of(move)
@@ -72,8 +68,8 @@ class Board
       return true if row.uniq.count == 1
     end
 
-    column_values = @grid[0].count - 1
-    (0..column_values).to_a.each do |x_position|
+    column_values = (0..(Math.sqrt(size).to_i - 1)).to_a
+    column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
       return true if column.uniq.count == 1
     end        

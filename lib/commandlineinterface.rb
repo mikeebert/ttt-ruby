@@ -21,7 +21,7 @@ class CommandLineInterface
   end
   
   def invalid_move_message
-    puts "Not a valid move. Please try again"
+    puts "Not a valid move. Please enter another move:"
   end
   
   def computer_move_message
@@ -29,11 +29,11 @@ class CommandLineInterface
   end
   
   def winning_message
-    puts "Winner. Game Over"
+    puts "Winner. Game Over."
   end
   
   def draw_message
-    puts "Tie Game."
+    puts "Tie Game. Game Over."
   end
   
   def prompt_for_next_move
