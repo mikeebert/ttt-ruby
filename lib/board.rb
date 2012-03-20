@@ -19,16 +19,16 @@ class Board
   end
   
   def valid_move(move)
-    @grid.flatten.include?(move) && self.space_available?(move)
+    @grid.flatten.include?(move) && space_available?(move)
   end
   
   def space_available?(move)
-    self.coordinates_of(move)
-    @grid[@row][@column] != self.human_symbol && @grid[@row][@column] != self.computer_symbol
+    coordinates_of(move)
+    @grid[@row][@column] != human_symbol && @grid[@row][@column] != computer_symbol
   end  
 
   def available_spaces
-    @grid.flatten.select {|value| value != self.computer_symbol && value != self.human_symbol }
+    @grid.flatten.select {|value| value != computer_symbol && value != human_symbol}
   end
   
   def coordinates_of(move)
@@ -48,19 +48,19 @@ class Board
     positions = self.size
     counter = 0
     (1..positions).each do |position|
-      counter += 1 if self.space_available?(position) == false
+      counter += 1 if space_available?(position) == false
     end
     return counter
   end
 
   def place_human_move(n)
-    self.coordinates_of(n)
-    @grid[@row][@column] = self.human_symbol
+    coordinates_of(n)
+    @grid[@row][@column] = human_symbol
   end
   
   def place_computer_move(n)
-    self.coordinates_of(n)
-    @grid[@row][@column] = self.computer_symbol
+    coordinates_of(n)
+    @grid[@row][@column] = computer_symbol
   end
     
   def has_winner 
@@ -68,20 +68,22 @@ class Board
       return true if row.uniq.count == 1
     end
 
-    column_values = (0..(Math.sqrt(size).to_i - 1)).to_a
+    column_values = (0..(Math.sqrt(size) - 1)).to_a
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
       return true if column.uniq.count == 1
     end        
     
     #two horizontal methods are not independent of board size. REWRITE?
+    
+    
     return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
     return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
        
   end
   
   def is_draw
-    self.move_count == @size && self.has_winner != true
+    move_count == @size && has_winner != true
   end
   
 
