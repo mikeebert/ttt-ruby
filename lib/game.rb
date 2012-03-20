@@ -39,7 +39,7 @@ class Game
   end
   
   def human_move(n)
-    self.board.place_human_move(n)
+    board.place_human_move(n)
   end
   
   def computer_move

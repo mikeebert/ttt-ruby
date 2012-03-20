@@ -65,20 +65,32 @@ class Board
     
   def has_winner 
     @grid.each do |row|
-      return true if row.uniq.count == 1
+      return true if row.uniq.count == 1 && row.uniq != nil
     end
 
     column_values = (0..(Math.sqrt(size) - 1)).to_a
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
-      return true if column.uniq.count == 1
+      return true if column.uniq.count == 1 && column.uniq != nil
     end        
     
-    #two horizontal methods are not independent of board size. REWRITE?
+    coordinates_of(1)
+    forward_slash = []
+    @grid.first.count.times do
+      forward_slash << @grid[@row][@column]
+      @row = @row + 1
+      @column = @column + 1
+    end
+    return true if forward_slash.uniq.count == 1
     
-    
-    return true if @grid[0][0] == @grid[1][1] && @grid[1][1] == @grid[2][2]
-    return true if @grid[0][2] == @grid[1][1] && @grid[1][1] == @grid[2][0]
+    coordinates_of(Math.sqrt(size))
+    backward_slash = []
+    @grid.first.count.times do
+      backward_slash << @grid[@row][@column]
+      @row = @row + 1
+      @column = @column - 1
+    end
+    return true if backward_slash.uniq.count == 1
        
   end
   
