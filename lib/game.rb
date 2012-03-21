@@ -17,12 +17,13 @@ class Game
     play_script until game_is_over    
   end
 
-  def play_script
+  def play_script 
     get_human_move
     computer_move unless game_is_over
     @ui.display_board(@board)
     check_for_winner
   end
+#two reasons for change. if it's two humans against each other and the check_for_winner(maybe)
   
   def get_human_move
     input = @ui.get_input
@@ -47,7 +48,7 @@ class Game
     @ui.computer_move_message
   end
   
-  def check_for_winner
+  def check_for_winner #too much responsibility
     if @board.has_winner
       @ui.winning_message
     elsif @board.is_draw
@@ -56,5 +57,4 @@ class Game
       @ui.prompt_for_next_move
     end
   end
-  
 end

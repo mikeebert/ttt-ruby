@@ -78,19 +78,19 @@ class Board
     forward_slash = []
     @grid.first.count.times do
       forward_slash << @grid[@row][@column]
-      @row = @row + 1
-      @column = @column + 1
+      @row += 1
+      @column += 1
     end
-    return true if forward_slash.uniq.count == 1
+    return true if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
     
     coordinates_of(Math.sqrt(size))
     backward_slash = []
     @grid.first.count.times do
       backward_slash << @grid[@row][@column]
-      @row = @row + 1
-      @column = @column - 1
+      @row += 1
+      @column -= 1
     end
-    return true if backward_slash.uniq.count == 1
+    return true if backward_slash.uniq.count == 1 && backward_slash.uniq != nil
        
   end
   

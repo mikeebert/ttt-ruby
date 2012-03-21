@@ -146,6 +146,4 @@ describe "the tic tac toe board" do
     @board.has_winner.should == true    
   end
   
-
-  
 end
