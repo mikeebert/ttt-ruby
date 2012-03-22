@@ -4,7 +4,7 @@ require 'commandlineinterface'
 
 class Game
   
-  attr_accessor :board, :ui
+  attr_accessor :board, :ui, :ai
   
   def play
     @ui.display_board(@board)
@@ -14,19 +14,19 @@ class Game
 
   def play_script 
     get_human_move
-    computer_move unless game_is_over
-    @ui.display_board(@board)
-    check_for_winner
-    @ui.prompt_for_next_move unless game_is_over
+    # computer_move unless game_is_over
+    #  @ui.display_board(@board)
+    #  check_for_winner
+    #  @ui.prompt_for_next_move unless game_is_over
   end
   
-  def get_human_move #how to test recursion???
+  def get_human_move
     input = @ui.get_input
     if @board.valid_move(input)
-      human_move(input) #do I want to test this if statement?
-    else
-      # @ui.invalid_move_message
-      #     get_human_move
+      human_move(input) 
+    else      
+      @ui.invalid_move_message
+      get_human_move
     end
   end
   
@@ -39,7 +39,7 @@ class Game
   end
   
   def computer_move
-    Ai.move(@board)
+    @ai.move(@board)
     @ui.computer_move_message
   end
   

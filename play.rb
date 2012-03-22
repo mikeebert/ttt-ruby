@@ -4,6 +4,7 @@ require 'game'
 game = Game.new
 game.board = Board.new(3)
 game.ui = CommandLineInterface.new
+game.ai = Ai.new
 
 game.board.human_symbol = "x"
 game.board.computer_symbol = "o"  

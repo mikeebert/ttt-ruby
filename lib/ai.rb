@@ -2,14 +2,11 @@ require 'board'
 
 class Ai
   
-  def initialize
+  def move(board) # only exists for the initial purposes of testing!!!
+    random_move(board)
   end
   
-  def self.move(board) # only exists for the initial purposes of testing!!!
-    self.random_move(board)
-  end
-  
-  def self.random_move(board)
+  def random_move(board)
     # position = rand(9)
     position = board.available_spaces[rand(board.available_spaces.count - 1)]
     if board.valid_move(position)
