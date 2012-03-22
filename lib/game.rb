@@ -6,15 +6,10 @@ class Game
   
   attr_accessor :board, :ui
   
-  def initialize(n)
-    @board = Board.new(n)
-    @ui = CommandLineInterface.new
-  end
-  
   def play
     @ui.display_board(@board)
     @ui.welcome_message
-  #   play_script until game_is_over    
+    # play_script until game_is_over    
   end
 
   def play_script 
@@ -28,10 +23,10 @@ class Game
   def get_human_move #how to test recursion???
     input = @ui.get_input
     if @board.valid_move(input)
-      # human_move(input) #do I want to test this if statement?
+      human_move(input) #do I want to test this if statement?
     else
-    #   @ui.invalid_move_message
-      # get_human_move
+      # @ui.invalid_move_message
+      #     get_human_move
     end
   end
   

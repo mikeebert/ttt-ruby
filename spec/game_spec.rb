@@ -4,19 +4,7 @@ require 'mocks'
 describe "the tic tac toe game" do
 
   before(:each) do
-    @game = Game.new(3)
-  end
-# are these tests doing too much?
-  it "should create a new board with a size based on the argument passed" do
-    @board = FakeBoard.new
-    @game.board = @board
-    @game.board.should be_an_instance_of FakeBoard
-  end     
-  
-  it "should be aware of a user interface it can send information too" do
-    @ui = FakeUI.new
-    @game.ui = @ui
-    @game.ui.should be_an_instance_of FakeUI 
+    @game = Game.new
   end
 
   it "should complete the play_script until the game is over"
@@ -38,7 +26,6 @@ describe "the tic tac toe game" do
     
     it "should check with the board if it is a valid move" do
       @game.get_human_move
-      @ui.get_input
       @board.checked_validity.should == true
     end
     
@@ -49,8 +36,8 @@ describe "the tic tac toe game" do
     end
     
     it "should delegate to the board to make a human move if it is valid" do
-      
-      @game.human_move(:move)
+      @board.valid_move(:valid_move)
+      @game.human_moves.should include()
     end
 
 

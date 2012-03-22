@@ -1,5 +1,4 @@
 class FakeUI
-  
   attr_accessor :displayed_board
   attr_accessor :message_contents
   attr_accessor :user_input
@@ -19,12 +18,11 @@ class FakeUI
   
   def get_input
     @user_input << :some_input
+    [:valid_move, :invalid_move]
   end
-  
 end
 
 class FakeBoard
-  
   attr_accessor :human_moves  
   attr_accessor :checked_validity
   
@@ -37,11 +35,7 @@ class FakeBoard
   end
   
   def valid_move(n)
-    # if n == :valid
-      @checked_validity = true
-    # else
-    #   @checked_validity = false
-    # end
+    @checked_validity = true
+    n == :valid_move
   end
-  
 end
