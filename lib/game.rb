@@ -4,7 +4,7 @@ require 'commandlineinterface'
 
 class Game
   
-  attr_accessor :board
+  attr_accessor :board, :ui
   
   def initialize(n)
     @board = Board.new(n)
@@ -14,7 +14,7 @@ class Game
   def play
     @ui.display_board(@board)
     @ui.welcome_message
-    play_script until game_is_over    
+  #   play_script until game_is_over    
   end
 
   def play_script 
@@ -22,16 +22,16 @@ class Game
     computer_move unless game_is_over
     @ui.display_board(@board)
     check_for_winner
+    @ui.prompt_for_next_move unless game_is_over
   end
-#two reasons for change. if it's two humans against each other and the check_for_winner(maybe)
   
-  def get_human_move
+  def get_human_move #how to test recursion???
     input = @ui.get_input
     if @board.valid_move(input)
-      human_move(input)
+      # human_move(input) #do I want to test this if statement?
     else
-      @ui.invalid_move_message
-      get_human_move
+    #   @ui.invalid_move_message
+      # get_human_move
     end
   end
   
@@ -40,7 +40,7 @@ class Game
   end
   
   def human_move(n)
-    board.place_human_move(n)
+    @board.place_human_move(n)
   end
   
   def computer_move
@@ -48,13 +48,11 @@ class Game
     @ui.computer_move_message
   end
   
-  def check_for_winner #too much responsibility
+  def check_for_winner
     if @board.has_winner
       @ui.winning_message
     elsif @board.is_draw
       @ui.draw_message
-    else
-      @ui.prompt_for_next_move
     end
   end
 end

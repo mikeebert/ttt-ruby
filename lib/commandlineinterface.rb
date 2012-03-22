@@ -1,5 +1,3 @@
-require 'game'
-
 class CommandLineInterface
   
   attr_accessor :input
