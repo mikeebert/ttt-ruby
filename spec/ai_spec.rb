@@ -1,35 +1,34 @@
 require 'ai'
+require 'mocks'
 
 describe "the computer AI" do
-  
   before(:each) do
     @ai = Ai.new
-    @board = Board.new(3)
-    @board.computer_symbol = "o"
+    @board = FakeBoard.new
+  end
+  
+  it "should make a move on a board" do
+    @ai.move(@board)
+    @board.made_computer_move.should == true
   end
 
-  it "should make a random move on a board" do
-    @ai.move(@board)
-    @board.move_count.should == 1
+  describe "a random move" do
+    before(:each) do
+      @ai.random_move(@board)
+    end
+    
+    it "should ask the board for available spaces"  do
+      @board.provided_spaces.should == true
+    end
+
+    it "should pull a random value from the available spaces" do
+      @board.spaces_values.should == [:valid_move]
+    end
+
+    it "should make a random move on a board" do
+      @board.made_computer_move.should == true
+    end
   end
   
-  it "should make two random moves" do
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @board.move_count.should == 2
-  end
-  
-  it "should make random moves to fill the board" do
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @ai.random_move(@board)    
-    @ai.random_move(@board)
-    @ai.random_move(@board)
-    @ai.random_move(@board)    
-    @board.move_count.should == 9
-  end
-  
+
 end

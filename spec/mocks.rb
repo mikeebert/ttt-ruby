@@ -3,14 +3,18 @@ class FakeUI
   attr_accessor :message_contents
   attr_accessor :user_input
   attr_accessor :input_values
+  attr_accessor :prompted_user
+  # attr_accessor :play_cycles
   
   def initialize
     @message_contents = []
     @user_input = []
+    # @play_cycles = 0
   end
   
   def display_board(board)
     @displayed_board = board
+    # board.has_winner = true if @play_cycles == 4
   end
   
   def welcome_message
@@ -29,6 +33,18 @@ class FakeUI
   def computer_move_message
     @message_contents << :nice_move_message
   end
+  
+  def winning_message
+    @message_contents << :winner
+  end
+  
+  def draw_message
+    @message_contents << :draw
+  end
+  
+  def prompt_for_next_move
+    @prompted_user = true
+  end
 end
 
 class FakeBoard
@@ -36,9 +52,14 @@ class FakeBoard
   attr_accessor :checked_validity
   attr_accessor :has_winner
   attr_accessor :is_draw
+  attr_accessor :made_computer_move
+  attr_accessor :provided_spaces
+  attr_accessor :spaces_values
   
   def initialize
      @human_moves = []
+     @checked_for_winner = []
+     @spaces_values = [[:valid_move], [1]]
    end
   
   def place_human_move(n)
@@ -49,6 +70,16 @@ class FakeBoard
     @checked_validity = true
     n == :valid_move
   end
+  
+  def available_spaces
+    @provided_spaces = true
+    @spaces_values.shift
+  end
+  
+  def place_computer_move(n)
+    @made_computer_move = true
+  end
+    
 end
 
 class Ai

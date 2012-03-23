@@ -15,7 +15,7 @@ describe "the tic tac toe board" do
     @board.grid.flatten.count.should == 25
   end
   
-  it "should know how the size of itself" do
+  it "should know the size of itself" do
     @board.size.should == 9
     @board = Board.new(9)
     @board.size.should == 81

@@ -9,15 +9,15 @@ class Game
   def play
     @ui.display_board(@board)
     @ui.welcome_message
-    # play_script until game_is_over    
+    # play_script until game_is_over
   end
 
   def play_script 
     get_human_move
-    # computer_move unless game_is_over
-    #  @ui.display_board(@board)
-    #  check_for_winner
-    #  @ui.prompt_for_next_move unless game_is_over
+    computer_move unless game_is_over
+    @ui.display_board(@board)
+    send_game_over_message if game_is_over
+    @ui.prompt_for_next_move unless game_is_over
   end
   
   def get_human_move
@@ -43,7 +43,7 @@ class Game
     @ui.computer_move_message
   end
   
-  def check_for_winner
+  def send_game_over_message
     if @board.has_winner
       @ui.winning_message
     elsif @board.is_draw
