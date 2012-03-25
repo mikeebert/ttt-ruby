@@ -13,7 +13,7 @@ describe "the tic tac toe game" do
       @game.ui = @ui
       @board = FakeBoard.new
       @game.board = @board
-      @ai = Ai.new
+      @ai = FakeAi.new
       @game.ai = @ai
       @ui.input_values = [:valid_move]
     end
@@ -28,11 +28,17 @@ describe "the tic tac toe game" do
       @ui.message_contents.should include(:welcome_message)
     end
 
-    # it "should repeat the play_script until the game is over" do
-    #   @ui.input_values = [:valid_move]*4
-    #   @game.play
-    #   @ui.play_cycles.should == 4
-    # end
+    it "should call the play script" do
+      @ui.input_values = [:valid_move]*4 
+      @game.play
+      @ui.input_values.count.should == 3
+    end
+    
+    it "should call the play script until the game is over" do
+      @ui.input_values = 
+      @game.play
+      @board.loop_counter.should == 5
+    end
 
   end
   
@@ -43,7 +49,7 @@ describe "the tic tac toe game" do
       @board = FakeBoard.new
       @game.board = @board
       @ui.input_values = [:valid_move]
-      @ai = Ai.new
+      @ai = FakeAi.new
       @game.ai = @ai  
     end
     
@@ -53,7 +59,7 @@ describe "the tic tac toe game" do
     end
     
     it "should know the game is over when the board returns a winner" do
-      @board.has_winner = true
+      @board.game_won = true
       @game.game_is_over.should == true
     end 
     
@@ -64,18 +70,18 @@ describe "the tic tac toe game" do
     
     it "should know that the game is not over when there is no win or draw" do
       @board.is_draw = false
-      @board.has_winner = false
+      @board.game_won = false
       @game.game_is_over.should_not == true
     end
         
     it "should delegate to the ai to make a computer move if the game isn't over" do
-      @board.has_winner = false
+      @board.game_won = false
       @game.play_script
       @ai.received_board.should == true
     end
     
     it "should not delegate to the ai to make a computer move if the game IS over" do
-      @board.has_winner = true
+      @board.game_won = true
       @game.play_script
       @ai.received_board.should_not == true
     end
@@ -92,26 +98,26 @@ describe "the tic tac toe game" do
     end
     
     it "should send game over messages if a game is over" do
-      @board.has_winner = true
+      @board.game_won = true
       @game.play_script
       @ui.message_contents.should include(:winner)
     end
     
     it "should not send a game over message if a game is not over" do
-      @board.has_winner = false
+      @board.game_won = false
       @game.play_script
       @ui.message_contents.should_not include(:draw)
       @ui.message_contents.should_not include(:winner)      
     end
     
     it "should prompt a user for the next move unless the game is over" do
-      @board.has_winner = false
+      @board.game_won = false
       @game.play_script
       @ui.prompted_user.should == true
     end
     
     it "should not prompt a user for the next move if the game is over" do
-      @board.has_winner = true
+      @board.game_won = true
       @game.play_script
       @ui.prompted_user.should_not == true
     end
@@ -187,7 +193,7 @@ describe "the tic tac toe game" do
     end
     
     it "should send a winning message if there is a winner" do
-      @board.has_winner = true
+      @board.game_won = true
       @game.send_game_over_message
       @ui.message_contents.should include(:winner)
     end

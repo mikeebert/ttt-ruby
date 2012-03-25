@@ -4,12 +4,10 @@ class FakeUI
   attr_accessor :user_input
   attr_accessor :input_values
   attr_accessor :prompted_user
-  # attr_accessor :play_cycles
   
   def initialize
     @message_contents = []
     @user_input = []
-    # @play_cycles = 0
   end
   
   def display_board(board)
@@ -50,16 +48,18 @@ end
 class FakeBoard
   attr_accessor :human_moves  
   attr_accessor :checked_validity
-  attr_accessor :has_winner
   attr_accessor :is_draw
+  attr_accessor :game_won
   attr_accessor :made_computer_move
   attr_accessor :provided_spaces
   attr_accessor :spaces_values
+  attr_accessor :loop_counter
   
   def initialize
      @human_moves = []
      @checked_for_winner = []
      @spaces_values = [[:valid_move], [1]]
+     @loop_counter = 0
    end
   
   def place_human_move(n)
@@ -79,10 +79,15 @@ class FakeBoard
   def place_computer_move(n)
     @made_computer_move = true
   end
-    
+  
+  def has_winner
+    @loop_counter += 1
+    @game_won ||= true if @loop_counter >= 5
+    @game_won == true
+  end
 end
 
-class Ai
+class FakeAi
 
   attr_accessor :received_board
   

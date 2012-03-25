@@ -9,7 +9,7 @@ class Game
   def play
     @ui.display_board(@board)
     @ui.welcome_message
-    # play_script until game_is_over
+    play_script until game_is_over
   end
 
   def play_script 

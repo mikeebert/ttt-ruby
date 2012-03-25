@@ -22,7 +22,7 @@ describe "the computer AI" do
     end
 
     it "should pull a random value from the available spaces" do
-      @board.spaces_values.should == [:valid_move]
+      @board.spaces_values.should == [] #one available space is pulled out
     end
 
     it "should make a random move on a board" do
