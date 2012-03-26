@@ -4,6 +4,7 @@ class Board
   attr_accessor :size
   attr_accessor :human_symbol
   attr_accessor :computer_symbol
+  attr_accessor :winner
   
   def initialize(size)
     first_row = (1..size).to_a    
@@ -62,18 +63,38 @@ class Board
     coordinates_of(n)
     @grid[@row][@column] = computer_symbol
   end
+  
+  def is_draw
+    move_count == @size && has_winner != true
+  end
     
-  def has_winner 
-    @grid.each do |row|
-      return true if row.uniq.count == 1 && row.uniq != nil
+  def has_winner
+    [horizontal_winner, vertical_winner, forward_slash_winner, backward_slash_winner].each do |slash|
+      return true if slash == true
     end
-
+  end
+    
+  def horizontal_winner
+    @grid.each do |row|
+      if row.uniq.count == 1 && row.uniq != nil
+        @winner = row.uniq
+        return true
+      end
+    end
+  end
+  
+  def vertical_winner
     column_values = (0..(Math.sqrt(size) - 1)).to_a
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
-      return true if column.uniq.count == 1 && column.uniq != nil
+      if column.uniq.count == 1 && column.uniq != nil
+        @winner = column.uniq
+        return true
+      end
     end        
-    
+  end
+  
+  def forward_slash_winner
     coordinates_of(1)
     forward_slash = []
     @grid.first.count.times do
@@ -81,8 +102,13 @@ class Board
       @row += 1
       @column += 1
     end
-    return true if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
-    
+    if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
+      @winner = forward_slash.uniq
+      return true
+    end
+  end
+  
+  def backward_slash_winner
     coordinates_of(Math.sqrt(size))
     backward_slash = []
     @grid.first.count.times do
@@ -90,13 +116,10 @@ class Board
       @row += 1
       @column -= 1
     end
-    return true if backward_slash.uniq.count == 1 && backward_slash.uniq != nil
-       
+    if backward_slash.uniq.count == 1 && backward_slash.uniq != nil
+      @winner = backward_slash.uniq
+      return true
+    end
   end
   
-  def is_draw
-    move_count == @size && has_winner != true
-  end
-  
-
 end

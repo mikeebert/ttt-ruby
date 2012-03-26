@@ -89,6 +89,7 @@ describe "the tic tac toe board" do
     @grid[0][1] = "x"
     @grid[0][2] = "x"
     @board.has_winner.should == true
+    @board.winner.should ==  ["x"]
   end
    
   it "should check for a column of the same symbols" do
@@ -96,19 +97,22 @@ describe "the tic tac toe board" do
     @grid[1][0] = "x"
     @grid[2][0] = "x"
     @board.has_winner.should == true
+    @board.winner.should == ["x"]
   end
   
   it "should check for a vertical winner in the last row" do
     @grid[0][2] = "x"
     @grid[1][2] = "x"
     @grid[2][2] = "x"
-    @board.has_winner.should == true    
+    @board.has_winner.should == true
+    @board.winner.should == ["x"]
   end
    
   it "should not say there is a winner if there isn't one" do
     @board.place_human_move(1)
     @board.place_human_move(2)
     @board.has_winner.should_not == true
+    @board.winner.should == nil
   end
     
   it "should check for a draw" do
@@ -118,6 +122,7 @@ describe "the tic tac toe board" do
     @grid[1][1] = "o"   
     @grid[2][2] = "o"   
     @board.is_draw.should == true
+    @board.winner.should == nil
   end
   
   it "should not return a draw when a player wins" do
@@ -125,6 +130,7 @@ describe "the tic tac toe board" do
     @board.place_human_move(2)
     @board.place_human_move(3)
     @board.is_draw.should == false
+    @board.winner.should == nil
   end
     
   it "should return an array of available spaces to play in" do
@@ -136,14 +142,16 @@ describe "the tic tac toe board" do
     @board.place_human_move(1)
     @board.place_human_move(5)
     @board.place_human_move(9)
-    @board.has_winner.should == true    
+    @board.has_winner.should == true
+    @board.winner.should == ["x"]
   end
 
   it "should check for a backward-slash diagonal win" do
     @board.place_human_move(3)
     @board.place_human_move(5)
     @board.place_human_move(7)
-    @board.has_winner.should == true    
+    @board.has_winner.should == true
+    @board.winner.should == ["x"]
   end
   
 end
