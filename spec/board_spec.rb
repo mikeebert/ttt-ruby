@@ -154,4 +154,11 @@ describe "the tic tac toe board" do
     @board.winner.should == ["x"]
   end
   
+  it "should create a fresh grid" do
+    @board.place_human_move(1)
+    old_grid = @board.grid
+    @board.reset_grid
+    @board.grid.flatten.should_not == old_grid.flatten
+  end
+  
 end

@@ -38,4 +38,17 @@ class CommandLineInterface
     puts "Enter your next move:"
   end
   
+  def prompt_to_play_again
+    puts "Would you like to play again? (Y/N)"
+    self.input = gets.chomp.downcase
+
+    if input == "n"
+      @input = :no
+    elsif input == "y"
+      @input = :yes
+    else    
+      puts "Sorry, I couldn't understand that. Enter a single Y or N for Yes or No."
+      prompt_to_play_again
+    end
+  end
 end

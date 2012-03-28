@@ -5,18 +5,23 @@ class Board
   attr_accessor :human_symbol
   attr_accessor :computer_symbol
   attr_accessor :winner
+  # attr_accessor :test_board
   
   def initialize(size)
+    @grid = fresh_grid(size)
+    @size = size * size
+  end
+  
+  def fresh_grid(size)
     first_row = (1..size).to_a    
     row_start = 1
     row_end = size
-    @grid = first_row.each do |n| 
-              row = first_row.find_index(n)
-              first_row[row] = (row_start..row_end).to_a
-              row_start = row_end + 1
-              row_end = row_end + size
-            end
-    @size = size * size
+    first_row.each do |n| 
+      row = first_row.find_index(n)
+      first_row[row] = (row_start..row_end).to_a
+      row_start = row_end + 1
+      row_end = row_end + size
+    end
   end
   
   def valid_move(move)
@@ -69,21 +74,17 @@ class Board
   end
     
   def has_winner
-    [horizontal_winner, vertical_winner, forward_slash_winner, backward_slash_winner].each do |slash|
-      return true if slash == true
-    end
-  end
+    # [horizontal_winner, vertical_winner, forward_slash_winner, backward_slash_winner].each do |slash|
+    #    return true if slash == true
+    #  end
     
-  def horizontal_winner
     @grid.each do |row|
       if row.uniq.count == 1 && row.uniq != nil
         @winner = row.uniq
         return true
       end
     end
-  end
-  
-  def vertical_winner
+    
     column_values = (0..(Math.sqrt(size) - 1)).to_a
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
@@ -91,10 +92,8 @@ class Board
         @winner = column.uniq
         return true
       end
-    end        
-  end
-  
-  def forward_slash_winner
+    end
+    
     coordinates_of(1)
     forward_slash = []
     @grid.first.count.times do
@@ -106,9 +105,7 @@ class Board
       @winner = forward_slash.uniq
       return true
     end
-  end
-  
-  def backward_slash_winner
+    
     coordinates_of(Math.sqrt(size))
     backward_slash = []
     @grid.first.count.times do
@@ -121,5 +118,20 @@ class Board
       return true
     end
   end
-  
+    
+  # def horizontal_winner
+  # end
+  # 
+  # def vertical_winner
+  # end
+  # 
+  # def forward_slash_winner
+  # end
+  # 
+  # def backward_slash_winner
+  # end
+   
+  def reset_grid
+    @grid = fresh_grid(@grid.count)
+  end     
 end

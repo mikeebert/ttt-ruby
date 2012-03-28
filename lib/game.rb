@@ -4,12 +4,12 @@ require 'commandlineinterface'
 
 class Game
   
-  attr_accessor :board, :ui, :ai
+  attr_accessor :board, :ui, :ai, :exit
   
   def play
     @ui.display_board(@board)
     @ui.welcome_message
-    play_script until game_is_over
+    play_script until @exit == true
   end
 
   def play_script 
@@ -46,8 +46,20 @@ class Game
   def send_game_over_message
     if @board.has_winner
       @ui.winning_message
+      play_again?
     elsif @board.is_draw
       @ui.draw_message
+      play_again?
+    end
+  end
+  
+  def play_again?
+    @ui.prompt_to_play_again
+    if @ui.input == :no
+      @exit = true
+    else
+      self.board.reset_grid
+      @ui.display_board(@board)      
     end
   end
 end
