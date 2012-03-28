@@ -16,7 +16,7 @@ class Game
     get_human_move
     computer_move unless game_is_over
     @ui.display_board(@board)
-    send_game_over_message if game_is_over
+    game_over_message if game_is_over
     @ui.prompt_for_next_move unless game_is_over
   end
   
@@ -43,17 +43,16 @@ class Game
     @ui.computer_move_message
   end
   
-  def send_game_over_message
+  def game_over_message
     if @board.has_winner
       @ui.winning_message
-      play_again?
     elsif @board.is_draw
-      @ui.draw_message
-      play_again?
+      @ui.draw_message      
     end
+    play_again?
   end
   
-  def play_again?
+  def play_again? #doing too much?
     @ui.prompt_to_play_again
     if @ui.input == :no
       @exit = true

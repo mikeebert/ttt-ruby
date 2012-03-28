@@ -4,6 +4,7 @@ class FakeUI
   attr_accessor :user_input
   attr_accessor :input_values
   attr_accessor :prompted_user
+  attr_accessor :input
   
   def initialize
     @message_contents = []
@@ -12,7 +13,6 @@ class FakeUI
   
   def display_board(board)
     @displayed_board = board
-    # board.has_winner = true if @play_cycles == 4
   end
   
   def welcome_message
@@ -41,7 +41,12 @@ class FakeUI
   end
   
   def prompt_for_next_move
+    @prompted_user = :next_move_please
+  end
+  
+  def prompt_to_play_again
     @prompted_user = true
+    @input = @input_values.shift
   end
 end
 
@@ -54,6 +59,7 @@ class FakeBoard
   attr_accessor :provided_spaces
   attr_accessor :spaces_values
   attr_accessor :loop_counter
+  attr_accessor :reset_the_grid
   
   def initialize
      @human_moves = []
@@ -84,6 +90,10 @@ class FakeBoard
     @loop_counter += 1
     @game_won ||= true if @loop_counter >= 5
     @game_won == true
+  end
+  
+  def reset_grid
+    @reset_the_grid = true
   end
 end
 

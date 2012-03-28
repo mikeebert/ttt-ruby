@@ -9,9 +9,7 @@ class Ai
   end
   def move(board) # only exists for the initial purposes of testing
     random_move(board)  
-    
     # self.create_test_board(board)
-    
   end
   
   def random_move(board)
