@@ -17,29 +17,30 @@ describe "the tic tac toe game" do
       @game.ai = @ai
       @ui.input_values = [:valid_move]
     end
-
-    it "should tell the UI class to display the board" do
-      @game.exit_game = true
+    
+    it "should reset the board grid" do        
+      @ui.play_again = :no
       @game.play
-      @ui.displayed_board.should == @game.board
+      @board.reset_the_grid.should == true        
     end
     
     it "should send a welcome message to the user" do
-      @game.exit_game = true
+      @ui.play_again = :no
       @game.play
       @ui.message_contents.should include(:welcome_message)
     end
 
+    #not testing the right thing
     it "should call the play script" do
       @ui.input_values = [:valid_move]*4 
       @game.play
-      @ui.input_values.count.should == 3
+      @ui.input_values.count.should == 0
     end
     
     it "should call the play script until the game is over" do
       @ui.input_values = [:valid_move]*4
       @game.play
-      @board.loop_counter.should == 5
+      @game.exit_game.should == true
     end
   end
   
@@ -52,6 +53,12 @@ describe "the tic tac toe game" do
       @ui.input_values = [:valid_move]
       @ai = FakeAi.new
       @game.ai = @ai  
+    end
+    
+    it "should tell the UI class to display the board" do
+      @ui.play_again = :no
+      @game.play_script
+      @ui.displayed_board.should == @game.board
     end
     
     it "should get a human move" do
@@ -221,25 +228,14 @@ describe "the tic tac toe game" do
         @ui.prompted_user.should == true
       end
       
-      it "should set the game exit attribute to true if the user doesn't want to play again" do
-        @ui.input_values = [:no]
-        @game.ask_to_play_again
+      it "should return game exit if the user doesn't want to play again" do
+        @ui.play_again = :no
         @game.exit_game.should == true
       end
       
-      it "should not set the game exit attribute to true if the user wants to play again" do
-        @game.ask_to_play_again
-        @game.exit_game.should == nil
-      end
-      
-      it "should reset the board if the user wants to play again" do        
-        @game.ask_to_play_again
-        @board.reset_the_grid.should == true        
-      end
-      
-      it "should tell the ui to display the initial board state again" do
-        @game.ask_to_play_again
-        @ui.displayed_board.should == @game.board
+      it "should not set the exit attribute if the ui input does't" do
+        @ui.play_again = nil
+        @game.exit_game.should == false
       end
     end
   end

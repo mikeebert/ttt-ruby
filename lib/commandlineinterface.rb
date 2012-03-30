@@ -1,6 +1,7 @@
 class CommandLineInterface
   
   attr_accessor :input
+  attr_accessor :play_again
 
   def get_input 
     self.input = gets.chomp.to_i
@@ -43,9 +44,9 @@ class CommandLineInterface
     self.input = gets.chomp.downcase
 
     if input == "n"
-      @input = :no
+      @play_again = :no
     elsif input == "y"
-      @input = :yes
+      @play_again = :yes
     else    
       puts "Sorry, I couldn't understand that. Enter a single Y or N for Yes or No."
       prompt_to_play_again

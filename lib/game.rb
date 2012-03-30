@@ -4,15 +4,16 @@ require 'commandlineinterface'
 
 class Game
   
-  attr_accessor :board, :ui, :ai, :exit_game
+  attr_accessor :board, :ui, :ai
   
   def play
-    @ui.display_board(@board)
+    @board.reset_grid
     @ui.welcome_message
-    play_script until @exit_game
+    play_script until exit_game
   end
 
-  def play_script 
+  def play_script
+    @ui.display_board(@board)
     get_human_move
     computer_move unless game_is_over
     @ui.display_board(@board)
@@ -54,11 +55,12 @@ class Game
   
   def ask_to_play_again #doing too much?
     @ui.prompt_to_play_again
-    if @ui.input == :no
-      @exit_game = true
-    else
-      self.board.reset_grid
-      @ui.display_board(@board)      
-    end
+    # if @ui.input == :no
+    #   @exit_game = true
+    # end
+  end
+  
+  def exit_game
+    @ui.play_again == :no
   end
 end

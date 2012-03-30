@@ -5,6 +5,7 @@ class FakeUI
   attr_accessor :input_values
   attr_accessor :prompted_user
   attr_accessor :input
+  attr_accessor :play_again
   
   def initialize
     @message_contents = []
@@ -47,6 +48,7 @@ class FakeUI
   def prompt_to_play_again
     @prompted_user = true
     @input = @input_values.shift
+    @play_again = :no if @input_values.empty?
   end
 end
 

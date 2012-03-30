@@ -1,4 +1,4 @@
-require './board'
+require 'board'
 
 class Ai
   attr_accessor :test_board
