@@ -10,6 +10,8 @@ class Board
   def initialize(size)
     @grid = fresh_grid(size)
     @size = size * size
+    @computer_symbol ||= "x"
+    @human_symbol ||= "o"
   end
   
   def fresh_grid(size)
@@ -117,7 +119,7 @@ class Board
       @winner = backward_slash.uniq
       return true
     end
-  end
+  end  
     
   # def horizontal_winner
   # end
@@ -133,5 +135,14 @@ class Board
    
   def reset_grid
     @grid = fresh_grid(@grid.count)
-  end     
+  end
+  
+  def place_mock_move(space, player)
+    self.coordinates_of(space)
+    if player == :computer
+      @grid[@row][@column] = @computer_symbol
+    else
+      @grid[@row][@column] = @human_symbol
+    end
+  end
 end
