@@ -1,4 +1,4 @@
-require 'board'
+require './board'
 
 class Ai
   attr_accessor :test_board
@@ -8,13 +8,17 @@ class Ai
   attr_accessor :test_board
   
   def initialize
-    @move_counter = 1
+    @move_counter = 0
     @current_player = :computer
     @possible_outcomes = Hash.new
   end
   
   def move(board) # only exists for the initial purposes of testing
     random_move(board)  
+    # play_all_games(board)
+    # puts @possible_outcomes
+
+
     # self.create_test_board(board)
   end
   
@@ -22,23 +26,28 @@ class Ai
     position = board.available_spaces[rand(board.available_spaces.count - 1)]
     board.place_computer_move(position)  
   end
-
-  def play_a_mock_game(board)
-    create_test_board(board)
-    board.available_spaces.each do |move|
-      play_game_through(@test_board, move)
-    end
+  
+  def play_all_games(board)
+    board.available_spaces.each do |move| 
+      @move = move
+      @possible_outcomes[@move] = []
+      play_all_possible_games(board)
+    end  
   end
   
-  def play_game_through(board, move)
-    available_space = board.available_spaces[0]
-    board.place_mock_move(available_space, @current_player)
+  def play_all_possible_games(board)
     if board.has_winner || board.is_draw
-      @possible_outcomes[move] = [final_value(board), @move_counter]
+      @possible_outcomes[@move] << (final_value(board) * @move_counter)
+      @move_counter = 0
     else
       @move_counter += 1
-      switch_current_player
-      play_game_through(board, move)
+      board.available_spaces.each do |next_move|
+        create_test_board(board)
+        new_board = @test_board
+        new_board.place_mock_move(next_move, @current_player)        
+        switch_current_player
+        play_all_possible_games(new_board)
+      end
     end    
   end
 
@@ -51,19 +60,19 @@ class Ai
       row.replace(board.grid[row_number])
       row_number += 1
     end
-    create_potential_outcome_hash
+    # create_potential_outcome_hash
   end
   
-  def create_potential_outcome_hash
-    @test_board.available_spaces.each do |space|
-      @possible_outcomes[space] = nil
-    end    
-  end
+  # def create_potential_outcome_hash
+  #   @test_board.available_spaces.each do |space|
+  #     @possible_outcomes[space] = nil
+  #   end    
+  # end
   
   def final_value(board)
-    return 2 if board.winner == [board.computer_symbol]
-    return 1 if board.is_draw
-    return 0 if board.winner == [board.human_symbol]
+    return 1 if board.winner == [board.computer_symbol]
+    return 0 if board.is_draw
+    return (-1) if board.winner == [board.human_symbol]
   end
 
   def switch_current_player

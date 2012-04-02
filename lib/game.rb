@@ -7,7 +7,6 @@ class Game
   attr_accessor :board, :ui, :ai
   
   def play
-    @board.reset_grid
     @ui.welcome_message
     play_script until exit_game
   end
@@ -17,7 +16,7 @@ class Game
     get_human_move
     computer_move unless game_is_over
     @ui.display_board(@board)
-    game_over_message if game_is_over
+    game_over_message && @board.reset_grid if game_is_over
     @ui.prompt_for_next_move unless game_is_over
   end
   
@@ -47,17 +46,14 @@ class Game
   def game_over_message
     if @board.has_winner
       @ui.winning_message
-    elsif @board.is_draw
+    else
       @ui.draw_message      
     end
     ask_to_play_again
   end
   
-  def ask_to_play_again #doing too much?
+  def ask_to_play_again
     @ui.prompt_to_play_again
-    # if @ui.input == :no
-    #   @exit_game = true
-    # end
   end
   
   def exit_game

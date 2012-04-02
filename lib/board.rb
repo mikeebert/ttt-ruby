@@ -10,8 +10,8 @@ class Board
   def initialize(size)
     @grid = fresh_grid(size)
     @size = size * size
-    @computer_symbol ||= "x"
-    @human_symbol ||= "o"
+    @computer_symbol ||= "o"
+    @human_symbol ||= "x"
   end
   
   def fresh_grid(size)
