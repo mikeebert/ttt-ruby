@@ -5,7 +5,7 @@ class Board
   attr_accessor :human_symbol
   attr_accessor :computer_symbol
   attr_accessor :winner
-  # attr_accessor :test_board
+  attr_accessor :next_player
   
   def initialize(size)
     @grid = fresh_grid(size)
@@ -64,11 +64,13 @@ class Board
   def place_human_move(n)
     coordinates_of(n)
     @grid[@row][@column] = human_symbol
+    @next_player = :computer
   end
   
   def place_computer_move(n)
     coordinates_of(n)
     @grid[@row][@column] = computer_symbol
+    @next_player = :human
   end
   
   def is_draw
@@ -137,12 +139,15 @@ class Board
     @grid = fresh_grid(@grid.count)
   end
   
-  def place_mock_move(space, player)
+  def place_mock_move(space)
     self.coordinates_of(space)
-    if player == :computer
+    if @next_player == :computer
       @grid[@row][@column] = @computer_symbol
+      @next_player = :human
     else
       @grid[@row][@column] = @human_symbol
+      @next_player = :computer
     end
   end
+  
 end
