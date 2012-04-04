@@ -29,7 +29,7 @@ class Ai
     @original_move_count = board.move_count
     board.available_spaces.each do |move| 
       @move = move
-      @possible_outcomes[@move] = {:max => 0, :min => 0, :draw => 0}
+      @possible_outcomes[@move] = {:max => 0, :min => 0}
       @test_board = create_test_board(board)
       @test_board.next_player = :computer
       @test_board.place_mock_move(move)
@@ -41,13 +41,11 @@ class Ai
     if board.has_winner || board.is_draw
       rank_minimax(final_value(board))
     else
-      # if final_value(board) > @possible_outcomes[@move].max || final_value(board) < @possible_outcomes[@move].min
       board.available_spaces.each do |next_move|
         new_board = create_test_board(board)
         new_board.place_mock_move(next_move)
         play_all_possible_games(new_board)
       end
-      # end
     end    
   end
 
@@ -76,16 +74,17 @@ class Ai
   end
   
   def rank_minimax(value)
-    if value > 1   
-      @possible_outcomes[@move][:max] += value
+    if value > 0
+      @possible_outcomes[@move][:max] += value #if value > @possible_outcomes[@move][:max]
     elsif value < 0
-      @possible_outcomes[@move][:min] += value
-    else
-      @possible_outcomes[@move][:draw] = 1
+      @possible_outcomes[@move][:min] += value #if value < @possible_outcomes[@move][:min]
     end
   end
   
   def best_move
+    
+    # make highest possible :max move where :min is lowest
+    
     # if @possible_outcomes.collect {|move, value| value[:min] == 0}
     #   @possible_outcomes.select {|move, value| value[:min] == 0}.first[0]
     # else
