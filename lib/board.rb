@@ -142,11 +142,9 @@ class Board
   def place_mock_move(space)
     self.coordinates_of(space)
     if @next_player == :computer
-      @grid[@row][@column] = @computer_symbol
-      @next_player = :human
+      place_computer_move(space)
     else
-      @grid[@row][@column] = @human_symbol
-      @next_player = :computer
+      place_human_move(space)
     end
   end
   

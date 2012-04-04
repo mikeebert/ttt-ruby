@@ -161,4 +161,15 @@ describe "the tic tac toe board" do
     @board.grid.flatten.should_not == old_grid.flatten
   end
   
+  it "should place a mock move if the next player is a computer" do
+    @board.next_player = :computer
+    @board.place_mock_move(1)
+    @board.grid[0][0].should == "o"
+  end
+  
+  it "should set the next player to a human after" do
+    @board.next_player = :computer
+    @board.place_mock_move(1)
+    @board.next_player.should == :human        
+  end
 end
