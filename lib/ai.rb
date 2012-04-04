@@ -6,17 +6,16 @@ class Ai
   attr_accessor :current_player
   attr_accessor :test_board
   attr_accessor :original_move_count
+  attr_accessor :winning_move
   
   def initialize
     @possible_outcomes = Hash.new
   end
   
-  def move(board) # only exists for the initial purposes of testing
+  def move(board)
     # random_move(board)    
     play_all_games(board)
     board.place_computer_move(best_move)
-
-    # self.create_test_board(board)
   end
   
   def random_move(board)
@@ -27,9 +26,10 @@ class Ai
   def play_all_games(board)
     @possible_outcomes = Hash.new
     @original_move_count = board.move_count
+    @losing_moves = []
     board.available_spaces.each do |move| 
       @move = move
-      @possible_outcomes[@move] = {:max => 0, :min => 0}
+      @possible_outcomes[@move] = {:max => [], :min => []}
       @test_board = create_test_board(board)
       @test_board.next_player = :computer
       @test_board.place_mock_move(move)
@@ -75,21 +75,20 @@ class Ai
   
   def rank_minimax(value)
     if value > 0
-      @possible_outcomes[@move][:max] += value #if value > @possible_outcomes[@move][:max]
+      @possible_outcomes[@move][:max] << value #if value > @possible_outcomes[@move][:max]
+      @winning_move = @move if value == 100
     elsif value < 0
-      @possible_outcomes[@move][:min] += value #if value < @possible_outcomes[@move][:min]
+      @possible_outcomes[@move][:min] << value #if value < @possible_outcomes[@move][:min]
+      @losing_moves << @move if value == -50
     end
   end
   
   def best_move
-    
-    # make highest possible :max move where :min is lowest
-    
-    # if @possible_outcomes.collect {|move, value| value[:min] == 0}
-    #   @possible_outcomes.select {|move, value| value[:min] == 0}.first[0]
-    # else
-      @possible_outcomes.max_by {|move,data| data[:max]}.first
-    # end
+    if @winning_move != nil
+      return @winning_move
+    else
+     @possible_outcomes.max_by {|move,data| data[:min]}.first #where and isn't contained in losing move
+    end
   end
 
 end
