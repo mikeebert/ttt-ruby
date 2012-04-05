@@ -18,12 +18,6 @@ describe "the tic tac toe game" do
       @ui.input_values = [:valid_move]
     end
     
-    it "should reset the board grid" do        
-      @ui.input_values = [:valid_move]*2
-      @game.play
-      @board.reset_the_grid.should == true        
-    end
-    
     it "should send a welcome message to the user" do
       @ui.play_again = :no
       @game.play
@@ -44,13 +38,61 @@ describe "the tic tac toe game" do
     end
   end
   
-  describe "the play script that repeats until the game is over " do    
+  describe "setting up the players of the game" do
+    
     before(:each) do
       @ui = FakeUI.new
       @game.ui = @ui
+    end
+
+    it "should ask a user what type of game they would like to play" do
+      @game.set_competitors
+      @ui.prompted_user.should == true
+    end
+          
+    it "should ask if a user wants to go first" do
+      @ui.input = :humanVcomputer
+      @game.set_competitors
+      @ui.asked_to_play_first.should == true
+    end
+
+    it "should set the 1st player as a human & 2nd as computer if the human wants to go first" do
+      @ui.input = :humanVcomputer
+      @ui.play_first = :yes       
+      @game.set_competitors
+      @game.player1.should == :human
+      @game.player2.should == :computer
+    end
+    
+    it "should set the 1st player as a computer & 2nd as human if vice versa" do
+      @ui.input = :humanVcomputer
+      @game.set_competitors
+      @game.player1.should == :computer
+      @game.player2.should == :human
+    end
+    
+    it "should set both players to the computer" do
+      @ui.input = :computerVcomputer
+      @game.set_competitors
+      @game.player1.should == :computer
+      @game.player2.should == :computer
+    end
+    
+    it "should set both players to a human" do
+      @ui.input = :humanVhuman
+      @game.set_competitors
+      @game.player1.should == :human
+      @game.player2.should == :human
+    end
+  end
+  
+  describe "the play script that repeats until the game is over " do    
+    before(:each) do
+      @ui = FakeUI.new
+      @ui.input_values = [:valid_move]
+      @game.ui = @ui
       @board = FakeBoard.new
       @game.board = @board
-      @ui.input_values = [:valid_move]
       @ai = FakeAi.new
       @game.ai = @ai  
     end
@@ -61,9 +103,31 @@ describe "the tic tac toe game" do
       @ui.displayed_board.should == @game.board
     end
     
-    it "should get a human move" do
+    it "should get a move for a human player" do
+      @ui.input = :humanVcomputer
+      @ui.play_first = :yes
+      @ui.play_again = :no
+      @game.set_competitors
       @game.play_script
       @ui.user_input.should include(:some_input)
+    end
+    
+    it "should get a move for a human player going second" do
+      @ui.input = :humanVcomputer
+      @ui.play_first = :no
+      @ui.play_again = :no
+      @game.set_competitors
+      @game.play_script
+      @ui.user_input.should include(:some_input)      
+    end
+    
+    it "should delegate to the ai to make a move if it's their turn first" do
+      @ui.input = :humanVcomputer
+      @ui.play_first = :no
+      @ui.play_again = :no
+      @game.set_competitors
+      @game.play_script
+      @ai.received_board.should == true
     end
     
     it "should know the game is over when the board returns a winner" do
@@ -89,20 +153,16 @@ describe "the tic tac toe game" do
     end
     
     it "should not delegate to the ai to make a computer move if the game IS over" do
+      @ui.input = :humanVcomputer
+      @ui.play_first = :yes
+      @game.set_competitors
       @board.game_won = true
       @game.play_script
       @ai.received_board.should_not == true
     end
-
-    it "should not delegate to the ai to make a move if the game IS over" do
-      @board.is_draw = true
-      @game.play_script
-      @ai.received_board.should_not == true
-    end
     
-    it "should display the board" do
-      @game.play_script
-      @ui.displayed_board.should == @game.board
+    it "should delegate to the " do
+      
     end
     
     it "should send game over messages if a game is over" do
@@ -116,12 +176,6 @@ describe "the tic tac toe game" do
       @game.play_script
       @ui.message_contents.should_not include(:draw)
       @ui.message_contents.should_not include(:winner)      
-    end
-    
-    it "should prompt a user for the next move unless the game is over" do
-      @board.game_won = false
-      @game.play_script
-      @ui.prompted_user.should == :next_move_please
     end
     
     it "should not prompt a user for the next move if the game is over" do
@@ -152,6 +206,11 @@ describe "the tic tac toe game" do
       @ui.input_values = [:valid_move]
     end
 
+    it "should prompt a user for the next move" do
+      @game.get_human_move
+      @ui.prompted_user.should == :next_move_please
+    end
+    
     it "should get some input from the ui" do      
       @game.get_human_move
       @ui.user_input.should include(:some_input)
@@ -238,5 +297,17 @@ describe "the tic tac toe game" do
         @game.exit_game.should == false
       end
     end
+  end
+  
+  describe "a game in which the Ai plays itself" do
+    before(:each) do
+      @game = Game.new
+      @ui = FakeUI.new
+      @game.ui = @ui  
+      @board = FakeBoard.new
+      @game.board = @board
+      @ui.input_values = [:valid_move, :valid_move]
+    end
+
   end
 end

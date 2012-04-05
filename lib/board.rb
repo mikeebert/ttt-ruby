@@ -10,8 +10,9 @@ class Board
   def initialize(size)
     @grid = fresh_grid(size)
     @size = size * size
-    @computer_symbol ||= "o"
-    @human_symbol ||= "x"
+    @human_symbol ||= "o"
+    @computer_symbol ||= "x"
+    @next_player = :human
   end
   
   def fresh_grid(size)
@@ -61,6 +62,21 @@ class Board
     return counter
   end
 
+  # def place_move(n)
+  #   coordindates_of(n)
+  #   @next_player == :human ? symbol = @human_symbol : symbol = @computer_symbol
+  #   @grid[@row][@column] = symbol
+  #   switch_next_player
+  # end
+  # 
+  # def switch_next_player
+  #   if @next_player == :human 
+  #     @next_player = :computer
+  #   elsif @next_player == :computer
+  #     @next_player = :human
+  #   end
+  # end
+  
   def place_human_move(n)
     coordinates_of(n)
     @grid[@row][@column] = human_symbol

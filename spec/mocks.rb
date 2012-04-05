@@ -6,6 +6,9 @@ class FakeUI
   attr_accessor :prompted_user
   attr_accessor :input
   attr_accessor :play_again
+  attr_accessor :asked_for_input
+  attr_accessor :asked_to_play_first
+  attr_accessor :play_first
   
   def initialize
     @message_contents = []
@@ -49,6 +52,14 @@ class FakeUI
     @prompted_user = true
     @input = @input_values.shift
     @play_again = :no if @input_values.empty?
+  end
+  
+  def ask_for_type_of_game
+    @prompted_user = true
+  end
+  
+  def ask_to_play_first
+    @asked_to_play_first = true
   end
 end
 
@@ -96,6 +107,9 @@ class FakeBoard
   
   def reset_grid
     @reset_the_grid = true
+  end
+  
+  def move_count
   end
 end
 

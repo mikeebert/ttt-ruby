@@ -7,7 +7,7 @@ describe "the computer AI" do
     @board = FakeBoard.new
   end
   
-  it "should make a move on a board" do
+  it "should delegate to the board to make a move" do
     @ai.move(@board)
     @board.made_computer_move.should == true
   end

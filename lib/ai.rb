@@ -1,4 +1,4 @@
-require './board'
+require 'board'
 
 class Ai
   attr_accessor :test_board
@@ -13,9 +13,9 @@ class Ai
   end
   
   def move(board)
-    # random_move(board)    
-    play_all_games(board)
-    board.place_computer_move(best_move)
+    random_move(board)    
+    # play_all_games(board)
+    # board.place_computer_move(best_move)
   end
   
   def random_move(board)
@@ -24,12 +24,13 @@ class Ai
   end
   
   def play_all_games(board)
+    @winning_move = nil
     @possible_outcomes = Hash.new
     @original_move_count = board.move_count
     @losing_moves = []
     board.available_spaces.each do |move| 
       @move = move
-      @possible_outcomes[@move] = {:max => [], :min => []}
+      @possible_outcomes[@move] = {:max => 0, :min => 0}
       @test_board = create_test_board(board)
       @test_board.next_player = :computer
       @test_board.place_mock_move(move)
@@ -75,20 +76,28 @@ class Ai
   
   def rank_minimax(value)
     if value > 0
-      @possible_outcomes[@move][:max] << value #if value > @possible_outcomes[@move][:max]
+      @possible_outcomes[@move][:max] = value if value > @possible_outcomes[@move][:max]
       @winning_move = @move if value == 100
     elsif value < 0
-      @possible_outcomes[@move][:min] << value #if value < @possible_outcomes[@move][:min]
+      @possible_outcomes[@move][:min] = value if value < @possible_outcomes[@move][:min]
       @losing_moves << @move if value == -50
     end
   end
   
   def best_move
-    if @winning_move != nil
-      return @winning_move
+    max_rank = @possible_outcomes.max_by {|move,data| data[:max]}[1][:max]
+    min_rank = @possible_outcomes.min_by {|move,data| data[:min]}[1][:min]
+    if max_rank > -(min_rank)
+      return @possible_outcomes.max_by {|move,data| data[:max]}.first
     else
-     @possible_outcomes.max_by {|move,data| data[:min]}.first #where and isn't contained in losing move
+      return @possible_outcomes.max_by {|move,data| data[:min]}.first
     end
+    
+    # if @winning_move != nil
+    #   return @winning_move
+    # else
+    #  @possible_outcomes.max_by {|move,data| data[:min]}.first
+    # end
   end
 
 end

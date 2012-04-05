@@ -2,6 +2,7 @@ class CommandLineInterface
   
   attr_accessor :input
   attr_accessor :play_again
+  attr_accessor :play_first
 
   def get_input 
     self.input = gets.chomp.to_i
@@ -17,6 +18,35 @@ class CommandLineInterface
 
   def welcome_message
     puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board to make your first move."
+  end
+  
+  def ask_for_type_of_game
+    puts "What type of game would you like to play?\n1. Human vs Computer?\n2. Computer vs Computer?\n3. Human vs Human\nPlease enter 1, 2 or 3:"
+    input = gets.chomp
+    
+    if input == "1"
+      @input = :humanVcomputer
+    elsif input == "2"
+      @input = :computerVcomputer
+    elsif input == "3"
+      @input = :humanVhuman
+    else
+      puts "Not a valid entry."
+      ask_for_type_of_game
+    end    
+  end
+  
+  def ask_to_play_first
+    puts "Would you like to play first? (Y/N)"
+    input = gets.chomp.downcase    
+    if input == "y"
+      @play_first = :yes
+    elsif input == "n"
+      @play_first = :no
+    else
+      puts "Not a valid entry. Please enter Y or N"
+      ask_to_play_first
+    end      
   end
   
   def invalid_move_message
