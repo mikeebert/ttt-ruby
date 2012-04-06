@@ -13,14 +13,15 @@ class Ai
   end
   
   def move(board)
-    random_move(board)    
+    return random_move(board)
+    
     # play_all_games(board)
     # board.place_computer_move(best_move)
   end
   
   def random_move(board)
     position = board.available_spaces[rand(board.available_spaces.count - 1)]
-    board.place_computer_move(position)  
+    return position 
   end
   
   def play_all_games(board)

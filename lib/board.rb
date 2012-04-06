@@ -2,17 +2,16 @@ class Board
   
   attr_accessor :grid
   attr_accessor :size
-  attr_accessor :human_symbol
-  attr_accessor :computer_symbol
+  attr_accessor :player1_symbol
+  attr_accessor :player2_symbol
   attr_accessor :winner
   attr_accessor :next_player
   
   def initialize(size)
     @grid = fresh_grid(size)
     @size = size * size
-    @human_symbol ||= "o"
-    @computer_symbol ||= "x"
-    @next_player = :human
+    @player1_symbol = "X"
+    @player2_symbol = "O"
   end
   
   def fresh_grid(size)
@@ -33,11 +32,11 @@ class Board
   
   def space_available?(move)
     coordinates_of(move)
-    @grid[@row][@column] != human_symbol && @grid[@row][@column] != computer_symbol
+    @grid[@row][@column] != player1_symbol && @grid[@row][@column] != player2_symbol
   end  
 
   def available_spaces
-    @grid.flatten.select {|value| value != computer_symbol && value != human_symbol}
+    @grid.flatten.select {|value| value != player1_symbol && value != player2_symbol}
   end
   
   def coordinates_of(move)
@@ -61,32 +60,17 @@ class Board
     end
     return counter
   end
-
-  # def place_move(n)
-  #   coordindates_of(n)
-  #   @next_player == :human ? symbol = @human_symbol : symbol = @computer_symbol
-  #   @grid[@row][@column] = symbol
-  #   switch_next_player
-  # end
-  # 
-  # def switch_next_player
-  #   if @next_player == :human 
-  #     @next_player = :computer
-  #   elsif @next_player == :computer
-  #     @next_player = :human
-  #   end
-  # end
   
-  def place_human_move(n)
+  def place_player1_move(n)
     coordinates_of(n)
-    @grid[@row][@column] = human_symbol
-    @next_player = :computer
+    @grid[@row][@column] = @player1_symbol
+    @next_player = :player2
   end
   
-  def place_computer_move(n)
+  def place_player2_move(n)
     coordinates_of(n)
-    @grid[@row][@column] = computer_symbol
-    @next_player = :human
+    @grid[@row][@column] = @player2_symbol
+    @next_player = :player1
   end
   
   def is_draw
@@ -94,13 +78,11 @@ class Board
   end
     
   def has_winner
-    # [horizontal_winner, vertical_winner, forward_slash_winner, backward_slash_winner].each do |slash|
-    #    return true if slash == true
-    #  end
-    
     @grid.each do |row|
       if row.uniq.count == 1 && row.uniq != nil
         @winner = row.uniq
+        puts row.uniq
+        puts @winner
         return true
       end
     end
@@ -138,29 +120,18 @@ class Board
       return true
     end
   end  
-    
-  # def horizontal_winner
-  # end
-  # 
-  # def vertical_winner
-  # end
-  # 
-  # def forward_slash_winner
-  # end
-  # 
-  # def backward_slash_winner
-  # end
-   
+
   def reset_grid
     @grid = fresh_grid(@grid.count)
   end
   
   def place_mock_move(space)
     self.coordinates_of(space)
-    if @next_player == :computer
-      place_computer_move(space)
+    place_move(space)
+    if @next_player == :player1
+      place_player1_move(space)
     else
-      place_human_move(space)
+      place_player2_move(space)
     end
   end
   

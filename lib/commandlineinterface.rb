@@ -17,7 +17,7 @@ class CommandLineInterface
   end
 
   def welcome_message
-    puts "Welcome to Tic Tac Toe. Enter a number corresponding to a position on the board to make your first move."
+    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord. Enter a number corresponding to a position on the board to make your first move."
   end
   
   def ask_for_type_of_game
@@ -54,7 +54,7 @@ class CommandLineInterface
   end
   
   def computer_move_message
-    puts "Nice Move, check out mine (the o's)."
+    puts "Check out my move."
   end
   
   def winning_message

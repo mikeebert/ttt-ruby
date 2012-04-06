@@ -8,6 +8,7 @@ class Game
   
   def initialize
     @board = Board.new(3)
+    self.board = @board
     @ui = CommandLineInterface.new
     @ai = Ai.new
   end
@@ -20,22 +21,29 @@ class Game
 
   def play_script
     @ui.display_board(@board)
-    get_move(@player1)
-    @ui.display_board(@board)    
-    get_move(@player2) unless game_is_over
-    game_over_message && @board.reset_grid if game_is_over
+    player_move(@player1)
+    @ui.display_board(@board)
+    if game_is_over
+      game_over_message
+      @board.reset_grid
+    else
+      player_move(@player2)      
+    end
   end
   
   def set_competitors
     @ui.ask_for_type_of_game
     if @ui.input == :humanVcomputer
       @ui.ask_to_play_first
-      set_first_player
+      set_first_player      
     elsif @ui.input == :computerVcomputer
-      @player1 = :computer; @player2 = :computer
+      @player1 = :computer; @player2 = :computer2
     elsif @ui.input == :humanVhuman
       @player1 = :human; @player2 = :human
     end
+    @board.next_player = :player1
+    # puts "First player symbol is #{@board.player1_symbol}"
+    # puts "Second player symbol is #{@board.player2_symbol}"
   end
   
   def set_first_player
@@ -46,19 +54,21 @@ class Game
     end
   end
   
+  def player_move(n)
+    move = get_move(n)
+    n == @player1 ? @board.place_player1_move(move) : @board.place_player2_move(move)
+    @ui.computer_move_message if n == :computer || n == :computer2
+  end
+  
   def get_move(n)
-    if n == :human 
-      get_human_move
-    else 
-      computer_move
-    end
+    n == :human ? get_human_move : get_computer_move
   end
   
   def get_human_move
     @ui.prompt_for_next_move
     input = @ui.get_input
     if @board.valid_move(input)
-      human_move(input) 
+      return input 
     else      
       @ui.invalid_move_message
       get_human_move
@@ -69,13 +79,9 @@ class Game
     @board.has_winner || @board.is_draw
   end
   
-  def human_move(n)
-    @board.place_human_move(n)
-  end
-  
-  def computer_move
-    @ai.move(@board)
-    @ui.computer_move_message
+  def get_computer_move
+    move = @ai.move(@board)
+    return move
   end
   
   def game_over_message
@@ -84,7 +90,9 @@ class Game
     else
       @ui.draw_message      
     end
+    @ui.display_board(@board)
     ask_to_play_again
+    set_competitors unless exit_game
   end
   
   def ask_to_play_again
