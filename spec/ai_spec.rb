@@ -7,27 +7,24 @@ describe "the computer AI" do
     @board = FakeBoard.new
   end
   
-  it "should delegate to the board to make a move" do
-    @ai.move(@board)
-    @board.made_computer_move.should == true
+  it "should return a position to move on the board" do
+    @board.spaces_values = [1]
+    @ai.move(@board).should == 1    
   end
 
   describe "a random move" do
-    before(:each) do
-      @ai.random_move(@board)
-    end
-    
+        
     it "should ask the board for available spaces"  do
+      @ai.random_move(@board)
       @board.provided_spaces.should == true
     end
 
     it "should pull a random value from the available spaces" do
-      @board.spaces_values.should == [] #one available space is pulled out
+      @board.spaces_values = [1,2]
+      @ai.random_move(@board).should == 1 || 2
+      @ai.random_move(@board).should_not == 3
     end
 
-    it "should make a random move on a board" do
-      @board.made_computer_move.should == true
-    end
   end
   
 

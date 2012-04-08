@@ -73,6 +73,7 @@ class FakeBoard
   attr_accessor :spaces_values
   attr_accessor :loop_counter
   attr_accessor :reset_the_grid
+  attr_accessor :next_player
   
   def initialize
      @human_moves = []
@@ -81,7 +82,7 @@ class FakeBoard
      @loop_counter = 0
    end
   
-  def place_human_move(n)
+  def place_player1_move(n)
     @human_moves << n
   end
   
@@ -92,10 +93,10 @@ class FakeBoard
   
   def available_spaces
     @provided_spaces = true
-    @spaces_values.shift
+    @spaces_values
   end
   
-  def place_computer_move(n)
+  def place_player2_move(n)
     @made_computer_move = true
   end
   
@@ -111,6 +112,7 @@ class FakeBoard
   
   def move_count
   end
+  
 end
 
 class FakeAi

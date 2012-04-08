@@ -81,8 +81,6 @@ class Board
     @grid.each do |row|
       if row.uniq.count == 1 && row.uniq != nil
         @winner = row.uniq
-        puts row.uniq
-        puts @winner
         return true
       end
     end
@@ -127,7 +125,6 @@ class Board
   
   def place_mock_move(space)
     self.coordinates_of(space)
-    place_move(space)
     if @next_player == :player1
       place_player1_move(space)
     else

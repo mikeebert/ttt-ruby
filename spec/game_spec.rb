@@ -75,7 +75,7 @@ describe "the tic tac toe game" do
       @ui.input = :computerVcomputer
       @game.set_competitors
       @game.player1.should == :computer
-      @game.player2.should == :computer
+      @game.player2.should == :computer2
     end
     
     it "should set both players to a human" do
@@ -186,12 +186,12 @@ describe "the tic tac toe game" do
     
     describe "computer_move method" do
       it "should send the board to the Ai to make a move on the board" do
-        @game.computer_move
+        @game.get_computer_move
         @ai.received_board.should == true
       end
 
       it "should send a message to the user after a computer move" do
-        @game.computer_move
+        @game.get_computer_move
         @ui.message_contents.should include(:nice_move_message)
       end
     end
@@ -221,8 +221,8 @@ describe "the tic tac toe game" do
       @board.checked_validity.should == true
     end
     
-    it "should delegate to the board to make a human move" do
-      @game.human_move(:move)
+    it "should delegate to the board to place a human move" do
+      @game.get_human_move(:move)
       @board.human_moves.should include(:move)      
     end
     
