@@ -63,14 +63,14 @@ class Board
   
   def place_player1_move(n)
     coordinates_of(n)
-    @grid[@row][@column] = @player1_symbol
-    @next_player = :player2
+    @grid[@row][@column] = self.player1_symbol
+    self.next_player = :player2
   end
   
   def place_player2_move(n)
     coordinates_of(n)
-    @grid[@row][@column] = @player2_symbol
-    @next_player = :player1
+    @grid[@row][@column] = self.player2_symbol
+    self.next_player = :player1
   end
   
   def is_draw
@@ -125,7 +125,7 @@ class Board
   
   def place_mock_move(space)
     self.coordinates_of(space)
-    if @next_player == :player1
+    if self.next_player == :player1
       place_player1_move(space)
     else
       place_player2_move(space)

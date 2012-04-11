@@ -42,8 +42,6 @@ class Game
       @player1 = :human; @player2 = :human
     end
     @board.next_player = :player1
-    # puts "First player symbol is #{@board.player1_symbol}"
-    # puts "Second player symbol is #{@board.player2_symbol}"
   end
   
   def set_first_player
