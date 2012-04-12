@@ -17,23 +17,22 @@ class CommandLineInterface
   end
 
   def welcome_message
-    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord. Enter a number corresponding to a position on the board to make your first move."
+    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord.\nEnter a number corresponding to a position on the board to make your first move."
   end
   
-  def ask_for_type_of_game
-    puts "What type of game would you like to play?\n1. Human vs Computer?\n2. Computer vs Computer?\n3. Human vs Human\nPlease enter 1, 2 or 3:"
+  def ask_for_type_of_player(n)
+    puts "Should Player #{n} be a human or computer?\n1. Human \n2.Computer\n(Please enter 1 or 2)"
     input = gets.chomp
-    
+
     if input == "1"
-      @input = :humanVcomputer
+      input = :human
     elsif input == "2"
-      @input = :computerVcomputer
-    elsif input == "3"
-      @input = :humanVhuman
+      input = :computer
     else
       puts "Not a valid entry."
-      ask_for_type_of_game
-    end    
+      ask_for_type_of_player(n)
+    end
+    return input    
   end
   
   def ask_to_play_first

@@ -4,13 +4,12 @@ describe "the tic tac toe board" do
   
   before(:each) do
     @board = Board.new(3)
-    @board.player1_symbol = "x"
-    @board.player2_symbol = "o"
-    @grid = @board.grid 
+    @player1_mark = "X"
+    @player2_mark = "O"
   end
   
   it "should have an array of arrays representing the size of the grid" do
-    @grid.flatten.count.should == 9
+    @board.grid.flatten.count.should == 9
     @board = Board.new(5)
     @board.grid.flatten.count.should == 25
   end
@@ -22,21 +21,10 @@ describe "the tic tac toe board" do
   end
 
   it "should have values from 1 to n representing locations on the grid" do
-    @grid[0][0].should == 1
-    @grid[2][2].should == 9
+    @board.grid[0][0].should == 1
+    @board.grid[2][2].should == 9
   end
 
-  it "should allow any letter to exist for a player symbol" do
-    @board.player1_symbol = "X"
-    @board.player1_symbol.should == "X"
-    @board.player1_symbol.should_not == "x"
-  end
-  
-  it "should allow any letter to exist for a player2 symbol" do
-    @board.player2_symbol = "X"
-    @board.player2_symbol.should == "X"
-    @board.player2_symbol.should_not == 9
-  end
   
   it "should check to see if a move is valid on the grid" do
     @board.valid_move(1).should == true
@@ -44,15 +32,15 @@ describe "the tic tac toe board" do
   end
   
   it "should say a move is invalid if that space is already taken" do
-    @grid[0][0] = "x"
+    @board.grid[0][0] = @player1_mark
     @board.valid_move(1).should == false
-    @grid[2][2] = "x"
+    @board.grid[2][2] = @player1_mark
     @board.valid_move(9).should == false
   end
   
   it "should know if a space has already been taken" do
-    @grid[0][0] = "x"
-    @grid[1][1] = "o"
+    @board.grid[0][0] = @player1_mark
+    @board.grid[1][1] = @player2_mark
     @board.space_available?(1).should == false   
     @board.space_available?(5).should == false
     @board.space_available?(9).should == true
@@ -64,112 +52,97 @@ describe "the tic tac toe board" do
   end
    
   it "should know how many moves are on the board" do
-    @grid[0][0] = "x"
-    @grid[1][0] = "x"
-    @grid[2][0] = "o"
+    @board.grid[0][0] = @player1_mark
+    @board.grid[1][0] = @player1_mark
+    @board.grid[2][0] = @player2_mark
     @board.move_count.should == 3    
   end
    
   it "should place a player1 move on the board" do
-    @board.place_player1_move(1)
-    @board.place_player1_move(7)
-    @grid[0][0].should == "x"
-    @grid[2][0].should == "x"
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,7)
+    @board.grid[0][0].should == @player1_mark
+    @board.grid[2][0].should == @player1_mark
   end
   
   it "should place a player2 move on the board" do
-    @board.place_player2_move(1)
-    @board.place_player2_move(4)
-    @grid[0][0].should == "o"  
-    @grid[1][0].should == "o"  
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,4)
+    @board.grid[0][0].should == @player1_mark  
+    @board.grid[1][0].should == @player1_mark  
   end
 
   it "should check for a row of the same symbols" do
-    @grid[0][0] = "x"
-    @grid[0][1] = "x"
-    @grid[0][2] = "x"
+    @board.grid[0][0] = @player1_mark
+    @board.grid[0][1] = @player1_mark
+    @board.grid[0][2] = @player1_mark
     @board.has_winner.should == true
-    @board.winner.should ==  ["x"]
+    @board.winner.should ==  [@player1_mark]
   end
    
   it "should check for a column of the same symbols" do
-    @grid[0][0] = "x"
-    @grid[1][0] = "x"
-    @grid[2][0] = "x"
+    @board.grid[0][0] = @player2_mark
+    @board.grid[1][0] = @player2_mark
+    @board.grid[2][0] = @player2_mark
     @board.has_winner.should == true
-    @board.winner.should == ["x"]
+    @board.winner.should == [@player2_mark]
   end
   
   it "should check for a vertical winner in the last row" do
-    @grid[0][2] = "x"
-    @grid[1][2] = "x"
-    @grid[2][2] = "x"
+    @board.grid[0][2] = @player1_mark
+    @board.grid[1][2] = @player1_mark
+    @board.grid[2][2] = @player1_mark
     @board.has_winner.should == true
-    @board.winner.should == ["x"]
+    @board.winner.should == [@player1_mark]
   end
    
   it "should not say there is a winner if there isn't one" do
-    @board.place_player1_move(1)
-    @board.place_player1_move(2)
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,2)
     @board.has_winner.should_not == true
     @board.winner.should == nil
   end
     
   it "should check for a draw" do
-    [1,3,6,7,8].each {|n| @board.place_player1_move(n)}
-    @grid[0][1] = "o" #fake player2 moves
-    @grid[1][0] = "o"   
-    @grid[1][1] = "o"   
-    @grid[2][2] = "o"   
+    [1,3,6,7,8].each {|n| @board.place_move(@player1_mark,n)}
+    [2,4,5,9].each {|n| @board.place_move(@player2_mark,n)}
     @board.is_draw.should == true
     @board.winner.should == nil
   end
   
   it "should not return a draw when a player wins" do
-    @board.place_player1_move(1)
-    @board.place_player1_move(2)
-    @board.place_player1_move(3)
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,2)
+    @board.place_move(@player1_mark,3)
     @board.is_draw.should == false
     @board.winner.should == nil
   end
     
   it "should return an array of available spaces to play in" do
-    @grid[0][0] = "x"
+    @board.grid[0][0] = @player1_mark
     @board.available_spaces.should == [2,3,4,5,6,7,8,9]
   end
     
   it "should check for a forward-slash diagonal win" do
-    @board.place_player1_move(1)
-    @board.place_player1_move(5)
-    @board.place_player1_move(9)
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,5)
+    @board.place_move(@player1_mark,9)
     @board.has_winner.should == true
-    @board.winner.should == ["x"]
+    @board.winner.should == [@player1_mark]
   end
 
   it "should check for a backward-slash diagonal win" do
-    @board.place_player1_move(3)
-    @board.place_player1_move(5)
-    @board.place_player1_move(7)
+    @board.place_move(@player1_mark,3)
+    @board.place_move(@player1_mark,5)
+    @board.place_move(@player1_mark,7)
     @board.has_winner.should == true
-    @board.winner.should == ["x"]
+    @board.winner.should == [@player1_mark]
   end
   
   it "should create a fresh grid" do
-    @board.place_player1_move(1)
+    @board.place_move(@player1_mark,1)
     old_grid = @board.grid
     @board.reset_grid
     @board.grid.flatten.should_not == old_grid.flatten
-  end
-  
-  it "should place a mock move if the next player is a player2" do
-    @board.next_player = :player2
-    @board.place_mock_move(1)
-    @board.grid[0][0].should == "o"
-  end
-  
-  it "should set the next player to a player1 after" do
-    @board.next_player = :player2
-    @board.place_mock_move(1)
-    @board.next_player.should == :player1        
   end
 end

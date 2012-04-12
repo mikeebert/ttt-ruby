@@ -8,14 +8,16 @@ class Ai
   attr_accessor :original_move_count
   
   def initialize
-    @possible_outcomes = Hash.new
+    # @possible_outcomes = Hash.new
   end
   
   def move(board)
-    # return random_move(board)
-    @original_move_count = board.move_count
-    rank_available_moves(board)
-    board.place_player2_move(best_move(@possible_outcomes))
+    return random_move(board)
+    # @original_move_count = board.move_count
+    # rank_available_moves(board)
+    # display_outcomes
+    # puts best_move
+    # board.place_player2_move(best_move)
   end
   
   def random_move(board)
@@ -24,15 +26,16 @@ class Ai
   end
   
   def rank_available_moves(board)
+    @possible_outcomes = Hash.new
     board.available_spaces.each do |move| 
       @possible_outcomes[move] = {:max => 0, :min => 0}
       @test_board = create_test_board(board)
       @test_board.place_mock_move(move)
-      play_all_possible_games(@test_board, move)
+      check_outcomes(@test_board, move)
     end  
   end
   
-  def play_all_possible_games(board, move)
+  def check_outcomes(board, move)
     if board.has_winner || board.is_draw
       final_value = final_value(board)
       rank_minimax(final_value, move)
@@ -40,7 +43,7 @@ class Ai
       board.available_spaces.each do |next_move|
         new_board = create_test_board(board)
         new_board.place_mock_move(next_move)
-        play_all_possible_games(new_board, move)
+        check_outcomes(new_board, move)
       end
     end
   end
@@ -60,13 +63,13 @@ class Ai
   #   end
   # end
   
-  def make_max_move(board, move)
-    
-    play_all_possible_games(board,move)
-  end
-  
-  def make_min_move(board, move)
-  end
+  # def make_max_move(board, move)
+  #   
+  #   play_all_possible_games(board,move)
+  # end
+  # 
+  # def make_min_move(board, move)
+  # end
 
   def create_test_board(board)
     test_board = Board.new(Math.sqrt(board.size).to_i)
@@ -110,13 +113,13 @@ class Ai
     end
   end
   
-  def best_move(possible_outcomes)
-      max_rank = possible_outcomes.max_by {|move,data| data[:max]}[1][:max]
-      min_rank = possible_outcomes.min_by {|move,data| data[:min]}[1][:min]
+  def best_move
+      max_rank = @possible_outcomes.max_by {|move,data| data[:max]}[1][:max]
+      min_rank = @possible_outcomes.min_by {|move,data| data[:min]}[1][:min]
       if max_rank >= -(min_rank)
-        return possible_outcomes.max_by {|move,data| data[:max]}.first
+        return @possible_outcomes.max_by {|move,data| data[:max]}.first
       else
-        return possible_outcomes.max_by {|move,data| data[:min]}.first
+        return @possible_outcomes.max_by {|move,data| data[:min]}.first
       end
   end
 

@@ -2,16 +2,13 @@ class Board
   
   attr_accessor :grid
   attr_accessor :size
-  attr_accessor :player1_symbol
-  attr_accessor :player2_symbol
   attr_accessor :winner
   attr_accessor :next_player
   
   def initialize(size)
     @grid = fresh_grid(size)
     @size = size * size
-    @player1_symbol = "X"
-    @player2_symbol = "O"
+    @next_player = :player1
   end
   
   def fresh_grid(size)
@@ -26,17 +23,14 @@ class Board
     end
   end
   
-  def valid_move(move)
-    @grid.flatten.include?(move) && space_available?(move)
+  def place_move(symbol, space)
+    coordinates_of(space)
+    @grid[@row][@column] = symbol
+    switch_next_player
   end
   
-  def space_available?(move)
-    coordinates_of(move)
-    @grid[@row][@column] != player1_symbol && @grid[@row][@column] != player2_symbol
-  end  
-
-  def available_spaces
-    @grid.flatten.select {|value| value != player1_symbol && value != player2_symbol}
+  def switch_next_player
+    @next_player == :player1 ? @next_player == :player2 : @next_player == :player1
   end
   
   def coordinates_of(move)
@@ -52,6 +46,19 @@ class Board
     return {row: @row, column: @column}
   end
   
+  def valid_move(move)
+    @grid.flatten.include?(move) && space_available?(move)
+  end
+  
+  def space_available?(move)
+    coordinates_of(move)
+    @grid[@row][@column].class == Fixnum
+  end  
+
+  def available_spaces
+    @grid.flatten.select {|value| value.class == Fixnum}
+  end
+  
   def move_count
     positions = self.size
     counter = 0
@@ -59,18 +66,6 @@ class Board
       counter += 1 if space_available?(position) == false
     end
     return counter
-  end
-  
-  def place_player1_move(n)
-    coordinates_of(n)
-    @grid[@row][@column] = self.player1_symbol
-    self.next_player = :player2
-  end
-  
-  def place_player2_move(n)
-    coordinates_of(n)
-    @grid[@row][@column] = self.player2_symbol
-    self.next_player = :player1
   end
   
   def is_draw
@@ -121,15 +116,5 @@ class Board
 
   def reset_grid
     @grid = fresh_grid(@grid.count)
-  end
-  
-  def place_mock_move(space)
-    self.coordinates_of(space)
-    if self.next_player == :player1
-      place_player1_move(space)
-    else
-      place_player2_move(space)
-    end
-  end
-  
+  end  
 end
