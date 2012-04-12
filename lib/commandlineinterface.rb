@@ -35,19 +35,6 @@ class CommandLineInterface
     return input    
   end
   
-  def ask_to_play_first
-    puts "Would you like to play first? (Y/N)"
-    input = gets.chomp.downcase    
-    if input == "y"
-      @play_first = :yes
-    elsif input == "n"
-      @play_first = :no
-    else
-      puts "Not a valid entry. Please enter Y or N"
-      ask_to_play_first
-    end      
-  end
-  
   def invalid_move_message
     puts "Not a valid move. Please enter another move:"
   end
@@ -56,8 +43,8 @@ class CommandLineInterface
     puts "Check out my move."
   end
   
-  def winning_message
-    puts "Winner. Game Over."
+  def winning_message(winner)
+    puts "#{winner} wins. Game Over."
   end
   
   def draw_message

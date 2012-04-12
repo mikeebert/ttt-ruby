@@ -27,7 +27,7 @@ class Game
     @player1.move(@board)
     @ui.display_board(@board)
     @player2.move(@board) unless game_is_over
-    game_over_message if game_is_over
+    game_over_scenario if game_is_over
   end
   
   def set_competitors
@@ -41,9 +41,9 @@ class Game
     @board.has_winner || @board.is_draw
   end
   
-  def game_over_message
+  def game_over_scenario
     if @board.has_winner
-      @ui.winning_message
+      @ui.winning_message(@board.winner[0])
     else
       @ui.draw_message      
     end

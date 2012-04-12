@@ -38,14 +38,6 @@ describe "the tic tac toe board" do
     @board.valid_move(9).should == false
   end
   
-  it "should know if a space has already been taken" do
-    @board.grid[0][0] = @player1_mark
-    @board.grid[1][1] = @player2_mark
-    @board.space_available?(1).should == false   
-    @board.space_available?(5).should == false
-    @board.space_available?(9).should == true
-  end
-  
   it "should know the coordinates of a move" do
     @board.coordinates_of(1).should == {row: 0, column: 0}
     @board.coordinates_of(9).should == {row: 2, column: 2}

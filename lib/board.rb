@@ -47,25 +47,15 @@ class Board
   end
   
   def valid_move(move)
-    @grid.flatten.include?(move) && space_available?(move)
+    available_spaces.include?(move)
   end
   
-  def space_available?(move)
-    coordinates_of(move)
-    @grid[@row][@column].class == Fixnum
-  end  
-
   def available_spaces
     @grid.flatten.select {|value| value.class == Fixnum}
   end
   
   def move_count
-    positions = self.size
-    counter = 0
-    (1..positions).each do |position|
-      counter += 1 if space_available?(position) == false
-    end
-    return counter
+    @size - available_spaces.count
   end
   
   def is_draw

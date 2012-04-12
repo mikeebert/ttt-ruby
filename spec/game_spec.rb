@@ -139,7 +139,7 @@ describe "the tic tac toe game" do
   #   end
   # end
 
-  describe "send game over messages" do
+  describe "the game over scenario" do
     before(:each) do
       @ui = FakeUI.new
       @ui.input_values = []
@@ -150,24 +150,18 @@ describe "the tic tac toe game" do
     
     it "should send a winning message if there is a winner" do
       @board.game_won = true
-      @game.game_over_message
+      @game.game_over_scenario
       @ui.message_contents.should include(:winner)
     end
     
     it "should send a draw message if a game is a draw" do
       @board.is_draw = true
-      @game.game_over_message
+      @game.game_over_scenario
       @ui.message_contents.should include(:draw)
     end
-    
-    it "should not send a message if the game is not over" # do
-     #      @game.game_over_message
-     #      @ui.message_contents.should_not include(:draw)
-     #      @ui.message_contents.should_not include(:winner)
-     #    end
-    
+        
     it "should ask a user if they want to play again" do
-      @game.game_over_message
+      @game.game_over_scenario
       @ui.prompted_user.should == true
     end
     

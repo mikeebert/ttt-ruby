@@ -36,7 +36,7 @@ class FakeUI
     @message_contents << :nice_move_message
   end
   
-  def winning_message
+  def winning_message(winner)
     @message_contents << :winner
   end
   

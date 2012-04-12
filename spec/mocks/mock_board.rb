@@ -9,12 +9,14 @@ class FakeBoard
   attr_accessor :loop_counter
   attr_accessor :reset_the_grid
   attr_accessor :next_player
+  attr_accessor :winner
   
   def initialize
      @human_moves = []
      @checked_for_winner = []
      @spaces_values = [[:valid_move], [1]]
      @loop_counter = 0
+     @winner = []
    end
   
   def place_player1_move(n)
