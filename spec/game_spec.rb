@@ -10,19 +10,21 @@ describe "the tic tac toe game" do
   before(:each) do
     @game = Game.new
     @ui = FakeUI.new
-    @game.ui = @ui
+    @game.ui = @ui    
   end
 
   describe "the Game setup" do
     it "should send a welcome message to the user" do
       @ui.play_again = :no
+      @ui.input = {type: :human, symbol: "X"}
       @game.play
       @ui.message_contents.should include(:welcome_message)
     end
     
-    describe "setting up the competitors" do
-      
+    describe "setting up the competitors" do      
       it "should ask the ui to provide the type and symbol for a player" do
+        @ui.play_again = :no
+        @ui.input = {type: :human, symbol: "X"}
         @game.set_competitors
         @ui.requested_player_details.should == true
       end
@@ -50,82 +52,75 @@ describe "the tic tac toe game" do
   
   describe "the play method that runs a game" do
     before(:each) do
-      @player1 = FakePlayer.new
-      @player2 = FakePlayer.new
+      @player1 = FakeHuman.new
+      @player2 = FakeHuman.new
       @game.player1 = @player1
       @game.player2 = @player2
       @board = FakeBoard.new
       @game.board = @board
-      @ai = FakeAi.new
-      @game.ai = @ai
+      @player2.ui = @ui
       @ui = FakeUI.new
       @game.ui = @ui
+      @player1.ui = @ui
+      @ui.input = {type: :human, symbol: "X"}
       @ui.input_values = [:valid_move]
     end
     
-
-
     #not testing the right thing
     it "should call the play script" do
+      @ui.play_again = :no
       @ui.input_values = [:valid_move]*4 
       @game.play
       @ui.input_values.count.should == 0
     end
     
     it "should call the play script until the game is over" do
+      @ui.input = {type: :computer, symbol: "X"}
       @ui.input_values = [:valid_move]*4
       @game.play
       @game.exit_game.should == true
     end
     
-    describe "setting up the players of the game" do
-      it "should defer to the player class to set what type of player it is" do
-        @game.set_competitors
-        @player1.game_delegated_for_type_of_player.should == true
-        @player2.game_delegated_for_type_of_player.should == true
+    describe "the play script that repeats until the game is over " do        
+      it "should tell the UI class to display the board" do
+        @ui.play_again = :no
+        @game.play_script
+        @ui.displayed_board.should == @game.board
       end
 
-      describe "the play script that repeats until the game is over " do        
-        it "should tell the UI class to display the board" do
-          @ui.play_again = :no
-          @game.play_script
-          @ui.displayed_board.should == @game.board
-        end
+      it "should know the game is over when the board returns a winner" do
+        @board.game_won = true
+        @game.game_is_over.should == true
+      end 
 
-        it "should know the game is over when the board returns a winner" do
-          @board.game_won = true
-          @game.game_is_over.should == true
-        end 
+      it "should know the game is over when the board returns a draw" do
+        @board.is_draw = true
+        @game.game_is_over.should == true
+      end
 
-        it "should know the game is over when the board returns a draw" do
-          @board.is_draw = true
-          @game.game_is_over.should == true
-        end
+      it "should know that the game is not over when there is no win or draw" do
+        @board.is_draw = false
+        @board.game_won = false
+        @game.game_is_over.should_not == true
+      end
 
-        it "should know that the game is not over when there is no win or draw" do
-          @board.is_draw = false
-          @board.game_won = false
-          @game.game_is_over.should_not == true
-        end
+      it "should send game over messages if a game is over" do
+        @board.game_won = true
+        @game.play_script
+        @ui.message_contents.should include(:winner)
+      end
 
-        it "should send game over messages if a game is over" do
-          @board.game_won = true
-          @game.play_script
-          @ui.message_contents.should include(:winner)
-        end
+      it "should not send a game over message if a game is not over" do
+        @board.game_won = false
+        @game.play_script
+        @ui.message_contents.should_not include(:draw)
+        @ui.message_contents.should_not include(:winner)      
+      end
 
-        it "should not send a game over message if a game is not over" do
-          @board.game_won = false
-          @game.play_script
-          @ui.message_contents.should_not include(:draw)
-          @ui.message_contents.should_not include(:winner)      
-        end
-
-        it "should not prompt a user for the next move if the game is over" do
-          @board.game_won = true
-          @game.play_script
-          @ui.prompted_user.should_not == :next_move_please
-        end
+      it "should not prompt a user for the next move if the game is over" do
+        @board.game_won = true
+        @game.play_script
+        @ui.prompted_user.should_not == :next_move_please
       end
     end
   end

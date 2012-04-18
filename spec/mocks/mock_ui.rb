@@ -1,16 +1,16 @@
 class FakeUI
-  attr_accessor :displayed_board
-  attr_accessor :message_contents
-  attr_accessor :user_input
-  attr_accessor :input_values
-  attr_accessor :prompted_user
-  attr_accessor :input
-  attr_accessor :play_again
-  attr_accessor :asked_for_input
-  attr_accessor :asked_to_play_first
-  attr_accessor :play_first
-  attr_accessor :requested_player_details
-  attr_accessor :prompted_counter
+  attr_accessor :displayed_board,
+                :message_contents,
+                :user_input,
+                :input_values,
+                :prompted_user,
+                :input,
+                :play_again,
+                :asked_for_input,
+                :asked_to_play_first,
+                :play_first,
+                :requested_player_details,
+                :prompted_counter
   
   def initialize
     @message_contents = []

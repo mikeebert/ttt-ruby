@@ -1,17 +1,17 @@
 class FakeBoard
-  attr_accessor :human_moves  
-  attr_accessor :checked_validity
-  attr_accessor :is_draw
-  attr_accessor :game_won
-  attr_accessor :made_computer_move
-  attr_accessor :provided_spaces
-  attr_accessor :spaces_values
-  attr_accessor :loop_counter
-  attr_accessor :reset_the_grid
-  attr_accessor :next_player
-  attr_accessor :winner
-  attr_accessor :received_symbol
-  attr_accessor :received_move
+  attr_accessor :human_moves,
+                :checked_validity,
+                :is_draw,
+                :game_won,
+                :made_computer_move,
+                :provided_spaces,
+                :spaces_values,
+                :loop_counter,
+                :reset_the_grid,
+                :next_player,
+                :winner,
+                :received_symbol,
+                :received_move
   
   def initialize
      @human_moves = []
