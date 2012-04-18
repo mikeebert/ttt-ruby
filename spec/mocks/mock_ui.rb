@@ -9,6 +9,7 @@ class FakeUI
   attr_accessor :asked_for_input
   attr_accessor :asked_to_play_first
   attr_accessor :play_first
+  attr_accessor :requested_player_details
   
   def initialize
     @message_contents = []
@@ -58,11 +59,8 @@ class FakeUI
     @prompted_user = true
   end
   
-  def ask_to_play_first
-    @asked_to_play_first = true
+  def get_details_for_player(n)
+    @requested_player_details = true
   end
   
-  def ask_for_type_of_player(n)
-    @input_values.shift
-  end
 end

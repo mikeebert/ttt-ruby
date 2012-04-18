@@ -1,7 +1,9 @@
 require 'board'
-require 'ai'
+# require 'ai'
 require 'commandlineinterface'
-require 'player'
+# require 'player'
+require 'human_player'
+require 'computer_player'
 
 class Game
   
@@ -11,30 +13,37 @@ class Game
     @board = Board.new(3)
     self.board = @board
     @ui = CommandLineInterface.new
-    @ai = Ai.new
-    @player1 = Player.new
-    @player2 = Player.new
+    # @ai = Ai.new
   end
   
   def play
     @ui.welcome_message
     set_competitors
-    play_script until exit_game
+    # play_script until exit_game
   end
 
+  def set_competitors
+    @ui.get_details_for_player(1)
+    if @ui.input[:type] == :human 
+      @player1 = HumanPlayer.new(@ui.input[:symbol])
+    else
+      @player1 = ComputerPlayer.new(@ui.input[:symbol])
+    end
+    
+    @ui.get_details_for_player(2)
+    if @ui.input[:type] == :human 
+      @player2 = HumanPlayer.new(@ui.input[:symbol])
+    else
+      @player2 = ComputerPlayer.new(@ui.input[:symbol])
+    end
+  end
+  
   def play_script
     @ui.display_board(@board)
     @player1.move(@board)
     @ui.display_board(@board)
     @player2.move(@board) unless game_is_over
     game_over_scenario if game_is_over
-  end
-  
-  def set_competitors
-    @player1.set_type_of_player(1)
-    @player1.symbol = "x"
-    @player2.set_type_of_player(2)
-    @player2.symbol = "o"
   end
   
   def game_is_over

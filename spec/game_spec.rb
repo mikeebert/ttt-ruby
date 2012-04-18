@@ -3,11 +3,49 @@ require 'mocks/mock_ui'
 require 'mocks/mock_ai'
 require 'mocks/mock_board'
 require 'mocks/mock_player'
+require 'mocks/mock_human'
 
 describe "the tic tac toe game" do
 
   before(:each) do
     @game = Game.new
+    @ui = FakeUI.new
+    @game.ui = @ui
+  end
+
+  describe "the Game setup" do
+    it "should send a welcome message to the user" do
+      @ui.play_again = :no
+      @game.play
+      @ui.message_contents.should include(:welcome_message)
+    end
+    
+    describe "setting up the competitors" do
+      
+      it "should ask the ui to provide the type and symbol for a player" do
+        @game.set_competitors
+        @ui.requested_player_details.should == true
+      end
+      
+      it "should create a player from the human class if type is human" # do
+       #        @ui.input = {type: :human, symbol: "x"}
+       #        @game.set_competitors
+       #        @human.created_new_player.should == true
+       #      end
+      
+      it "should create a new computer player if type is computer" # do
+       #        @human = FakeHuman.new
+       #        @ui.input = {type: :computer, symbol: "x"}
+       #        @game.set_competitors
+       #        @computer.created_new_player.should == true
+       #      end
+      
+      it "should set player1 for a game"
+      
+      it "should set player2 for a game"
+      
+    end
+    
   end
   
   describe "the play method that runs a game" do
@@ -25,11 +63,7 @@ describe "the tic tac toe game" do
       @ui.input_values = [:valid_move]
     end
     
-    it "should send a welcome message to the user" do
-      @ui.play_again = :no
-      @game.play
-      @ui.message_contents.should include(:welcome_message)
-    end
+
 
     #not testing the right thing
     it "should call the play script" do

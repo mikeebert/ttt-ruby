@@ -4,10 +4,10 @@ class CommandLineInterface
   attr_accessor :play_again
   attr_accessor :play_first
 
-  def get_input 
-    self.input = gets.chomp.to_i
+  def welcome_message
+    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord.\nEnter a number corresponding to a position on the board to make your first move."
   end
-  
+    
   def display_board(board)
     board.grid.each do |line| 
       line.each {|value| print "#{value} "}
@@ -16,23 +16,46 @@ class CommandLineInterface
     print "-------\n"
   end
 
-  def welcome_message
-    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord.\nEnter a number corresponding to a position on the board to make your first move."
+  def get_details_for_player(n)
+    @input = Hash.new
+    get_type_for_player(n)
+    get_symbol_for_player(n)
+    return @input
   end
   
-  def ask_for_type_of_player(n)
+  def get_type_for_player(n)
+    kind_of_player = prompt_for_type(n)
+    @input[:type] = kind_of_player
+  end
+  
+  def get_symbol_for_player(n)
+    character = prompt_for_symbol(n)
+    @input[:symbol] = character
+  end
+  
+  def prompt_for_type(n)
     puts "Should Player #{n} be a human or computer?\n1. Human \n2.Computer\n(Please enter 1 or 2)"
     input = gets.chomp
-
     if input == "1"
-      input = :human
+      return :human
     elsif input == "2"
-      input = :computer
+      return :computer
     else
       puts "Not a valid entry."
-      ask_for_type_of_player(n)
+      prompt_for_type(n)
     end
-    return input    
+  end
+  
+  def prompt_for_symbol(n)
+    puts "What alphanumeric symbol would you like to represent Player #{n}?"
+    input = gets.slice(0)
+    if input != "\n"
+      puts "Got it. Player #{n}'s symbol will be #{input}."
+      return input
+    else
+      puts "Not a valid Symbol"
+      prompt_for_symbol(n)
+    end
   end
   
   def invalid_move_message
@@ -68,4 +91,9 @@ class CommandLineInterface
       prompt_to_play_again
     end
   end
+  
+  def get_input 
+    self.input = gets.chomp.to_i
+  end
+  
 end
