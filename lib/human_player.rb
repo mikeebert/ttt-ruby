@@ -1,6 +1,6 @@
 require 'commandlineinterface'
 
-class HumanPlayer
+class HumanPlayer < Player
   attr_accessor :ui
   
   def initialize(symbol)

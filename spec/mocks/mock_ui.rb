@@ -10,10 +10,12 @@ class FakeUI
   attr_accessor :asked_to_play_first
   attr_accessor :play_first
   attr_accessor :requested_player_details
+  attr_accessor :prompted_counter
   
   def initialize
     @message_contents = []
     @user_input = []
+    @prompted_counter = 0
   end
   
   def display_board(board)
@@ -47,6 +49,7 @@ class FakeUI
   
   def prompt_for_next_move
     @prompted_user = :next_move_please
+    @prompted_counter += 1
   end
   
   def prompt_to_play_again

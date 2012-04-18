@@ -1,4 +1,6 @@
-class ComputerPlayer
+require 'ai'
+
+class ComputerPlayer < Player
 
   attr_accessor :ai
   attr_accessor :symbol
@@ -10,6 +12,6 @@ class ComputerPlayer
   
   def get_move(board)
     move = @ai.move(board)
-    return move
+    # return move
   end
 end

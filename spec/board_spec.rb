@@ -50,18 +50,11 @@ describe "the tic tac toe board" do
     @board.move_count.should == 3    
   end
    
-  it "should place a player1 move on the board" do
+  it "should place a player move on the board" do
     @board.place_move(@player1_mark,1)
     @board.place_move(@player1_mark,7)
     @board.grid[0][0].should == @player1_mark
     @board.grid[2][0].should == @player1_mark
-  end
-  
-  it "should place a player2 move on the board" do
-    @board.place_move(@player1_mark,1)
-    @board.place_move(@player1_mark,4)
-    @board.grid[0][0].should == @player1_mark  
-    @board.grid[1][0].should == @player1_mark  
   end
 
   it "should check for a row of the same symbols" do
@@ -80,10 +73,26 @@ describe "the tic tac toe board" do
     @board.winner.should == [@player2_mark]
   end
   
-  it "should check for a vertical winner in the last row" do
+  it "should check for a vertical winner in the last column" do
     @board.grid[0][2] = @player1_mark
     @board.grid[1][2] = @player1_mark
     @board.grid[2][2] = @player1_mark
+    @board.has_winner.should == true
+    @board.winner.should == [@player1_mark]
+  end
+  
+  it "should check for a forward-slash diagonal win" do
+    @board.place_move(@player1_mark,1)
+    @board.place_move(@player1_mark,5)
+    @board.place_move(@player1_mark,9)
+    @board.has_winner.should == true
+    @board.winner.should == [@player1_mark]
+  end
+
+  it "should check for a backward-slash diagonal win" do
+    @board.place_move(@player1_mark,3)
+    @board.place_move(@player1_mark,5)
+    @board.place_move(@player1_mark,7)
     @board.has_winner.should == true
     @board.winner.should == [@player1_mark]
   end
@@ -114,24 +123,8 @@ describe "the tic tac toe board" do
     @board.grid[0][0] = @player1_mark
     @board.available_spaces.should == [2,3,4,5,6,7,8,9]
   end
-    
-  it "should check for a forward-slash diagonal win" do
-    @board.place_move(@player1_mark,1)
-    @board.place_move(@player1_mark,5)
-    @board.place_move(@player1_mark,9)
-    @board.has_winner.should == true
-    @board.winner.should == [@player1_mark]
-  end
-
-  it "should check for a backward-slash diagonal win" do
-    @board.place_move(@player1_mark,3)
-    @board.place_move(@player1_mark,5)
-    @board.place_move(@player1_mark,7)
-    @board.has_winner.should == true
-    @board.winner.should == [@player1_mark]
-  end
   
-  it "should create a fresh grid" do
+  it "should reset the grid" do
     @board.place_move(@player1_mark,1)
     old_grid = @board.grid
     @board.reset_grid

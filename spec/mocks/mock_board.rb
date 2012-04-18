@@ -10,6 +10,8 @@ class FakeBoard
   attr_accessor :reset_the_grid
   attr_accessor :next_player
   attr_accessor :winner
+  attr_accessor :received_symbol
+  attr_accessor :received_move
   
   def initialize
      @human_moves = []
@@ -26,6 +28,11 @@ class FakeBoard
   def valid_move(n)
     @checked_validity = true
     n == :valid_move
+  end
+  
+  def place_move(symbol,move)
+    @received_symbol = symbol
+    @received_move = move
   end
   
   def available_spaces

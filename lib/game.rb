@@ -1,7 +1,6 @@
 require 'board'
-# require 'ai'
 require 'commandlineinterface'
-# require 'player'
+require 'player'
 require 'human_player'
 require 'computer_player'
 
@@ -13,13 +12,12 @@ class Game
     @board = Board.new(3)
     self.board = @board
     @ui = CommandLineInterface.new
-    # @ai = Ai.new
   end
   
   def play
     @ui.welcome_message
     set_competitors
-    # play_script until exit_game
+    play_script until exit_game
   end
 
   def set_competitors
