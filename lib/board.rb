@@ -61,6 +61,10 @@ class Board
   def is_draw
     move_count == @size && has_winner != true
   end
+  
+  def is_over
+    has_winner == true || is_draw == true
+  end
     
   def has_winner
     @grid.each do |row|

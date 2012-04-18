@@ -8,12 +8,13 @@ describe "the computer player" do
     @computer = ComputerPlayer.new("X")
     @board = FakeBoard.new
     @ai = FakeAi.new
-    @computer.ai = @ai    
+    @computer.ai = @ai
   end
   
-  it "should respond to the move method from the Player superclass" do
+  it "should respond to the move method from the Player superclass by asking the ai for a move" do
     @computer.move(@board)
     @ai.received_board.should == true
+    # @board.checked_spaces_for_computer.should == true
   end
   
   it "should send the move and it's symbol to a board via the Player move method" do
@@ -23,12 +24,7 @@ describe "the computer player" do
     @board.received_move.should == :valid_move
   end
   
-  it "should ask the Ai to provide a move" do
-    @computer.get_move(@board)
-    @ai.received_board.should == true
-  end
-  
-  it "should return a move from the AI" do
+  it "should get a move from the Ai" do
     @ai.move = :valid_move
     @computer.get_move(@board).should == :valid_move
   end

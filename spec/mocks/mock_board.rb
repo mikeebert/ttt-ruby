@@ -11,7 +11,8 @@ class FakeBoard
                 :next_player,
                 :winner,
                 :received_symbol,
-                :received_move
+                :received_move,
+                :checked_spaces_for_computer
   
   def initialize
      @human_moves = []
@@ -36,6 +37,7 @@ class FakeBoard
   end
   
   def available_spaces
+    @checked_spaces_for_computer = true
     @provided_spaces = true
     @spaces_values
   end

@@ -1,17 +1,15 @@
 require 'ai'
 
 class ComputerPlayer < Player
-
-  attr_accessor :ai
   attr_accessor :symbol
-  
+  attr_accessor :ai
+
   def initialize(symbol)
     @ai = Ai.new
     @symbol = symbol
   end
   
   def get_move(board)
-    move = @ai.move(board)
-    # return move
+    @ai.random_move(board)
   end
 end

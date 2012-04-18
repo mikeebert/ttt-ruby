@@ -6,5 +6,10 @@ class FakeAi
     @received_board = true
     return @move
   end
+  
+  def random_move(board)
+    @received_board = true
+    return @move
+  end
 
 end
