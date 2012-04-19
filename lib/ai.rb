@@ -22,6 +22,8 @@ class Ai
     board.available_spaces.each do |move|
       make_max_move(board, move)
     end
+    puts "#{@max_symbol}'s best move is #{@max_move} \n"
+    puts "#{@min_symbol}'s best move is #{@min_move} \n"
     return best_move
   end
   
@@ -72,7 +74,7 @@ class Ai
     if board.winner == @max_symbol
       rank = 100/move_count
       @max_move = {move => rank} if rank > @max_move.values[0]
-    elsif board.winner = @min_symbol
+    elsif board.winner == @min_symbol
       rank = -(100/move_count)
       @min_move = {space => rank} if rank < @min_move.values[0]
     elsif board.is_draw

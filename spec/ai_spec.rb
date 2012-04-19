@@ -71,6 +71,9 @@ describe "playing through moves" do
                        ["X","X","O"]]
         @board.next_player = :player2
         move = @ai.get_minimax_move(@board)
+        puts "#{@ai.max_symbol}'s best move is #{@ai.max_move} \n"
+        puts "#{@ai.min_symbol}'s best move is #{@ai.min_move} \n"
+
         move.should == 4
       end
       

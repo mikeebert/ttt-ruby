@@ -25,7 +25,7 @@ class Game
     @board.player1_symbol = @ui.input[:symbol]
     @ui.get_details_for_player(2)
     @player2 = PlayerFactory.create(@ui.input, @ui)
-    @board.player1_symbol = @ui.input[:symbol]
+    @board.player2_symbol = @ui.input[:symbol]
   end
   
   def play_script
