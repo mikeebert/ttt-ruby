@@ -77,7 +77,7 @@ describe "the tic tac toe board" do
     @board.grid[0][1] = @player1_symbol
     @board.grid[0][2] = @player1_symbol
     @board.has_winner.should == true
-    @board.winner.should ==  [@player1_symbol]
+    @board.winner.should ==  @player1_symbol
   end
    
   it "should check for a column of the same symbols" do
@@ -85,7 +85,7 @@ describe "the tic tac toe board" do
     @board.grid[1][0] = @player2_symbol
     @board.grid[2][0] = @player2_symbol
     @board.has_winner.should == true
-    @board.winner.should == [@player2_symbol]
+    @board.winner.should == @player2_symbol
   end
   
   it "should check for a vertical winner in the last column" do
@@ -93,7 +93,7 @@ describe "the tic tac toe board" do
     @board.grid[1][2] = @player1_symbol
     @board.grid[2][2] = @player1_symbol
     @board.has_winner.should == true
-    @board.winner.should == [@player1_symbol]
+    @board.winner.should == @player1_symbol
   end
   
   it "should check for a forward-slash diagonal win" do
@@ -101,7 +101,7 @@ describe "the tic tac toe board" do
     @board.place_move(@player1_symbol,5)
     @board.place_move(@player1_symbol,9)
     @board.has_winner.should == true
-    @board.winner.should == [@player1_symbol]
+    @board.winner.should == @player1_symbol
   end
 
   it "should check for a backward-slash diagonal win" do
@@ -109,7 +109,7 @@ describe "the tic tac toe board" do
     @board.place_move(@player1_symbol,5)
     @board.place_move(@player1_symbol,7)
     @board.has_winner.should == true
-    @board.winner.should == [@player1_symbol]
+    @board.winner.should == @player1_symbol
   end
    
   it "should not say there is a winner if there isn't one" do

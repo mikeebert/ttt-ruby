@@ -42,7 +42,7 @@ class Game
   
   def game_over_scenario
     if @board.has_winner
-      @ui.winning_message(@board.winner[0])
+      @ui.winning_message(@board.winner)
     else
       @ui.draw_message      
     end

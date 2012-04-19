@@ -80,7 +80,7 @@ class Board
   def horizontal_winner
     @grid.each do |row|
       if row.uniq.count == 1 && row.uniq != nil
-        @winner = row.uniq
+        @winner = row.uniq[0]
         return true
       end
     end
@@ -91,7 +91,7 @@ class Board
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
       if column.uniq.count == 1 && column.uniq != nil
-        @winner = column.uniq
+        @winner = column.uniq[0]
         return true
       end
     end
@@ -106,7 +106,7 @@ class Board
       @column += 1
     end
     if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
-      @winner = forward_slash.uniq
+      @winner = forward_slash.uniq[0]
       return true
     end
   end
@@ -120,7 +120,7 @@ class Board
       @column -= 1
     end
     if backward_slash.uniq.count == 1 && backward_slash.uniq != nil
-      @winner = backward_slash.uniq
+      @winner = backward_slash.uniq[0]
       return true
     end
   end

@@ -9,6 +9,7 @@ class ComputerPlayer < Player
   end
   
   def get_move(board)
-    @ai.random_move(board)
+    # @ai.random_move(board)
+    @ai.get_minimax_move(board)
   end
 end
