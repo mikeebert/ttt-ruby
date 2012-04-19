@@ -9,6 +9,7 @@ class FakeUI
                 :asked_for_input,
                 :asked_to_play_first,
                 :play_first,
+                :player_details,
                 :requested_player_details,
                 :prompted_counter
   
@@ -60,10 +61,12 @@ class FakeUI
   
   def ask_for_type_of_game
     @prompted_user = true
+    @input = @input_values.shift
   end
   
   def get_details_for_player(n)
     @requested_player_details = true
+    @input = {type: :human, symbol: "X"}
   end
   
 end

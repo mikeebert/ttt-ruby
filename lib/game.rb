@@ -1,8 +1,9 @@
 require 'board'
 require 'commandlineinterface'
 require 'player'
-require 'human_player'
-require 'computer_player'
+require 'player_factory'
+# require 'human_player'
+# require 'computer_player'
 
 class Game
   
@@ -22,18 +23,11 @@ class Game
 
   def set_competitors
     @ui.get_details_for_player(1)
-    if @ui.input[:type] == :human 
-      @player1 = HumanPlayer.new(@ui.input[:symbol])
-    else
-      @player1 = ComputerPlayer.new(@ui.input[:symbol])
-    end
-    
+    @player1 = PlayerFactory.create(@ui.input)
+    @board.player1_symbol = @ui.input[:symbol]
     @ui.get_details_for_player(2)
-    if @ui.input[:type] == :human 
-      @player2 = HumanPlayer.new(@ui.input[:symbol])
-    else
-      @player2 = ComputerPlayer.new(@ui.input[:symbol])
-    end
+    @player2 = PlayerFactory.create(@ui.input)
+    @board.player1_symbol = @ui.input[:symbol]
   end
   
   def play_script
@@ -67,4 +61,23 @@ class Game
   def exit_game
     @ui.play_again == :no
   end
+
+private
+  # def set_details_for_player1
+  #   if @ui.input[:type] == :human 
+  #     @player1 = HumanPlayer.new(@ui.input[:symbol])
+  #   else
+  #     @player1 = ComputerPlayer.new(@ui.input[:symbol])
+  #   end
+  #   @board.player1_symbol = @ui.input[:symbol]
+  # end
+  # 
+  # def set_details_for_player2
+  #   if @ui.input[:type] == :human 
+  #     @player2 = HumanPlayer.new(@ui.input[:symbol])
+  #   else
+  #     @player2 = ComputerPlayer.new(@ui.input[:symbol])
+  #   end
+  #   @board.player2_symbol = @ui.input[:symbol]
+  # end
 end

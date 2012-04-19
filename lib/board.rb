@@ -3,7 +3,7 @@ class Board
   attr_accessor :grid
   attr_accessor :size
   attr_accessor :winner
-  attr_accessor :next_player
+  attr_accessor :next_player, :player1_symbol, :player2_symbol
   
   def initialize(size)
     @grid = fresh_grid(size)
@@ -29,8 +29,16 @@ class Board
     switch_next_player
   end
   
+  # def next_player_symbol
+  #   @next_player == :player1 ? @player1_symbol : @player2_symbol
+  # end
+  
+  def opponent_symbol
+    @next_player == :player1 ? @player2_symbol : @player1_symbol
+  end
+  
   def switch_next_player
-    @next_player == :player1 ? @next_player == :player2 : @next_player == :player1
+    @next_player == :player1 ? @next_player = :player2 : @next_player = :player1
   end
   
   def coordinates_of(move)
@@ -61,19 +69,24 @@ class Board
   def is_draw
     move_count == @size && has_winner != true
   end
-  
-  def is_over
-    has_winner == true || is_draw == true
-  end
-    
+      
   def has_winner
+    return true if horizontal_winner == true
+    return true if vertical_winner == true
+    return true if forward_slash_winner == true
+    return true if backward_slash_winner == true 
+  end  
+  
+  def horizontal_winner
     @grid.each do |row|
       if row.uniq.count == 1 && row.uniq != nil
         @winner = row.uniq
         return true
       end
     end
-    
+  end
+  
+  def vertical_winner
     column_values = (0..(Math.sqrt(size) - 1)).to_a
     column_values.each do |x_position|
       column = @grid.map {|row| row[x_position]}
@@ -82,7 +95,9 @@ class Board
         return true
       end
     end
-    
+  end
+  
+  def forward_slash_winner
     coordinates_of(1)
     forward_slash = []
     @grid.first.count.times do
@@ -94,7 +109,9 @@ class Board
       @winner = forward_slash.uniq
       return true
     end
-    
+  end
+  
+  def backward_slash_winner
     coordinates_of(Math.sqrt(size))
     backward_slash = []
     @grid.first.count.times do
@@ -106,9 +123,10 @@ class Board
       @winner = backward_slash.uniq
       return true
     end
-  end  
+  end
 
   def reset_grid
     @grid = fresh_grid(@grid.count)
-  end  
+  end
+  
 end

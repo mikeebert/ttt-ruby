@@ -12,7 +12,9 @@ class FakeBoard
                 :winner,
                 :received_symbol,
                 :received_move,
-                :checked_spaces_for_computer
+                :checked_spaces_for_computer,
+                :player1_symbol,
+                :player2_symbol
   
   def initialize
      @human_moves = []

@@ -1,7 +1,6 @@
 require 'ai'
 
 class ComputerPlayer < Player
-  attr_accessor :symbol
   attr_accessor :ai
 
   def initialize(symbol)

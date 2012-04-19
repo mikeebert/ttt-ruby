@@ -14,9 +14,13 @@ describe "the tic tac toe game" do
   end
 
   describe "the Game setup" do
+    before(:each) do
+      @ui.player_details = [{type: :human, symbol: "X"},
+                            {type: :computer, symbol: "X"}]
+    end
+
     it "should send a welcome message to the user" do
-      @ui.play_again = :no
-      @ui.input = {type: :human, symbol: "X"}
+      @ui.play_again = :no      
       @game.play
       @ui.message_contents.should include(:welcome_message)
     end
@@ -24,25 +28,30 @@ describe "the tic tac toe game" do
     describe "setting up the competitors" do      
       it "should ask the ui to provide the type and symbol for a player" do
         @ui.play_again = :no
-        @ui.input = {type: :human, symbol: "X"}
         @game.set_competitors
         @ui.requested_player_details.should == true
       end
       
       it "should create a player from the human class if type is human" # do
-       #        @ui.input = {type: :human, symbol: "x"}
-       #        @game.set_competitors
-       #        @human.created_new_player.should == true
-       #      end
+       #  @ui.input = {type: :human, symbol: "x"}
+       #   @game.set_competitors
+       #   @human.created_new_player.should == true
+       # end
       
       it "should create a new computer player if type is computer" # do
-       #        @human = FakeHuman.new
-       #        @ui.input = {type: :computer, symbol: "x"}
-       #        @game.set_competitors
-       #        @computer.created_new_player.should == true
-       #      end
+        #   @human = FakeHuman.new
+        #   @ui.input = {type: :computer, symbol: "x"}
+        #   @game.set_competitors
+        #   @computer.created_new_player.should == true
+        # end
       
-      it "should set player1 for a game"
+      it "should set the board's player1_symbol" do
+        @board = FakeBoard.new
+        @ui.input = {type: :human, symbol: "X"}
+        @game.set_competitors
+        puts @board.player1_symbol
+        @board.player1_symbol.should == "X"
+      end
       
       it "should set player2 for a game"
       
@@ -50,7 +59,7 @@ describe "the tic tac toe game" do
     
   end
   
-  describe "the play method that runs a game" do
+  describe "playing the game" do
     before(:each) do
       @player1 = FakeHuman.new
       @player2 = FakeHuman.new
@@ -62,20 +71,11 @@ describe "the tic tac toe game" do
       @ui = FakeUI.new
       @game.ui = @ui
       @player1.ui = @ui
-      @ui.input = {type: :human, symbol: "X"}
       @ui.input_values = [:valid_move]
     end
     
-    #not testing the right thing
-    it "should call the play script" do
-      @ui.play_again = :no
-      @ui.input_values = [:valid_move]*4 
-      @game.play
-      @ui.input_values.count.should == 0
-    end
-    
     it "should call the play script until the game is over" do
-      @ui.input = {type: :computer, symbol: "X"}
+      #how do I set the mocks for when a method creates an instance of another class?
       @ui.input_values = [:valid_move]*4
       @game.play
       @game.exit_game.should == true
