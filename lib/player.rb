@@ -6,6 +6,6 @@ class Player
   
   def move(board)
     move = self.get_move(board)
-    board.place_move(@symbol, move)    
+    board.place_move(@symbol, move)
   end
 end

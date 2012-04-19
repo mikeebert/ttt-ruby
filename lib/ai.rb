@@ -14,12 +14,11 @@ class Ai
     position = board.available_spaces.sample
   end
   
-  def get_minimax_move(board, symbol)
-    @max_symbol = symbol
-    @min_symbol = board.opponent_symbol
+  def get_minimax_move(board)
+    set_minmax_symbols(board)
     @possible_moves = Hash.new
     board.available_spaces.each do |move|
-       if move_is_win(board, move, symbol)
+       if move_is_win(board, move, @max_symbol)
          @possible_moves[move] = 100
          @max_move = move
     #      break
@@ -27,6 +26,15 @@ class Ai
     #      rank_minimax(board,move)
        end
      end
+  end
+  
+  def set_minmax_symbols(board)
+    if board.next_player == :player1 
+      @max_symbol = board.player1_symbol 
+    else
+      @max_symbol = board.player2_symbol
+    end
+    @min_symbol = board.opponent_symbol 
   end
   
   def move_is_win(board,move,symbol)

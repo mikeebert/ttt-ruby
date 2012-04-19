@@ -3,8 +3,8 @@ require 'commandlineinterface'
 class HumanPlayer < Player
   attr_accessor :ui
   
-  def initialize(symbol)
-    @ui = CommandLineInterface.new
+  def initialize(symbol, ui)
+    @ui = ui
     @symbol = symbol
   end
   

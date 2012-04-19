@@ -21,7 +21,7 @@ describe "playing through moves" do
     end
     
     it "should create a new hash of the possible moves" do
-      @ai.get_minimax_move(@board,@symbol)
+      @ai.get_minimax_move(@board)
       @ai.possible_moves.should == {}
     end
     
@@ -33,12 +33,16 @@ describe "playing through moves" do
       end
       
       it "should rank a win in one move as 100" do
-        @ai.get_minimax_move(@board, "X")
+        @board.next_player = :player1
+        @board.player1_symbol = "X"
+        @ai.get_minimax_move(@board)
         @ai.possible_moves[6].should == 100
       end
 
       it "should set the max_move to a win if possible" do
-        @ai.get_minimax_move(@board, "X")
+        @board.next_player = :player1
+        @board.player1_symbol = "X"
+        @ai.get_minimax_move(@board)
         @ai.max_move.should == 6
       end
 

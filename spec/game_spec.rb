@@ -75,8 +75,7 @@ describe "the tic tac toe game" do
     end
     
     it "should call the play script until the game is over" do
-      #how do I set the mocks for when a method creates an instance of another class?
-      @ui.input_values = [:valid_move]*4
+      @ui.calling_play_script = true
       @game.play
       @game.exit_game.should == true
     end

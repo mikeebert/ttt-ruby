@@ -11,7 +11,8 @@ class FakeUI
                 :play_first,
                 :player_details,
                 :requested_player_details,
-                :prompted_counter
+                :prompted_counter,
+                :calling_play_script
   
   def initialize
     @message_contents = []
@@ -21,6 +22,10 @@ class FakeUI
   
   def display_board(board)
     @displayed_board = board
+    if @calling_play_script == true
+      @input_values = [:valid_move]*4 
+      @calling_play_script = false
+    end
   end
   
   def welcome_message

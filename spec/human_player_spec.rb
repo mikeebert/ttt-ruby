@@ -7,10 +7,9 @@ require 'mocks/mock_board'
 describe "The Human Player" do
   
   before(:each) do
-    @human = HumanPlayer.new("x")
     @ui = FakeUI.new
+    @human = HumanPlayer.new("x", @ui)
     @ui.input_values = [:valid_move]
-    @human.ui = @ui
     @board = FakeBoard.new
   end
   

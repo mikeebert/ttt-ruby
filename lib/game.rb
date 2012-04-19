@@ -2,12 +2,10 @@ require 'board'
 require 'commandlineinterface'
 require 'player'
 require 'player_factory'
-# require 'human_player'
-# require 'computer_player'
 
 class Game
   
-  attr_accessor :board, :ui, :ai, :type, :player1, :player2
+  attr_accessor :board, :ui, :type, :player1, :player2
   
   def initialize
     @board = Board.new(3)
@@ -23,10 +21,10 @@ class Game
 
   def set_competitors
     @ui.get_details_for_player(1)
-    @player1 = PlayerFactory.create(@ui.input)
+    @player1 = PlayerFactory.create(@ui.input, @ui)
     @board.player1_symbol = @ui.input[:symbol]
     @ui.get_details_for_player(2)
-    @player2 = PlayerFactory.create(@ui.input)
+    @player2 = PlayerFactory.create(@ui.input, @ui)
     @board.player1_symbol = @ui.input[:symbol]
   end
   

@@ -9,13 +9,7 @@ describe "the tic tac toe board" do
     @board.player1_symbol = @player1_symbol
     @board.player2_symbol = @player2_symbol
   end
-  
-  it "should return the next player's opponent's symbol" do
-    @board.next_player = :player1
-    @board.opponent_symbol.should == "O"
-    @board.next_player = :player2
-    @board.opponent_symbol.should == "X"
-  end
+
   
   it "should have an array of arrays representing the size of the grid" do
     @board.grid.flatten.count.should == 9
@@ -34,6 +28,12 @@ describe "the tic tac toe board" do
     @board.grid[2][2].should == 9
   end
 
+  it "should return the next player's opponent's symbol" do
+    @board.next_player = :player1
+    @board.opponent_symbol.should == "O"
+    @board.next_player = :player2
+    @board.opponent_symbol.should == "X"
+  end
   
   it "should check to see if a move is valid on the grid" do
     @board.valid_move(1).should == true
@@ -64,6 +64,12 @@ describe "the tic tac toe board" do
     @board.place_move(@player1_symbol,7)
     @board.grid[0][0].should == @player1_symbol
     @board.grid[2][0].should == @player1_symbol
+  end
+  
+  it "should switch the next player after placing a move on a board" do
+    @board.next_player = :player1
+    @board.place_move(@player1_symbol, 1)
+    @board.next_player.should == :player2
   end
 
   it "should check for a row of the same symbols" do
