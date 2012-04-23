@@ -3,7 +3,7 @@ class Board
   attr_accessor :grid
   attr_accessor :size
   attr_accessor :winner
-  attr_accessor :next_player, :player1_symbol, :player2_symbol
+  attr_accessor :next_player, :player1_symbol, :player2_symbol, :max_move, :min_move
   
   def initialize(size)
     @grid = fresh_grid(size)

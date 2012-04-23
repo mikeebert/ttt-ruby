@@ -1,5 +1,7 @@
 class FakeBoard
-  attr_accessor :human_moves,
+  attr_accessor :size,
+                :grid,
+                :human_moves,
                 :checked_validity,
                 :is_draw,
                 :game_won,
@@ -17,6 +19,8 @@ class FakeBoard
                 :player2_symbol
   
   def initialize
+     @size = 9
+     @grid = [[1,2,3],[4,5,6],[7,8,9]]
      @human_moves = []
      @checked_for_winner = []
      @spaces_values = [[:valid_move], [1]]

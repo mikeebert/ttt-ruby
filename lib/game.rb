@@ -59,23 +59,4 @@ class Game
   def exit_game
     @ui.play_again == :no
   end
-
-private
-  # def set_details_for_player1
-  #   if @ui.input[:type] == :human 
-  #     @player1 = HumanPlayer.new(@ui.input[:symbol])
-  #   else
-  #     @player1 = ComputerPlayer.new(@ui.input[:symbol])
-  #   end
-  #   @board.player1_symbol = @ui.input[:symbol]
-  # end
-  # 
-  # def set_details_for_player2
-  #   if @ui.input[:type] == :human 
-  #     @player2 = HumanPlayer.new(@ui.input[:symbol])
-  #   else
-  #     @player2 = ComputerPlayer.new(@ui.input[:symbol])
-  #   end
-  #   @board.player2_symbol = @ui.input[:symbol]
-  # end
 end

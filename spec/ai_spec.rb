@@ -2,98 +2,123 @@ require 'ai'
 require 'board'
 require 'mocks/mock_board'
 
-describe "playing through moves" do
+describe "setting up to play through minimax" do
   before(:each) do
     @ai = Ai.new
-  end
-
-  it "should return a move from the list of available spaces" do
     @board = FakeBoard.new
+  end
+    
+  it "should return a move from the list of available spaces on a board" do
     @board.spaces_values = [1,2,3,4]
     move = @ai.random_move(@board)
     @board.spaces_values.should include(move)
   end
   
-  describe "getting and ranking minimax moves" do
+  it "should set the min and max players and symbols" do
+    @board.player1_symbol = "X"
+    @board.player2_symbol = "O"
+    @board.next_player = :player1
+    @ai.set_min_and_max_players(@board)
+    @ai.max_symbol.should == "X"
+    @ai.max_player.should == :player1
+    @ai.min_symbol.should == "O"
+    @ai.min_player.should == :player2
+  end
+  
+  it "should create a copy of a board" do
+    new_board = @ai.copy(@board)
+    new_board.grid.should == @board.grid
+    new_board.next_player.should == @board.next_player
+  end
+  
+  
+  describe "ranking minimax moves" do
     before(:each) do
       @board = Board.new(3)
-      @symbol = "X"
       @board.player1_symbol = "X"
       @board.player2_symbol = "O"
     end
     
-    it "should set the min and max symbols from a board player1" do
+    it "should return 100 if the max player is the winner" do
+      @board.grid = [["X","X","X"],
+                     [4,5,6],
+                     [7,8,9]]
+      @ai.set_min_and_max_players(@board)
+      @ai.game_value(@board).should == 100
+    end
+
+    it "should return -100 if the min player is the winner" do
+      @board.grid = [["O","O","O"],
+                     [4,5,6],
+                     [7,8,9]]
+      @ai.set_min_and_max_players(@board)
+      @ai.game_value(@board).should == -100
+    end
+  end
+    
+  describe "possible game scenarios" do
+    before(:each) do
+      @board = Board.new(3)
       @board.next_player = :player1
-      @ai.set_min_and_max_symbols(@board)
-      @ai.max_symbol.should == "X"
-      @ai.min_symbol.should == "O"
+      @board.player1_symbol = "X"
+      @board.player2_symbol = "O"
+    end
+    
+    it "should return a win in one move as the only possible move" do
+      @board.grid = [["X","O","X"],
+                     ["X","X",6],
+                     ["O",8,"O"]]
+      @ai.get_minimax_move(@board).should == 6
     end
 
-    it "should set the min and max symbols from a board player2" do
+    it "it should return the block of an opponent as the best move" do
+      @board.grid = [["X","O",3],
+                     [4,"X",6],
+                     [7,8,9]]
       @board.next_player = :player2
-      @ai.set_min_and_max_symbols(@board)
-      @ai.max_symbol.should == "O"
-      @ai.min_symbol.should == "X"
-    end    
-    
-    describe "a possible win in one move" do
-      before(:each) do
-        @board.grid = [["X","O","X"],
-                       ["X","X",6],
-                       ["O",8,"O"]]
-        @board.next_player = :player1
-        @board.player1_symbol = "X"
-        @board.player2_symbol = "O"
-      end
-      
-      it "should rank a win in one move as 100" do
-        @ai.get_minimax_move(@board)
-        @ai.max_move[6].should == 100
-      end
-
-      it "should set the max_move to a win if possible" do
-        @ai.get_minimax_move(@board)
-        @ai.max_move.keys[0].should == 6
-      end
-
-      # it "should know if a move is a win" do
-      #   @ai.move_is_win(@board,8,"O").should == true
-      # end
-      
-      it "should return a win in one move as the best move" do
-        move = @ai.get_minimax_move(@board)
-        move.should == 6
-      end
-      
-      it "it should return the block of an opponent as the best move if no win is possible" do
-        @board.grid = [["X","O","X"],
-                       [4,"O",6],
-                       ["X","X","O"]]
-        @board.next_player = :player2
-        move = @ai.get_minimax_move(@board)
-        puts "#{@ai.max_symbol}'s best move is #{@ai.max_move} \n"
-        puts "#{@ai.min_symbol}'s best move is #{@ai.min_move} \n"
-
-        move.should == 4
-      end
-      
-      it "it should return the block of an opponent as the best move if no win is possible" do
-        @board.grid = [["X","O",3],
-                       [4,"X",6],
-                       [7,8,9]]
-        @board.next_player = :player2
-        move = @ai.get_minimax_move(@board)
-        puts "#{@ai.max_symbol}'s best move is #{@ai.max_move} \n"
-        puts "#{@ai.min_symbol}'s best move is #{@ai.min_move} \n"
-        move.should == 9
-      end
-      
+      move = @ai.get_minimax_move(@board)
+      move.should == 9
     end
     
-    it "should create a copy of a board" do
-      new_board = @ai.copy(@board)
-      new_board.grid.should == @board.grid
-      new_board.next_player.should == @board.next_player
+    it "should return the last available spot as the only possible move" do
+      @board.grid = [["X","O",3],
+                     ["X","X","O"],
+                     ["O","X","O"]]
+      @board.next_player = :player1
+      move = @ai.get_minimax_move(@board)
+      move.should == 3
     end
+    
+    it "should block an L set-up" do
+      @board.grid = [["X",2,3],
+                     [4,"O",6],
+                     [7,"X",9]]
+      @board.next_player = :player2
+      @ai.get_minimax_move(@board).should == 7
+    end
+    
+    it "should block an edge set-up" do
+      @board.grid = [[1,"X",3],
+                     ["X","O",6],
+                     [7,8,9]]
+      @board.next_player = :player2
+      @ai.get_minimax_move(@board).should == 1
+    end
+    
+    it "should choose the center after an opening corner" do
+      @board.grid = [["X",2,3],
+                     [4,5,6],
+                     [7,8,9]]
+      @board.next_player = :player2
+      @ai.get_minimax_move(@board).should == 5      
+    end
+    
+    # it "should choose a corner as the opening move" do
+    #   @board.grid = [[1,2,3],
+    #                  [4,5,6],
+    #                  [7,8,9]]
+    #   @board.next_player = :player2
+    #   @ai.get_minimax_move(@board).should == 1            
+    # end
   end
 end
