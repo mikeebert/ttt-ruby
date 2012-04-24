@@ -8,6 +8,7 @@ class CommandLineInterface
     puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord.\nEnter a number corresponding to a position on the board to make your first move."
   end
     
+    
   def display_board(board)
     board.grid.each do |line| 
       line.each {|value| print "#{value} "}
@@ -15,6 +16,32 @@ class CommandLineInterface
     end
     print "-------\n"
   end
+    
+  # def display_board(board)
+  #   board.grid.each do |line|
+  #     print "---------------\n"
+  #     print "|   ||   ||   |\n"
+  #     line.each do |value| 
+  #       if value.class != Fixnum
+  #         print "| #{value} |"
+  #       else 
+  #         print "|   |"
+  #       end      
+  #     end
+  #     print "\n"
+  #     print "|   ||   ||   |\n"
+  #     print "---------------\n"
+  #     line.each do |value| 
+  #       if value.class != Fixnum
+  #         print "     "
+  #       else
+  #         print "  #{value}  "
+  #       end
+  #     end
+  #     print "\n"
+  #   end
+  #   print "===============\n"
+  # end
 
   def get_details_for_player(n)
     @input = Hash.new

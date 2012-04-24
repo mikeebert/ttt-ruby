@@ -1,5 +1,3 @@
-require 'board'
-
 class Ai
   attr_accessor :max_player,
                 :min_player,
@@ -30,7 +28,6 @@ class Ai
     end
     return @possible_moves.sample
   end
-    
     
   def minimax_score(board)
     score = game_value(board)
@@ -65,13 +62,9 @@ class Ai
     
   def game_value(board)
     if board.has_winner || board.is_draw
-      if board.winner == @max_symbol
-        return 100
-      elsif board.winner == @min_symbol
-        return -100
-      elsif board.is_draw
-        return 0
-      end
+      return 100 if board.winner == @max_symbol
+      return -100 if board.winner == @min_symbol
+      return 0 if board.is_draw
     else
       return -1
     end
