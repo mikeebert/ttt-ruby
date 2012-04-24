@@ -11,5 +11,10 @@ class FakeAi
     @received_board = true
     return @move
   end
+  
+  def get_minimax_move(board)
+    @received_board = true
+    return @move    
+  end
 
 end

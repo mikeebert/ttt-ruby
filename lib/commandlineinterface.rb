@@ -1,6 +1,7 @@
 class CommandLineInterface
   
   attr_accessor :input
+  attr_accessor :first_player_symbol
   attr_accessor :play_again
   attr_accessor :play_first
 
@@ -45,19 +46,9 @@ class CommandLineInterface
 
   def get_details_for_player(n)
     @input = Hash.new
-    get_type_for_player(n)
-    get_symbol_for_player(n)
+    @input[:type] = prompt_for_type(n)
+    @input[:symbol] = prompt_for_symbol(n)
     return @input
-  end
-  
-  def get_type_for_player(n)
-    kind_of_player = prompt_for_type(n)
-    @input[:type] = kind_of_player
-  end
-  
-  def get_symbol_for_player(n)
-    character = prompt_for_symbol(n)
-    @input[:symbol] = character
   end
   
   def prompt_for_type(n)
@@ -76,8 +67,9 @@ class CommandLineInterface
   def prompt_for_symbol(n)
     puts "What alphanumeric symbol would you like to represent Player #{n}?"
     input = gets.slice(0)
-    if input != "\n"
+    if input != "\n" && input != @first_player_symbol
       puts "Got it. Player #{n}'s symbol will be #{input}."
+      @first_player_symbol ||= input
       return input
     else
       puts "Not a valid Symbol"
