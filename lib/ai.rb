@@ -40,22 +40,13 @@ class Ai
 
     board.available_spaces.each do |space|
       test_board = copy(board)
-      place_test_move(test_board,space)
-      # test_board.place_move(board.next_player_symbol, space)
+      test_board.place_move(test_board.next_player_symbol, space)
       new_score = minimax_score(test_board)      
       best_score = compare(best_score, new_score, player)
     end
     return best_score
   end
-  
-  def place_test_move(board,space)
-    if board.next_player == @min_player
-      board.place_move(@min_symbol, space)
-    else
-      board.place_move(@max_symbol, space)
-    end    
-  end
-  
+    
   def starting_score_for(player)
     if player == @min_player 
       return 5 
@@ -108,6 +99,8 @@ class Ai
       row_index += 1
     end
     new_board.next_player = board.next_player
+    new_board.player1_symbol = board.player1_symbol
+    new_board.player2_symbol = board.player2_symbol
     return new_board
   end
   
