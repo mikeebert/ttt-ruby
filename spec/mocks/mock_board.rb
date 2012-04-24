@@ -48,18 +48,21 @@ class FakeBoard
     @spaces_values
   end
   
-  def place_player2_move(n)
-    @made_computer_move = true
+  def next_player_symbol
+    @next_player == :player1 ? @player1symbol : @player2symbol
   end
-  
+    
   def has_winner
     @loop_counter += 1
     @game_won ||= true if @loop_counter >= 5
     @game_won == true
   end
   
-  def reset_grid
+  
+  def reset_board
     @reset_the_grid = true
+    @reset_next_player = true
+    @reset_the_winner = true
   end
   
   def move_count

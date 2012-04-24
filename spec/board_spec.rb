@@ -35,6 +35,11 @@ describe "the tic tac toe board" do
     @board.opponent_symbol.should == "X"
   end
   
+  it "should return the next player's symbol" do
+    @board.next_player = :player1
+    @board.next_player_symbol.should == "X"
+  end
+  
   it "should check to see if a move is valid on the grid" do
     @board.valid_move(1).should == true
     @board.valid_move(10).should == false
@@ -139,10 +144,12 @@ describe "the tic tac toe board" do
     @board.available_spaces.should == [2,3,4,5,6,7,8,9]
   end
     
-  it "should reset the grid" do
+  it "should reset the board" do
     @board.place_move(@player1_symbol,1)
     old_grid = @board.grid
-    @board.reset_grid
+    @board.reset_board
     @board.grid.flatten.should_not == old_grid.flatten
+    @board.winner.should == nil
+    @board.next_player.should == :player1
   end
 end

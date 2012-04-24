@@ -41,15 +41,12 @@ class Game
   end
   
   def game_over_scenario
-    if @board.has_winner
-      @ui.winning_message(@board.winner)
-    else
-      @ui.draw_message      
-    end
+    @ui.winning_message(@board.winner) if @board.has_winner
+    @ui.draw_message if @board.is_draw
     @ui.display_board(@board)
-    @board.reset_grid
+    @board.reset_board
     ask_to_play_again
-    play unless exit_game
+    play_script unless exit_game
   end
   
   def ask_to_play_again

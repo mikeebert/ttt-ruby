@@ -3,7 +3,7 @@ class Board
   attr_accessor :grid
   attr_accessor :size
   attr_accessor :winner
-  attr_accessor :next_player, :player1_symbol, :player2_symbol, :max_move, :min_move
+  attr_accessor :next_player, :player1_symbol, :player2_symbol
   
   def initialize(size)
     @grid = fresh_grid(size)
@@ -29,9 +29,9 @@ class Board
     switch_next_player
   end
   
-  # def next_player_symbol
-  #   @next_player == :player1 ? @player1_symbol : @player2_symbol
-  # end
+  def next_player_symbol
+    @next_player == :player1 ? @player1_symbol : @player2_symbol
+  end
   
   def opponent_symbol
     @next_player == :player1 ? @player2_symbol : @player1_symbol
@@ -125,8 +125,10 @@ class Board
     end
   end
 
-  def reset_grid
+  def reset_board
     @grid = fresh_grid(@grid.count)
+    @winner = nil
+    @next_player = :player1
   end
   
 end

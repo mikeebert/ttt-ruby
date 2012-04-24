@@ -94,7 +94,8 @@ describe "setting up to play through minimax" do
                      [4,"O",6],
                      [7,"X",9]]
       @board.next_player = :player2
-      @ai.get_minimax_move(@board).should == 7
+      @ai.get_minimax_move(@board)
+      @ai.possible_moves.should == [4,6,7,9]
     end
     
     it "should block an edge set-up" do
@@ -102,7 +103,8 @@ describe "setting up to play through minimax" do
                      ["X","O",6],
                      [7,8,9]]
       @board.next_player = :player2
-      @ai.get_minimax_move(@board).should == 1
+      @ai.get_minimax_move(@board)
+      @ai.possible_moves.should == [1,3,7]
     end
     
     it "should choose the center after an opening corner" do
@@ -117,8 +119,9 @@ describe "setting up to play through minimax" do
     #   @board.grid = [[1,2,3],
     #                  [4,5,6],
     #                  [7,8,9]]
-    #   @board.next_player = :player2
-    #   @ai.get_minimax_move(@board).should == 1            
+    #   @board.next_player = :player1
+    #   @ai.get_minimax_move(@board)
+    #   @ai.possible_moves.should == [1,3,7,9]
     # end
   end
 end
