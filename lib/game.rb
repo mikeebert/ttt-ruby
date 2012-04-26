@@ -16,16 +16,17 @@ class Game
   def play
     @ui.welcome_message
     set_competitors
+    @ui.display_instructions
     play_script until exit_game
   end
 
   def set_competitors
-    @ui.get_details_for_player(1)
-    @player1 = PlayerFactory.create(@ui.input, @ui)
-    @board.player1_symbol = @ui.input[:symbol]
-    @ui.get_details_for_player(2)
-    @player2 = PlayerFactory.create(@ui.input, @ui)
-    @board.player2_symbol = @ui.input[:symbol]
+    input = @ui.get_details_for_player(1)
+    @player1 = PlayerFactory.create(input, @ui)
+    @board.player1_symbol = input[:symbol]
+    input2 = @ui.get_details_for_player(2)
+    @player2 = PlayerFactory.create(input2, @ui)
+    @board.player2_symbol = input2[:symbol]
   end
   
   def play_script

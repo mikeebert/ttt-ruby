@@ -11,23 +11,30 @@ class FakeBoard
                 :loop_counter,
                 :reset_the_grid,
                 :next_player,
+                :opposite_player,
                 :winner,
                 :received_symbol,
                 :received_move,
                 :checked_spaces_for_computer,
+                # :player1, :player2
                 :player1_symbol,
                 :player2_symbol
   
   def initialize
-     @size = 9
-     @grid = [[1,2,3],[4,5,6],[7,8,9]]
-     @human_moves = []
-     @checked_for_winner = []
-     @spaces_values = [[:valid_move], [1]]
-     @loop_counter = 0
-     @winner = []
-   end
-  
+    @size = 9
+    @grid = [[1,2,3],[4,5,6],[7,8,9]]
+    @human_moves = []
+    @checked_for_winner = []
+    @spaces_values = [[:valid_move], [1]]
+    @loop_counter = 0
+    @winner = []
+    @next_player = :player1
+  end
+
+  def opponent
+    @next_player == @player1 ? @player2 : @player1
+  end
+   
   def place_player1_move(n)
     @human_moves << n
   end
@@ -47,9 +54,13 @@ class FakeBoard
     @provided_spaces = true
     @spaces_values
   end
-  
+    
   def next_player_symbol
-    @next_player == :player1 ? @player1symbol : @player2symbol
+    @next_player == :player1 ? @player1_symbol : @player2_symbol
+  end
+  
+  def opponent_symbol
+    @next_player == :player1 ? @player2_symbol : @player1_symbol
   end
     
   def has_winner

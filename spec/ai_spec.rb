@@ -24,13 +24,12 @@ describe "setting up to play through minimax" do
     @ai.min_symbol.should == "O"
     @ai.min_player.should == :player2
   end
-  
+    
   it "should create a copy of a board" do
     new_board = @ai.copy(@board)
     new_board.grid.should == @board.grid
     new_board.next_player.should == @board.next_player
   end
-  
   
   describe "ranking minimax moves" do
     before(:each) do

@@ -1,5 +1,6 @@
 class FakeUI
   attr_accessor :displayed_board,
+                :displayed_instructions,
                 :message_contents,
                 :user_input,
                 :input_values,
@@ -30,6 +31,10 @@ class FakeUI
   
   def welcome_message
     @message_contents << :welcome_message
+  end
+  
+  def display_instructions
+    @displayed_instructions = true
   end
   
   def get_input

@@ -26,6 +26,7 @@ class Ai
         @possible_moves << space
       end
     end
+    
     return @possible_moves.sample
   end
     
@@ -41,6 +42,7 @@ class Ai
       new_score = minimax_score(test_board)      
       best_score = compare(best_score, new_score, player)
     end
+    
     return best_score
   end
     
@@ -71,19 +73,16 @@ class Ai
   end
   
   def set_min_and_max_players(board)
-    if board.next_player == :player1
-      @max_symbol = board.player1_symbol
-      @max_player = :player1
-      @min_symbol = board.player2_symbol
+    @max_symbol = board.next_player_symbol
+    @min_symbol = board.opponent_symbol
+    @max_player = board.next_player
+    if @max_player == :player1
       @min_player = :player2
-    elsif board.next_player == :player2
-      @max_symbol = board.player2_symbol
-      @max_player = :player2
-      @min_symbol = board.player1_symbol
+    else
       @min_player = :player1
     end
-  end  
-  
+  end
+    
   def copy(board)
     new_board = Board.new(Math.sqrt(board.size).to_i)
     row_index = 0

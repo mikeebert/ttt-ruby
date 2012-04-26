@@ -6,43 +6,39 @@ class CommandLineInterface
   attr_accessor :play_first
 
   def welcome_message
-    puts "Welcome to Tic Tac Toe. Below is the tic-tac-toe baord.\nEnter a number corresponding to a position on the board to make your first move."
+    puts "Welcome to Tic Tac Toe."
   end
     
+    
+  # def display_board(board)
+  #   board.grid.each do |line| 
+  #     line.each {|value| print "#{value} "}
+  #     print "\n"
+  #   end
+  #   print "-------\n"
+  # end
     
   def display_board(board)
     board.grid.each do |line| 
-      line.each {|value| print "#{value} "}
+      line.each do |value|
+        if value.class != Fixnum
+          print "#{value}|"
+        else
+          print "_|"
+        end
+      end
+      print " "
+      line.each do |value|
+        if value.class == Fixnum
+          print "#{value} "
+        else
+          print "  "
+        end
+      end
       print "\n"
     end
-    print "-------\n"
+    print "==============\n"
   end
-    
-  # def display_board(board)
-  #   board.grid.each do |line|
-  #     print "---------------\n"
-  #     print "|   ||   ||   |\n"
-  #     line.each do |value| 
-  #       if value.class != Fixnum
-  #         print "| #{value} |"
-  #       else 
-  #         print "|   |"
-  #       end      
-  #     end
-  #     print "\n"
-  #     print "|   ||   ||   |\n"
-  #     print "---------------\n"
-  #     line.each do |value| 
-  #       if value.class != Fixnum
-  #         print "     "
-  #       else
-  #         print "  #{value}  "
-  #       end
-  #     end
-  #     print "\n"
-  #   end
-  #   print "===============\n"
-  # end
 
   def get_details_for_player(n)
     @input = Hash.new
@@ -68,13 +64,17 @@ class CommandLineInterface
     puts "What alphanumeric symbol would you like to represent Player #{n}?"
     input = gets.slice(0)
     if input != "\n" && input != @first_player_symbol
-      puts "Got it. Player #{n}'s symbol will be #{input}."
+      puts "OK. Player #{n}'s symbol will be #{input}."
       @first_player_symbol ||= input
       return input
     else
       puts "Not a valid Symbol"
       prompt_for_symbol(n)
     end
+  end
+  
+  def display_instructions
+    puts "Below is the tic-tac-toe board.\nNumbers on the right correspond to Spaces on the left.\nEnter a number to make your first move."
   end
   
   def invalid_move_message

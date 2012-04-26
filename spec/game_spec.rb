@@ -45,15 +45,21 @@ describe "the tic tac toe game" do
         #   @computer.created_new_player.should == true
         # end
       
-      it "should set the board's player1_symbol" do
+      it "should set the board's next player" do
         @board = FakeBoard.new
-        @ui.input = {type: :human, symbol: "X"}
+        @game.board = @board
         @game.set_competitors
-        puts @board.player1_symbol
-        @board.player1_symbol.should == "X"
+        @board.next_player.should == :player1
       end
       
       it "should set player2 for a game"
+      
+      it "should display the instructions for a user" do
+        @board = FakeBoard.new
+        @ui.play_again = :no
+        @game.play
+        @ui.displayed_instructions.should == true
+      end
       
     end
     
