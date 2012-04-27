@@ -9,7 +9,6 @@ class ComputerPlayer < Player
   end
   
   def get_move(board)
-    puts "Thinking..."
     sleep 1.0
     # @ai.random_move(board)    
     @ai.get_minimax_move(board)

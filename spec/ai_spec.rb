@@ -20,9 +20,7 @@ describe "setting up to play through minimax" do
     @board.next_player = :player1
     @ai.set_min_and_max_players(@board)
     @ai.max_symbol.should == "X"
-    @ai.max_player.should == :player1
     @ai.min_symbol.should == "O"
-    @ai.min_player.should == :player2
   end
     
   it "should create a copy of a board" do

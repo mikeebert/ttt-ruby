@@ -33,8 +33,11 @@ class Game
     @ui.display_board(@board)
     @player1.move(@board)
     @ui.display_board(@board)
-    @player2.move(@board) unless game_is_over
-    game_over_scenario if game_is_over
+    if game_is_over
+      game_over_scenario
+    else
+      @player2.move(@board)
+    end
   end
   
   def game_is_over

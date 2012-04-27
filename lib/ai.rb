@@ -1,7 +1,7 @@
+require 'minimax_players'
+
 class Ai
-  attr_accessor :max_player,
-                :min_player,
-                :max_symbol, 
+  attr_accessor :max_symbol, 
                 :min_symbol,
                 :possible_moves
       
@@ -12,7 +12,7 @@ class Ai
   def get_minimax_move(board)
     set_min_and_max_players(board)
     @possible_moves = []
-    best_score_for_max = -5
+    best_score_for_max = -50
     
     board.available_spaces.each do |space|
       test_board = copy(board)
@@ -33,29 +33,29 @@ class Ai
   def minimax_score(board)
     score = game_value(board)
     return score unless score == -1
-    best_score = starting_score_for(board.next_player)
-    player = board.next_player
+    player_symbol = board.next_player_symbol
+    best_score = starting_score_for(player_symbol)
 
     board.available_spaces.each do |space|
       test_board = copy(board)
-      test_board.place_move(test_board.next_player_symbol, space)
+      test_board.place_move(player_symbol, space)
       new_score = minimax_score(test_board)      
-      best_score = compare(best_score, new_score, player)
+      best_score = compare(best_score, new_score, player_symbol)
     end
     
     return best_score
   end
     
-  def starting_score_for(player)
-    if player == @min_player 
-      return 5 
+  def starting_score_for(player_symbol)
+    if player_symbol == @min_symbol
+      return 50
     else
-      return -5
+      return -50
     end
   end
   
-  def compare(best_score, new_score, player)
-    if player == @min_player
+  def compare(best_score, new_score, player_symbol)
+    if player_symbol == @min_symbol
       new_score < best_score ? new_score : best_score
     else
       new_score > best_score ? new_score : best_score
@@ -75,12 +75,6 @@ class Ai
   def set_min_and_max_players(board)
     @max_symbol = board.next_player_symbol
     @min_symbol = board.opponent_symbol
-    @max_player = board.next_player
-    if @max_player == :player1
-      @min_player = :player2
-    else
-      @min_player = :player1
-    end
   end
     
   def copy(board)
