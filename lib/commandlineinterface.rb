@@ -74,7 +74,7 @@ class CommandLineInterface
   end
   
   def display_instructions
-    puts "Below is the tic-tac-toe board.\nNumbers on the right correspond to Spaces on the left.\nEnter a number to make your first move."
+    puts "Below is the tic-tac-toe board.\nNumbers on the right correspond to Spaces on the left."
   end
   
   def invalid_move_message

@@ -1,26 +1,33 @@
 require 'minimax_players'
 
 class Ai
-  attr_accessor :max_symbol, 
-                :min_symbol,
-                :possible_moves
+  attr_accessor :max, 
+                :min,
+                :possible_moves,
+                :possible_wins, 
+                :possible_losses
       
+  def initialize
+    @possible_moves = []
+  end
+
   def random_move(board)
     position = board.available_spaces.sample
   end
   
   def get_minimax_move(board)
     set_min_and_max_players(board)
-    @possible_moves = []
+    set_up_possible_wins_and_losses(board)
     best_score_for_max = -50
     
     board.available_spaces.each do |space|
       test_board = copy(board)
-      test_board.place_move(@max_symbol, space)
-      new_score = minimax_score(test_board)
+      test_board.place_move(@max.symbol, space)
+      new_score = minimax_score(test_board,space)
+      @possible_wins[space] += 1 if new_score == 100
       if new_score > best_score_for_max
         best_score_for_max = new_score
-        @possible_moves = [] #reset the @possible_moves if ranked higher than others
+        @possible_moves = []
         @possible_moves << space
       elsif new_score == best_score_for_max
         @possible_moves << space
@@ -30,42 +37,32 @@ class Ai
     return @possible_moves.sample
   end
     
-  def minimax_score(board)
+  def minimax_score(board,move)
     score = game_value(board)
     return score unless score == -1
-    player_symbol = board.next_player_symbol
-    best_score = starting_score_for(player_symbol)
+    player = set_player(board.next_player_symbol)
+    best_score = player.starting_score
 
     board.available_spaces.each do |space|
       test_board = copy(board)
-      test_board.place_move(player_symbol, space)
-      new_score = minimax_score(test_board)      
-      best_score = compare(best_score, new_score, player_symbol)
+      test_board.place_move(player.symbol, space)
+      new_score = minimax_score(test_board,move)
+      @possible_wins[move] += 1 if new_score == 100
+      @possible_losses[move] += 1 if new_score == -100
+      best_score = player.compare(best_score, new_score)
     end
     
     return best_score
   end
-    
-  def starting_score_for(player_symbol)
-    if player_symbol == @min_symbol
-      return 50
-    else
-      return -50
-    end
-  end
   
-  def compare(best_score, new_score, player_symbol)
-    if player_symbol == @min_symbol
-      new_score < best_score ? new_score : best_score
-    else
-      new_score > best_score ? new_score : best_score
-    end
+  def set_player(symbol)
+    symbol == @max.symbol ? @max : @min
   end
     
   def game_value(board)
     if board.has_winner || board.is_draw
-      return 100 if board.winner == @max_symbol
-      return -100 if board.winner == @min_symbol
+      return 100 if board.winner == @max.symbol
+      return -100 if board.winner == @min.symbol
       return 0 if board.is_draw
     else
       return -1
@@ -73,8 +70,8 @@ class Ai
   end
   
   def set_min_and_max_players(board)
-    @max_symbol = board.next_player_symbol
-    @min_symbol = board.opponent_symbol
+    @max = MaxPlayer.new(board.next_player_symbol, -50)
+    @min = MinPlayer.new(board.opponent_symbol, 50)
   end
     
   def copy(board)
@@ -88,6 +85,13 @@ class Ai
     new_board.player1_symbol = board.player1_symbol
     new_board.player2_symbol = board.player2_symbol
     return new_board
+  end
+  
+  def set_up_possible_wins_and_losses(board)
+    @possible_wins = Hash.new
+    @possible_losses = Hash.new
+    board.available_spaces.each {|space| @possible_wins[space] = 0}
+    board.available_spaces.each {|space| @possible_losses[space] = 0}
   end
   
 end

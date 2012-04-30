@@ -19,8 +19,8 @@ describe "setting up to play through minimax" do
     @board.player2_symbol = "O"
     @board.next_player = :player1
     @ai.set_min_and_max_players(@board)
-    @ai.max_symbol.should == "X"
-    @ai.min_symbol.should == "O"
+    @ai.max.symbol.should == "X"
+    @ai.min.symbol.should == "O"
   end
     
   it "should create a copy of a board" do
@@ -50,7 +50,7 @@ describe "setting up to play through minimax" do
                      [7,8,9]]
       @ai.set_min_and_max_players(@board)
       @ai.game_value(@board).should == -100
-    end
+    end    
   end
     
   describe "possible game scenarios" do
@@ -66,6 +66,14 @@ describe "setting up to play through minimax" do
                      ["X","X",6],
                      ["O",8,"O"]]
       @ai.get_minimax_move(@board).should == 6
+    end
+    
+    it "should save the possible win in a hash of possible wins" do
+      @board.grid = [["X","O","X"],
+                     ["X","X",6],
+                     ["O",8,"O"]]
+      @ai.get_minimax_move(@board)
+      @ai.possible_wins.should == {6 => 1, 8 => 0}
     end
 
     it "it should return the block of an opponent as the best move" do
@@ -112,13 +120,28 @@ describe "setting up to play through minimax" do
       @ai.get_minimax_move(@board).should == 5      
     end
     
+    it "will choose something after choosing an opening corner & an opponent center" do
+      @board.grid = [["X",2,3],
+                     [4,"O",6],
+                     [7,8,9]]
+      @board.next_player = :player1
+      move = @ai.get_minimax_move(@board)
+      puts "Possible moves are #{@ai.possible_moves}\n"
+      puts "The best move is #{move}"
+      puts "Possible wins are #{@ai.possible_wins}"
+      puts "Possible losses are #{@ai.possible_losses}"
+    end
+    
     # it "should choose a corner as the opening move" do
     #   @board.grid = [[1,2,3],
     #                  [4,5,6],
     #                  [7,8,9]]
     #   @board.next_player = :player1
-    #   @ai.get_minimax_move(@board)
-    #   @ai.possible_moves.should == [1,3,7,9]
+    #   move = @ai.get_minimax_move(@board)
+    #   puts "Possible moves are #{@ai.possible_moves}\n"
+    #   puts "The best move is #{move}"
+    #   puts "Possible wins are #{@ai.possible_wins}"
+    #   puts "Possible losses are #{@ai.possible_losses}"
     # end
   end
 end

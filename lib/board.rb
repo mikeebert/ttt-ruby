@@ -38,12 +38,6 @@ class Board
     @next_player == :player1 ? @player2_symbol : @player1_symbol
   end
   
-  # def switch_players
-  #   swap = @next_player
-  #   @next_player = @opposite_player
-  #   @opposite_player = swap    
-  # end
-  
   def switch_next_player
     @next_player == :player1 ? @next_player = :player2 : @next_player = :player1
   end
@@ -94,9 +88,7 @@ class Board
   end
   
   def vertical_winner
-    column_values = (0..(Math.sqrt(size) - 1)).to_a
-    column_values.each do |x_position|
-      column = @grid.map {|row| row[x_position]}
+    @grid.transpose.each do |column|
       if column.uniq.count == 1 && column.uniq != nil
         @winner = column.uniq[0]
         return true
