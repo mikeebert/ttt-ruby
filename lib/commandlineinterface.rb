@@ -73,6 +73,16 @@ class CommandLineInterface
     end
   end
   
+  def prompt_for_board_size
+    puts "You can play any size board. The traditional size for tic-tac-toe is 3 x 3.\nWhat would size board would you like to play? (Enter the size of one side, i.e. 3)"
+    input = gets.slice(0).to_i
+    if input.class != Fixnum
+      puts "Not a valid number. Please enter another: "
+      prompt_for_board_size
+    end
+    input
+  end
+  
   def display_instructions
     puts "Below is the tic-tac-toe board.\nNumbers on the right correspond to Spaces on the left."
   end
