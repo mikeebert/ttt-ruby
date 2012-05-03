@@ -18,25 +18,6 @@ class Game
     @ui.display_instructions
     play_script until exit_game
   end
-
-  def set_competitors
-    set_player(1)
-    set_player(2)
-  end
-  
-  def set_player(n)
-    input = @ui.get_details_for_player(n)
-    player = PlayerFactory.create(input, @ui)
-    @player1 = player if n == 1
-    @player2 = player if n == 2
-  end
-  
-  def set_board
-    # size = @ui.prompt_for_board_size
-    @board = Board.new(3)
-    @board.player1_symbol = @player1.symbol
-    @board.player2_symbol = @player2.symbol
-  end
   
   def play_script
     @ui.display_board(@board)
@@ -47,6 +28,28 @@ class Game
     else
       @player2.move(@board)
     end
+  end
+  
+  def set_competitors
+    set_player(1)
+    set_player(2)
+  end
+  
+  def set_player(n)
+    input = @ui.get_details_for_player(n)
+    player = PlayerFactory.create(input, @ui)
+    if n == 1
+      @player1 = player
+    else
+      @player2 = player
+    end
+  end
+  
+  def set_board
+    # size = @ui.prompt_for_board_size
+    @board = Board.new(3)
+    @board.player1_symbol = @player1.symbol
+    @board.player2_symbol = @player2.symbol
   end
   
   def game_is_over
