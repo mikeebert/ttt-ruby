@@ -43,9 +43,9 @@ class Board
   end
   
   def coordinates_of(move)
-    blank_grid = Board.new(@grid.count).grid
+    grid = fresh_grid(@grid.count)
     row_count = 0
-    blank_grid.each do |row|
+    grid.each do |row|
       if row.include?(move)        
         @row = row_count
         @column = row.find_index(move)
