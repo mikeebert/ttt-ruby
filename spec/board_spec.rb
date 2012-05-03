@@ -1,24 +1,23 @@
 require 'board'
+require 'mocks/mock_player'
 
 describe "the tic tac toe board" do
   
   before(:each) do
+    @player1 = FakePlayer.new
+    @player1.symbol = "X"
+    @player2 = FakePlayer.new
+    @player2.symbol = "O"
     @board = Board.new(3)
-    @player1 = "X"
-    @player2 = "O"
   end
 
   
   it "should have an array of arrays representing the size of the grid" do
     @board.grid.flatten.count.should == 9
-    @board = Board.new(5)
-    @board.grid.flatten.count.should == 25
   end
   
   it "should know the size of itself" do
     @board.size.should == 9
-    @board = Board.new(9)
-    @board.size.should == 81
   end
 
   it "should have values from 1 to n representing locations on the grid" do

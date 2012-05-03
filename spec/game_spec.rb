@@ -7,10 +7,10 @@ require 'mocks/mock_human'
 
 describe "the tic tac toe game" do
 
-  before(:each) do
-    @game = Game.new
-    @ui = FakeUI.new
-    @game.ui = @ui    
+  before(:each) do    
+    ui = FakeUI.new
+    @game = Game.new(ui)
+    @ui = @game.ui
   end
 
   describe "the Game setup" do
@@ -33,10 +33,10 @@ describe "the tic tac toe game" do
       end
       
       it "should create a player from the human class if type is human" # do
-       #  @ui.input = {type: :human, symbol: "x"}
-       #   @game.set_competitors
-       #   @human.created_new_player.should == true
-       # end
+      #         @ui.input = {type: :human, symbol: "x"}
+      #         @game.set_competitors
+      #         @human.created_new_player.should == true
+      #       end
       
       it "should create a new computer player if type is computer" # do
         #   @human = FakeHuman.new

@@ -7,26 +7,35 @@ class Game
   
   attr_accessor :board, :ui, :type, :player1, :player2
   
-  def initialize
-    @board = Board.new(3)
-    self.board = @board
-    @ui = CommandLineInterface.new
+  def initialize(ui)
+    @ui = ui
   end
   
   def play
     @ui.welcome_message
     set_competitors
+    set_board
     @ui.display_instructions
     play_script until exit_game
   end
 
   def set_competitors
-    input = @ui.get_details_for_player(1)
-    @player1 = PlayerFactory.create(input, @ui)
-    @board.player1_symbol = input[:symbol]
-    input2 = @ui.get_details_for_player(2)
-    @player2 = PlayerFactory.create(input2, @ui)
-    @board.player2_symbol = input2[:symbol]
+    set_player(1)
+    set_player(2)
+  end
+  
+  def set_player(n)
+    input = @ui.get_details_for_player(n)
+    player = PlayerFactory.create(input, @ui)
+    @player1 = player if n == 1
+    @player2 = player if n == 2
+  end
+  
+  def set_board
+    # size = @ui.prompt_for_board_size
+    @board = Board.new(3)
+    @board.player1_symbol = @player1.symbol
+    @board.player2_symbol = @player2.symbol
   end
   
   def play_script
