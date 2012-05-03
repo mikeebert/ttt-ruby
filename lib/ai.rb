@@ -5,7 +5,7 @@ class Ai
                 :min,
                 :possible_moves,
                 :possible_wins, 
-                :possible_losses
+                :possible_losses_or_draws
       
   def initialize
     @possible_moves = []
@@ -18,7 +18,7 @@ class Ai
   def get_minimax_move(board)
     set_min_and_max_players(board)
     set_up_possible_wins_and_losses(board)
-    best_score_for_max = -50
+    best_score_for_max = @max.starting_score
     
     board.available_spaces.each do |space|
       test_board = copy(board)
@@ -39,7 +39,10 @@ class Ai
     
   def minimax_score(board,move)
     score = game_value(board)
-    return score unless score == -1
+    unless score == -1
+      rank_win_loss_or_draw(score, move)
+      return score 
+    end
     player = set_player(board.next_player_symbol)
     best_score = player.starting_score
 
@@ -47,8 +50,6 @@ class Ai
       test_board = copy(board)
       test_board.place_move(player.symbol, space)
       new_score = minimax_score(test_board,move)
-      @possible_wins[move] += 1 if new_score == 100
-      @possible_losses[move] += 1 if new_score == -100
       best_score = player.compare(best_score, new_score)
     end
     
@@ -66,6 +67,14 @@ class Ai
       return 0 if board.is_draw
     else
       return -1
+    end
+  end
+  
+  def rank_win_loss_or_draw(score, move)
+    if score == 100
+      @possible_wins[move] += 1 
+    else
+      @possible_losses_or_draws[move] += 1
     end
   end
   
@@ -89,9 +98,9 @@ class Ai
   
   def set_up_possible_wins_and_losses(board)
     @possible_wins = Hash.new
-    @possible_losses = Hash.new
+    @possible_losses_or_draws = Hash.new
     board.available_spaces.each {|space| @possible_wins[space] = 0}
-    board.available_spaces.each {|space| @possible_losses[space] = 0}
+    board.available_spaces.each {|space| @possible_losses_or_draws[space] = 0}
   end
   
 end
