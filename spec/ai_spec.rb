@@ -129,7 +129,7 @@ describe "setting up to play through minimax" do
       puts "Possible moves are #{@ai.possible_moves}\n"
       puts "The best move is #{move}"
       puts "Possible wins are #{@ai.possible_wins}"
-      puts "Possible losses are #{@ai.possible_losses}"
+      puts "Possible losses are #{@ai.possible_losses_or_draws}"
     end
     
     # it "should choose a corner as the opening move" do
@@ -141,7 +141,7 @@ describe "setting up to play through minimax" do
     #   puts "Possible moves are #{@ai.possible_moves}\n"
     #   puts "The best move is #{move}"
     #   puts "Possible wins are #{@ai.possible_wins}"
-    #   puts "Possible losses are #{@ai.possible_losses}"
+    #   puts "Possible losses are #{@ai.possible_losses_or_draws}"
     # end
   end
 end
