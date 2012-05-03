@@ -44,14 +44,7 @@ describe "the tic tac toe game" do
         #   @game.set_competitors
         #   @computer.created_new_player.should == true
         # end
-      
-      it "should set the board's next player" do
-        @board = FakeBoard.new
-        @game.board = @board
-        @game.set_competitors
-        @board.next_player.should == :player1
-      end
-      
+            
       it "should set player2 for a game"
       
       it "should display the instructions for a user" do
