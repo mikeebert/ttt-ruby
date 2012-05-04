@@ -43,9 +43,8 @@ class Board
   end
   
   def coordinates_of(move)
-    grid = fresh_grid(@grid.count)
     row_count = 0
-    grid.each do |row|
+    fresh_grid(@grid.count).each do |row|
       if row.include?(move)        
         @row = row_count
         @column = row.find_index(move)
@@ -104,6 +103,7 @@ class Board
       @row += 1
       @column += 1
     end
+    
     if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
       @winner = forward_slash.uniq[0]
       return true
