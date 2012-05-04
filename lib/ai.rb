@@ -15,11 +15,12 @@ class Ai
   def get_minimax_move(board)
     set_min_and_max_players(board)
     best_score_for_max = @max.starting_score
+    depth = 0
     
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      new_score = minimax_score(test_board)
+      new_score = minimax_score(test_board, depth + 1)
       if new_score > best_score_for_max
         best_score_for_max = new_score
         @possible_moves = []
@@ -32,8 +33,8 @@ class Ai
     return @possible_moves.sample
   end
     
-  def minimax_score(board)
-    score = game_value(board)
+  def minimax_score(board, depth)
+    score = game_value(board, depth)
     return score unless score == -1
     player = set_player(board.next_player_symbol)
     best_score = player.starting_score
@@ -41,7 +42,7 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(player.symbol, space)
-      new_score = minimax_score(test_board)
+      new_score = minimax_score(test_board, depth + 1)
       best_score = player.compare(best_score, new_score)
     end
     
@@ -52,10 +53,10 @@ class Ai
     symbol == @max.symbol ? @max : @min
   end
     
-  def game_value(board)
+  def game_value(board, depth)
     if board.has_winner || board.is_draw
-      return 100 if board.winner == @max.symbol
-      return -100 if board.winner == @min.symbol
+      return (100/depth) if board.winner == @max.symbol
+      return -(100/depth) if board.winner == @min.symbol
       return 0 if board.is_draw
     else
       return -1
@@ -63,8 +64,8 @@ class Ai
   end
     
   def set_min_and_max_players(board)
-    @max = MaxPlayer.new(board.next_player_symbol, -50)
-    @min = MinPlayer.new(board.opponent_symbol, 50)
+    @max = MaxPlayer.new(board.next_player_symbol, -5)
+    @min = MinPlayer.new(board.opponent_symbol, 5)
   end
     
   def copy(board)

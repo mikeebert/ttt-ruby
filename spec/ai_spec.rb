@@ -36,20 +36,22 @@ describe "setting up to play through minimax" do
       @board.player2_symbol = "O"
     end
     
-    it "should return 100 if the max player is the winner" do
+    it "should return 100 if the max player is the winner in one move" do
       @board.grid = [["X","X","X"],
                      [4,5,6],
                      [7,8,9]]
       @ai.set_min_and_max_players(@board)
-      @ai.game_value(@board).should == 100
+      depth = 1
+      @ai.game_value(@board, depth).should == 100
     end
 
-    it "should return -100 if the min player is the winner" do
+    it "should return -100 if the min player is the winner in the next move" do
       @board.grid = [["O","O","O"],
                      [4,5,6],
                      [7,8,9]]
       @ai.set_min_and_max_players(@board)
-      @ai.game_value(@board).should == -100
+      depth = 1
+      @ai.game_value(@board, depth).should == -100
     end    
   end
     
@@ -118,18 +120,18 @@ describe "setting up to play through minimax" do
                      [7,8,9]]
       @board.next_player = :player1
       move = @ai.get_minimax_move(@board)
+      puts "It will choose #{move}"
+      puts "The possible moves are #{@ai.possible_moves}"
     end
     
-    # it "should choose a corner as the opening move" do
-    #   @board.grid = [[1,2,3],
-    #                  [4,5,6],
-    #                  [7,8,9]]
-    #   @board.next_player = :player1
-    #   move = @ai.get_minimax_move(@board)
-    #   puts "Possible moves are #{@ai.possible_moves}\n"
-    #   puts "The best move is #{move}"
-    #   puts "Possible wins are #{@ai.possible_wins}"
-    #   puts "Possible losses are #{@ai.possible_losses_or_draws}"
-    # end
+    it "should choose a corner as the opening move" do
+      @board.grid = [[1,2,3],
+                     [4,5,6],
+                     [7,8,9]]
+      @board.next_player = :player1
+      move = @ai.get_minimax_move(@board)
+      puts "It will choose #{move}"
+      puts "The possible moves are #{@ai.possible_moves}"
+    end
   end
 end
