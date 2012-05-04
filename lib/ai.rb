@@ -19,7 +19,7 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      new_score = minimax_score(test_board,space)
+      new_score = minimax_score(test_board)
       if new_score > best_score_for_max
         best_score_for_max = new_score
         @possible_moves = []
@@ -32,7 +32,7 @@ class Ai
     return @possible_moves.sample
   end
     
-  def minimax_score(board,move)
+  def minimax_score(board)
     score = game_value(board)
     return score unless score == -1
     player = set_player(board.next_player_symbol)
@@ -41,7 +41,7 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(player.symbol, space)
-      new_score = minimax_score(test_board,move)
+      new_score = minimax_score(test_board)
       best_score = player.compare(best_score, new_score)
     end
     
