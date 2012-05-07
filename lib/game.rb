@@ -31,6 +31,15 @@ class Game
     end
   end
   
+  def game_over_scenario
+    @ui.winning_message(@board.winner) if @board.has_winner
+    @ui.draw_message if @board.is_draw
+    @ui.display_board(@board)
+    @board.reset_board
+    ask_to_play_again
+    play_script unless exit_game
+  end
+  
   def set_competitors
     set_player(1)
     set_player(2)
@@ -57,15 +66,6 @@ class Game
   
   def game_is_over
     @board.has_winner || @board.is_draw
-  end
-  
-  def game_over_scenario
-    @ui.winning_message(@board.winner) if @board.has_winner
-    @ui.draw_message if @board.is_draw
-    @ui.display_board(@board)
-    @board.reset_board
-    ask_to_play_again
-    play_script unless exit_game
   end
   
   def ask_to_play_again
