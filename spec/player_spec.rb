@@ -6,16 +6,18 @@ require 'mocks/mock_board'
 describe "The Player Class" do
   
   before(:each) do
-    @player1 = FakeHuman.new
-    # @player2 = FakeComputer.new
+    @player1 = Player.new = FakeHuman.new
+    @player2 = FakeComputer.new
+    @board = FakeBoard.new
   end
 
   describe "getting a move" do
+    it "should get a move from a human"
     
-    it "should get a move from a human" do
-      @player1
-    end
+    it "should get a move from a computer"
+    
+    it "should pass a player's symbol and move to the board"
+    
   end
-
 end
 
