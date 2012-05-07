@@ -40,7 +40,6 @@ describe "the tic tac toe game" do
       end
       
       it "should display the instructions for a user" do
-        @board = FakeBoard.new
         @ui.play_again = :no
         @game.play
         @ui.displayed_instructions.should == true
@@ -49,11 +48,13 @@ describe "the tic tac toe game" do
   end
   
   describe "Repeating the Play Script" do
-    it "should call the play script until the game is over" do
-      @ui.player_details = [{type: :human, symbol: "X"},
-                            {type: :human, symbol: "O"}]                            
-      @ui.calling_play_script = true
+    it "should call the play script until the user wants to exit the game" do
+      @ui.player_details = [{type: :mock},
+                            {type: :mock}]
+      #@ui.exit_game will be set to yes when @ui.input_values is empty
+      @ui.input_values = [:yes]*3
       @game.play
+      @ui.input_values.should be_empty
       @game.exit_game.should == true
     end
   end
@@ -114,49 +115,6 @@ describe "the tic tac toe game" do
       @ui.prompted_user.should_not == :next_move_please
     end
   end
-  
-    
-  # describe "the method that gets the human move and checks that it's valid" do
-  #   before(:each) do
-  #     @ui = FakeUI.new
-  #     @game.ui = @ui
-  #     @board = FakeBoard.new
-  #     @game.board = @board
-  #     @ui.input_values = [:valid_move]
-  #   end
-  # 
-  #   it "should prompt a user for the next move" do
-  #     @game.get_human_move
-  #     @ui.prompted_user.should == :next_move_please
-  #   end
-  #   
-  #   it "should get some input from the ui" do      
-  #     @game.get_human_move
-  #     @ui.user_input.should include(:some_input)
-  #   end
-  #   
-  #   it "should check with the board if it is a valid move" do
-  #     @game.get_human_move
-  #     @board.checked_validity.should == true
-  #   end
-  #       
-  #   it "should not return an error message for a valid move" do
-  #     @game.get_human_move
-  #     @ui.message_contents.should_not include(:error_message)
-  #   end
-  #   
-  #   it "should return an error message if a human move is invalid" do
-  #     @ui.input_values = [:invalid_move, :valid_move]
-  #     @game.get_human_move
-  #     @ui.message_contents.should include(:error_message)
-  #   end
-  #   
-  #   it "should continue to call itself if it receives invalid moves" do
-  #     @ui.input_values = [:invalid_move]*3 + [:valid_move]
-  #     @game.get_human_move
-  #     @ui.message_contents.should == [:error_message]*3
-  #   end
-  # end
 
   describe "the game over scenario" do
     before(:each) do
