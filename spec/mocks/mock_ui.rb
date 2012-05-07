@@ -23,9 +23,6 @@ class FakeUI
   
   def display_board(board)
     @displayed_board = board
-    if @calling_play_script == true
-      @input_values = [:valid_move]*10 
-    end
   end
   
   def welcome_message
@@ -38,11 +35,8 @@ class FakeUI
   
   def get_input
     @user_input << :some_input
-    if @input_values.empty?
-      @play_again = :no
-    else
-      @input_values.shift
-    end
+    @play_again = :no if @input_values.empty?  
+    @input_values.shift
   end
   
   def invalid_move_message
