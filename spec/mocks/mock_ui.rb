@@ -24,8 +24,7 @@ class FakeUI
   def display_board(board)
     @displayed_board = board
     if @calling_play_script == true
-      @input_values = [:valid_move]*4 
-      @calling_play_script = false
+      @input_values = [:valid_move]*10 
     end
   end
   
@@ -39,7 +38,11 @@ class FakeUI
   
   def get_input
     @user_input << :some_input
-    @input_values.shift
+    if @input_values.empty?
+      @play_again = :no
+    else
+      @input_values.shift
+    end
   end
   
   def invalid_move_message
@@ -61,6 +64,7 @@ class FakeUI
   def prompt_for_next_move
     @prompted_user = :next_move_please
     @prompted_counter += 1
+    @input_values.shift
   end
   
   def prompt_to_play_again
@@ -76,7 +80,7 @@ class FakeUI
   
   def get_details_for_player(n)
     @requested_player_details = true
-    @input = {type: :human, symbol: "X"}
+    @player_details.shift    
   end
   
 end
