@@ -9,7 +9,7 @@ describe "The Human Player" do
   before(:each) do
     @ui = FakeUI.new
     @human = HumanPlayer.new("x", @ui)
-    @ui.input_values = [:valid_move]
+    @ui.input_values = [:move_prompt_stub, :valid_move]
     @board = FakeBoard.new
   end
   
@@ -34,7 +34,7 @@ describe "The Human Player" do
   end
 
   it "should request a move again from the UI if the move isn't valid" do
-    @ui.input_values = [:invalid_move,:valid_move]
+    @ui.input_values = [:move_prompt_stub, :invalid_move,:move_prompt_stub, :valid_move]
     @human.get_move(@board)
     @ui.prompted_counter.should == 2
   end
