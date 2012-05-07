@@ -56,7 +56,7 @@ class Ai
   def game_value(board, depth)
     if board.has_winner || board.is_draw
       return (100/depth) if board.winner == @max.symbol
-      return -(100/depth) if board.winner == @min.symbol
+      return -(100/(depth-1)) if board.winner == @min.symbol
       return 0 if board.is_draw
     else
       return -1
