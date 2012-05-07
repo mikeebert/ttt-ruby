@@ -8,13 +8,14 @@ class Game
   attr_accessor :board, :ui, :type, :player1, :player2
   
   def initialize(ui)
+    @board = Board.new(3)
     @ui = ui
   end
   
   def play
     @ui.welcome_message
     set_competitors
-    set_board
+    # set_board
     @ui.display_instructions
     play_script until exit_game
   end
@@ -40,17 +41,19 @@ class Game
     player = PlayerFactory.create(input, @ui)
     if n == 1
       @player1 = player
+      @board.player1_symbol = @player1.symbol
     else
       @player2 = player
+      @board.player2_symbol = @player2.symbol
     end
   end
   
-  def set_board
-    # size = @ui.prompt_for_board_size
-    @board = Board.new(3)
-    @board.player1_symbol = @player1.symbol
-    @board.player2_symbol = @player2.symbol
-  end
+  # def set_board
+  #   # size = @ui.prompt_for_board_size
+  #   @board = Board.new(3)
+  #   @board.player1_symbol = @player1.symbol
+  #   @board.player2_symbol = @player2.symbol
+  # end
   
   def game_is_over
     @board.has_winner || @board.is_draw
