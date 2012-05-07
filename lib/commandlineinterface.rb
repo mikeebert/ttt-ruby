@@ -109,7 +109,7 @@ class CommandLineInterface
   
   def prompt_to_play_again
     puts "Would you like to play again? (Y/N)"
-    self.input = gets.chomp.downcase
+    @input = gets.chomp.downcase
 
     if input == "n"
       @play_again = :no
@@ -122,7 +122,7 @@ class CommandLineInterface
   end
   
   def get_input 
-    self.input = gets.chomp.to_i
+    @input = gets.chomp.to_i
   end
   
 end
