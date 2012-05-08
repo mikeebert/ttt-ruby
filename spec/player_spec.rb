@@ -11,13 +11,13 @@ describe "The Player Class" do
     @board = FakeBoard.new
   end
 
-  describe "getting a move" do
-    it "should get a move from a human"
-    
-    it "should get a move from a computer"
-    
-    it "should pass a player's symbol and move to the board"
-    
-  end
+  # describe "getting a move" do
+  #   it "should get a move from a human"
+  #   
+  #   it "should get a move from a computer"
+  #   
+  #   it "should pass a player's symbol and move to the board"
+  #   
+  # end
 end
 
