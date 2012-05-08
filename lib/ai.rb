@@ -35,7 +35,7 @@ class Ai
         @possible_moves << space
       end
     end
-    puts @move_scores    
+    # puts @move_scores    
     return @possible_moves.sample
   end
 
