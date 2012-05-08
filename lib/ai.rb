@@ -6,6 +6,7 @@ class Ai
                 :possible_moves
   def initialize
     @possible_moves = []
+    @move_scores = {}
   end
 
   def random_move(board)
@@ -18,25 +19,27 @@ class Ai
     alpha = -100
     beta = 100
     depth = 0
-    @max_depth = 6
+    # @max_depth = 6
 
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      new_score = minimax_score(test_board, alpha, beta, depth+1)
+      @move_scores[space] = alpha
+      new_score = minimax_score(test_board, space, alpha, beta, depth+1)
       if new_score > best_score_for_max
         best_score_for_max = new_score
+        @move_scores[space] = new_score if new_score > @move_scores[space]
         @possible_moves = []
         @possible_moves << space
       elsif new_score == best_score_for_max
         @possible_moves << space
       end
     end
-
+    puts @move_scores    
     return @possible_moves.sample
   end
 
-  def minimax_score(board, alpha, beta, depth)
+  def minimax_score(board, space, alpha, beta, depth)
     score = game_value(board, depth)
     return score unless score == -1
     player = set_player(board.next_player_symbol)
@@ -45,9 +48,8 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(player.symbol, space)
-      new_score = minimax_score(test_board, alpha, beta, depth + 1)
-      best_score = player.compare(best_score, new_score)
-      
+      new_score = minimax_score(test_board, space, alpha, beta, depth + 1)
+      best_score = player.compare(best_score, new_score)      
       is_max?(player) ? alpha = best_score : beta = best_score
       break if alpha >= beta
     end
@@ -68,12 +70,12 @@ class Ai
       return (100 - depth) if board.winner == @max.symbol
       return -(100 - depth) if board.winner == @min.symbol
       return 0 if board.is_draw
-    elsif depth > @max_depth
-      if board.next_player_symbol == @max.symbol
-        return -depth
-      else
-        return depth
-      end
+    # elsif depth > @max_depth
+    #   if board.next_player_symbol == @max.symbol
+    #     return -depth
+    #   else
+    #     return depth
+    #   end
     else
      return -1
     end

@@ -114,26 +114,16 @@ describe "setting up to play through minimax" do
       # @ai.possible_moves.should == [5]
       @ai.get_minimax_move(@board).should == 5      
     end
-    
-    it "will choose something after choosing an opening corner & an opponent center" do
-      @board.grid = [["X",2,3],
-                     [4,"O",6],
-                     [7,8,9]]
-      @board.next_player = :player1
-      move = @ai.get_minimax_move(@board)
-      puts "It will choose #{move}"
-      puts "The possible moves are #{@ai.possible_moves}"
-    end
-    
+        
     it "should choose a corner as the opening move" do
       @board.grid = [[1,2,3],
                      [4,5,6],
                      [7,8,9]]
       @board.next_player = :player1
       move = @ai.get_minimax_move(@board)
-      @ai.possible_moves.should == [1,3,7,9]
-      puts "It will choose #{move}"
+      puts "Move == #{move}"
       puts "The possible moves are #{@ai.possible_moves}"
+      @ai.possible_moves.should == [1,3,7,9]
     end
   end
 end
