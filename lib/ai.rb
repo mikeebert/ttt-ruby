@@ -6,7 +6,7 @@ class Ai
                 :possible_moves
   def initialize
     @possible_moves = []
-    @move_scores = {}
+    # @move_scores = {}
   end
 
   def random_move(board)
@@ -24,11 +24,11 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      @move_scores[space] = alpha
+      # @move_scores[space] = alpha
       new_score = minimax_score(test_board, space, alpha, beta, depth+1)
       if new_score > best_score_for_max
         best_score_for_max = new_score
-        @move_scores[space] = new_score if new_score > @move_scores[space]
+        # @move_scores[space] = new_score if new_score > @move_scores[space]
         @possible_moves = []
         @possible_moves << space
       elsif new_score == best_score_for_max
