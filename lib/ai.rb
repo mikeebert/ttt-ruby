@@ -1,9 +1,9 @@
 require 'minimax_players'
 
 class Ai
-  attr_accessor :max, 
+  attr_accessor :max,
                 :min,
-                :possible_moves      
+                :possible_moves
   def initialize
     @possible_moves = []
   end
@@ -11,16 +11,19 @@ class Ai
   def random_move(board)
     position = board.available_spaces.sample
   end
-  
+
   def get_minimax_move(board)
     set_min_and_max_players(board)
     best_score_for_max = @max.starting_score
+    alpha = -100
+    beta = 100
     depth = 0
-    
+    @max_depth = 6
+
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      new_score = minimax_score(test_board, depth + 1)
+      new_score = minimax_score(test_board, alpha, beta, depth+1)
       if new_score > best_score_for_max
         best_score_for_max = new_score
         @possible_moves = []
@@ -29,11 +32,11 @@ class Ai
         @possible_moves << space
       end
     end
-    
+
     return @possible_moves.sample
   end
-    
-  def minimax_score(board, depth)
+
+  def minimax_score(board, alpha, beta, depth)
     score = game_value(board, depth)
     return score unless score == -1
     player = set_player(board.next_player_symbol)
@@ -42,24 +45,37 @@ class Ai
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(player.symbol, space)
-      new_score = minimax_score(test_board, depth + 1)
+      new_score = minimax_score(test_board, alpha, beta, depth + 1)
       best_score = player.compare(best_score, new_score)
+      
+      is_max?(player) ? alpha = best_score : beta = best_score
+      break if alpha >= beta
     end
-    
+
     return best_score
   end
-  
+
   def set_player(symbol)
     symbol == @max.symbol ? @max : @min
   end
-    
+  
+  def is_max?(player)
+    player.symbol == @max.symbol
+  end
+
   def game_value(board, depth)
     if board.has_winner || board.is_draw
-      return (100/depth) if board.winner == @max.symbol
-      return -(100/(depth-1)) if board.winner == @min.symbol
+      return (100 - depth) if board.winner == @max.symbol
+      return -(100 - depth) if board.winner == @min.symbol
       return 0 if board.is_draw
+    elsif depth > @max_depth
+      if board.next_player_symbol == @max.symbol
+        return -depth
+      else
+        return depth
+      end
     else
-      return -1
+     return -1
     end
   end
     
@@ -79,5 +95,5 @@ class Ai
     new_board.player1_symbol = board.player1_symbol
     new_board.player2_symbol = board.player2_symbol
     return new_board
-  end  
+  end
 end
