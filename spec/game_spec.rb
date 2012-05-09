@@ -11,24 +11,24 @@ describe "the tic tac toe game" do
     ui = FakeUI.new
     @game = Game.new(ui)
     @ui = @game.ui
-    @game.board = FakeBoard.new
+    @board = FakeBoard.new
+    @game.board = @board
   end
 
   describe "the Game setup" do
     before(:each) do
       @ui.player_details = [{type: :human, symbol: "X"},
                             {type: :computer, symbol: "O"}]
+      @ui.play_again = :no
     end
 
     it "should send a welcome message to the user" do
-      @ui.play_again = :no
       @game.play
       @ui.message_contents.should include(:welcome_message)
     end
     
     describe "setting up the competitors" do      
       it "should ask the ui to provide the type and symbol for a player" do
-        @ui.play_again = :no
         @game.set_competitors
         @ui.requested_player_details.should == true
       end
@@ -39,8 +39,12 @@ describe "the tic tac toe game" do
         @game.player2.symbol.should == "O"
       end
       
+      it "should send the symbols to the board to set the players" do
+        @game.play
+        @board.received_players.should == true
+      end
+      
       it "should display the instructions for a user" do
-        @ui.play_again = :no
         @game.play
         @ui.displayed_instructions.should == true
       end
@@ -124,11 +128,7 @@ describe "the tic tac toe game" do
       @game.ui = @ui
       @game.board = @board
     end
-    
-    it "should trip the game" do
-      
-    end
-    
+        
     it "should send a winning message if there is a winner" do
       @board.game_won = true
       @game.game_over_scenario

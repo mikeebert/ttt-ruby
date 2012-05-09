@@ -15,6 +15,7 @@ class FakeBoard
                 :winner,
                 :received_symbol,
                 :received_move,
+                :received_players,                
                 :checked_spaces_for_computer,
                 # :player1, :player2
                 :player1_symbol,
@@ -31,6 +32,10 @@ class FakeBoard
     @next_player = :player1
   end
 
+  def set_players(p1_symbol, p2__symbol)
+    @received_players = true
+  end
+  
   def opponent
     @next_player == @player1 ? @player2 : @player1
   end

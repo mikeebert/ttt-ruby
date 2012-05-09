@@ -24,6 +24,11 @@ class Board
     end
   end
   
+  def set_players(p1_symbol, p2_symbol)
+    @player1_symbol = p1_symbol
+    @player2_symbol = p2_symbol    
+  end
+  
   def place_move(symbol, space)
     coordinates_of(space)
     @grid[@row][@column] = symbol

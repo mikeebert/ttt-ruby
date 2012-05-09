@@ -16,7 +16,7 @@ class Game
   def play
     @ui.welcome_message
     set_competitors
-    # set_board
+    @board.set_players(@player1.symbol,@player2.symbol)
     @ui.display_instructions
     play_script until exit_game
   end
@@ -48,22 +48,9 @@ class Game
   def set_player(n)
     input = @ui.get_details_for_player(n)
     player = @player_factory.create(input, @ui)
-    if n == 1
-      @player1 = player
-      @board.player1_symbol = @player1.symbol
-    else
-      @player2 = player
-      @board.player2_symbol = @player2.symbol
-    end
+    n == 1 ? @player1 = player : @player2 = player
   end
-  
-  # def set_board
-  #   # size = @ui.prompt_for_board_size
-  #   @board = Board.new(3)
-  #   @board.player1_symbol = @player1.symbol
-  #   @board.player2_symbol = @player2.symbol
-  # end
-  
+    
   def game_is_over
     @board.has_winner || @board.is_draw
   end
