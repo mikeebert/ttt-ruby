@@ -5,10 +5,11 @@ require 'player_factory'
 
 class Game
   
-  attr_accessor :board, :ui, :type, :player1, :player2
+  attr_accessor :board, :ui, :type, :player_factory, :player1, :player2
   
   def initialize(ui)
     @board = Board.new(3)
+    @player_factory = PlayerFactory.new
     @ui = ui
   end
   
@@ -22,13 +23,12 @@ class Game
   
   def play_script
     @ui.display_board(@board)
-    @player1.move(@board)
-    @ui.display_board(@board)
-    if game_is_over
-      game_over_scenario
-    else
-      @player2.move(@board)
-    end
+    next_player_move
+    game_over_scenario if game_is_over
+  end
+  
+  def next_player_move
+    @board.next_player == :player1 ? @player1.move(@board) : @player2.move(@board)
   end
   
   def game_over_scenario
@@ -47,7 +47,7 @@ class Game
   
   def set_player(n)
     input = @ui.get_details_for_player(n)
-    player = PlayerFactory.create(input, @ui)
+    player = @player_factory.create(input, @ui)
     if n == 1
       @player1 = player
       @board.player1_symbol = @player1.symbol

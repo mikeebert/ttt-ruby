@@ -125,6 +125,10 @@ describe "the tic tac toe game" do
       @game.board = @board
     end
     
+    it "should trip the game" do
+      
+    end
+    
     it "should send a winning message if there is a winner" do
       @board.game_won = true
       @game.game_over_scenario
