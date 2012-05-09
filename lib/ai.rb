@@ -36,7 +36,7 @@ class Ai
       end
     end
     # puts @move_scores    
-    return @possible_moves.sample
+    return best_move 
   end
 
   def minimax_score(board, space, alpha, beta, depth)
@@ -55,6 +55,14 @@ class Ai
     end
 
     return best_score
+  end
+  
+  def best_move
+    if @possible_moves.any? {|n| n.odd?}
+      @possible_moves.select{|n| n.odd?}.sample
+    else
+      @possible_moves.sample
+    end
   end
 
   def set_player(symbol)
