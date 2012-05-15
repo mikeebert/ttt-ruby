@@ -19,24 +19,20 @@ class Ai
     alpha = -100
     beta = 100
     depth = 0
-    # @max_depth = 6
 
     board.available_spaces.each do |space|
       test_board = copy(board)
       test_board.place_move(@max.symbol, space)
-      # @move_scores[space] = alpha
       new_score = minimax_score(test_board, space, alpha, beta, depth+1)
       if new_score > best_score_for_max
         best_score_for_max = new_score
-        # @move_scores[space] = new_score if new_score > @move_scores[space]
         @possible_moves = []
         @possible_moves << space
       elsif new_score == best_score_for_max
         @possible_moves << space
       end
     end
-    # puts @move_scores    
-    return best_move 
+    return best_move
   end
 
   def minimax_score(board, space, alpha, beta, depth)
