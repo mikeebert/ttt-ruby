@@ -4,7 +4,7 @@
 # For more information see: http://limelightwiki.8thlight.com/index.php/A_Cook%27s_Tour_of_Limelight#PropBuilder_DSL
 
 control_row do
-  reset_button :styles => "reset_button", :text => "RESET"
+  reset_button :id => "reset_btn", :styles => "reset_button", :text => "RESET"
 end
 
 board do
