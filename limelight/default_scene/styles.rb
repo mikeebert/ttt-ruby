@@ -21,7 +21,7 @@ control_row {
   right_padding 20
 }
 
-board {
+limelight_board {
   height '100%'
   width 340
   padding 20

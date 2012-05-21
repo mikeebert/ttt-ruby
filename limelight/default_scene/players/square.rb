@@ -1,8 +1,4 @@
 module Square
-    
-  def scene_opened(event)
-    production.player = 1
-  end
   
   def mouse_clicked(event)    
     if available?      

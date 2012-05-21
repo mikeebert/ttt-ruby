@@ -7,6 +7,6 @@ control_row do
   reset_button :id => "reset_btn", :styles => "reset_button", :text => "RESET"
 end
 
-board do
+limelight_board do
   (1..9).each { |n| square :id => "square#{n}", :styles => "square"}
 end
