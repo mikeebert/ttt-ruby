@@ -9,14 +9,6 @@ module TTT
     def welcome_message
       puts "Welcome to Tic Tac Toe."
     end
-        
-    # def display_board(board)
-    #   board.grid.each do |line| 
-    #     line.each {|value| print "#{value} "}
-    #     print "\n"
-    #   end
-    #   print "-------\n"
-    # end
     
     def display_board(board)
       board.grid.each do |line| 
