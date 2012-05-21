@@ -57,7 +57,7 @@ module TTT
         end
         row_count += 1
       end
-      return {row: @row, column: @column}
+      return {:row => @row, :column => @column}
     end
   
     def valid_move(move)
