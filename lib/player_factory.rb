@@ -1,7 +1,7 @@
 require 'player'
 require 'human_player'
 require 'computer_player'
-require './spec/mocks/mock_player.rb'
+# require './spec/mocks/mock_player.rb'
 
 module TTT
   class PlayerFactory
