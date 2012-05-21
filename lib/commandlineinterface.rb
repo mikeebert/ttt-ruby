@@ -2,9 +2,7 @@ module TTT
   class CommandLineInterface
 
     attr_accessor :input
-    attr_accessor :first_player_symbol
     attr_accessor :play_again
-    attr_accessor :play_first
 
     def welcome_message
       puts "Welcome to Tic Tac Toe."
