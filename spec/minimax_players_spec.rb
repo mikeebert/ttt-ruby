@@ -1,7 +1,7 @@
 require 'minimax_players'
 
 module TTT
-  describe MinimaxPlayers do
+  describe MinimaxPlayer do
     before(:each) do
       @min = MinPlayer.new("X", 50)
     end
