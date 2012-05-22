@@ -4,7 +4,7 @@ require 'mocks/mock_ai'
 require 'mocks/mock_board'
 
 module TTT
-  describe "the computer player" do
+  describe ComputerPlayer do
     before(:each) do
       @computer = ComputerPlayer.new("X")
       @board = FakeBoard.new

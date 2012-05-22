@@ -4,7 +4,7 @@ require 'mocks/mock_ui'
 require 'mocks/mock_board'
 
 module TTT
-  describe "The Human Player" do  
+  describe HumanPlayer do  
     before(:each) do
       @ui = FakeUI.new
       @human = HumanPlayer.new("x", @ui)

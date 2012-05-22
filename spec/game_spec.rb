@@ -6,7 +6,7 @@ require 'mocks/mock_player'
 require 'mocks/mock_human'
 
 module TTT
-  describe "the tic tac toe game" do
+  describe Game do
     before(:each) do    
       ui = FakeUI.new
       @game = Game.new(ui)

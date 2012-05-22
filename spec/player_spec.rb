@@ -3,7 +3,7 @@ require 'mocks/mock_human'
 require 'mocks/mock_board'
 
 
-describe "The Player Class" do
+describe Player do
   
   before(:each) do
     @player1 = Player.new = FakeHuman.new
