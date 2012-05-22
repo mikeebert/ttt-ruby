@@ -4,7 +4,7 @@
 
 module Production
   
-  attr_accessor :player
+  attr_accessor :board
 
 #  # Define this method if you want the production name to be different from the default, directory name.
 #  def name
@@ -21,8 +21,10 @@ module Production
 #
 #  # Hook #1.  Called when the production is newly created, before any loading has been done.
 #  # This is a good place to require needed files and instantiate objects in the business layer.
-#  def production_opening
-#  end
+  # def production_opening
+  #   $: << File.expand_path(File.dirname(__FILE__) + "/../../../lib")
+  #   require 'board'
+  # end
 #
 #  # Hook #2.  Called after internal gems have been loaded and stages have been instantiated, yet before
 #  # any scenes have been opened.
@@ -30,9 +32,9 @@ module Production
 #  end
 #
 #  # Hook #3.  Called when the production, and all the scenes, have fully opened.
- # def production_opened
- #   Square.player == 1
- # end
+  # def production_opened
+  #   @board = 
+  # end
 #
 #  # The system will call this methods when it wishes to close the production, perhaps when the user quits the
 #  # application.  By default the production will always return true. You may override this behavior by re-implenting
