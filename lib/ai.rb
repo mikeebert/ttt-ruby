@@ -7,7 +7,6 @@ module TTT
                   :possible_moves
     def initialize
       @possible_moves = []
-      # @move_scores = {}
     end
 
     def random_move(board)
@@ -33,7 +32,7 @@ module TTT
           @possible_moves << space
         end
       end
-      return best_move
+      return chosen_move
     end
 
     def minimax_score(board, space, alpha, beta, depth)
@@ -54,7 +53,7 @@ module TTT
       return best_score
     end
   
-    def best_move
+    def chosen_move
       if @possible_moves.any? {|n| n.odd?}
         @possible_moves.select{|n| n.odd?}.sample
       else
