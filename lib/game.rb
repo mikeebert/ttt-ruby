@@ -1,6 +1,4 @@
 require 'board'
-require 'commandlineinterface'
-require 'player'
 require 'player_factory'
 
 module TTT

@@ -1,5 +1,3 @@
-require 'board'
-
 module TTT
   class Player  
   
