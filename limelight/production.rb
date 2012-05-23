@@ -21,10 +21,9 @@ module Production
 #
 #  # Hook #1.  Called when the production is newly created, before any loading has been done.
 #  # This is a good place to require needed files and instantiate objects in the business layer.
-  # def production_opening
-  #   $: << File.expand_path(File.dirname(__FILE__) + "/../../../lib")
-  #   require 'board'
-  # end
+  def production_opening
+    $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
+  end
 #
 #  # Hook #2.  Called after internal gems have been loaded and stages have been instantiated, yet before
 #  # any scenes have been opened.
