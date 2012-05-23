@@ -6,11 +6,10 @@ require 'player_factory'
 module TTT
   class Game
   
-    attr_accessor :board, :ui, :type, :player_factory, :player1, :player2
+    attr_accessor :board, :ui, :type, :player1, :player2
   
     def initialize(ui)
       @board = Board.new(3)
-      @player_factory = PlayerFactory.new
       @ui = ui
     end
   
@@ -51,7 +50,7 @@ module TTT
   
     def set_player(n)
       input = @ui.get_details_for_player(n)
-      player = @player_factory.create(input, @ui)
+      player = PlayerFactory.create(input, @ui)
       n == 1 ? @player1 = player : @player2 = player
     end
     
