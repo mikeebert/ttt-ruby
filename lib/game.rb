@@ -4,7 +4,7 @@ require 'player_factory'
 module TTT
   class Game
   
-    attr_accessor :board, :ui, :type, :player1, :player2
+    attr_accessor :board, :ui, :player1, :player2
   
     def initialize(ui)
       @board = Board.new(3)
