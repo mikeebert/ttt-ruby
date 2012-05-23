@@ -37,7 +37,7 @@ square {
   font_size 48
 }
 
-reset_button {
+button {
   width 120
   height 40
   rounded_corner_radius 10
