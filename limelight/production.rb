@@ -4,7 +4,7 @@
 
 module Production
   
-  attr_accessor :board
+  attr_accessor :game, :board
 
 #  # Define this method if you want the production name to be different from the default, directory name.
 #  def name

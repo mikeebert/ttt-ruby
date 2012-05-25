@@ -5,6 +5,6 @@ module ResetButton
       scene.find("square#{n}").text = ""
     end
 
-    production.board.reset_board
+    production.game.board.reset_board
   end
 end

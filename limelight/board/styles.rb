@@ -48,4 +48,5 @@ button {
   text_color :white
   horizontal_alignment :center
   vertical_alignment :center
+  right_margin 10
 }

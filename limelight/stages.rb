@@ -10,7 +10,7 @@
 #  end
 
 stage "default" do
-  default_scene "default_scene"
+  default_scene "board"
   title "Limelight"
   location [200, 25]
   size [350, 420]
