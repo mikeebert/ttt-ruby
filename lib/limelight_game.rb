@@ -1,3 +1,5 @@
+require 'board'
+
 module TTT
   class LimelightGame
     attr_accessor :board,
@@ -6,6 +8,7 @@ module TTT
                   :play_again
     def initialize(ui)
       @ui = ui
+      @board = Board.new(3)
     end
     
     def update_board(symbol, space)

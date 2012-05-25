@@ -5,7 +5,7 @@ module Board
   
   def begin_game
     production.game = TTT::LimelightGame.new(self)
-    production.game.board = TTT::Board.new(3)
+    # production.game.board = TTT::Board.new(3)
     production.game.board.player1_symbol = "X"
     production.game.board.player2_symbol = "O"    
   end
