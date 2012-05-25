@@ -4,7 +4,7 @@ module ResetButton
     (1..9).each do |n|
       scene.find("square#{n}").text = ""
     end
-
-    production.game.board.reset_board
+    scene.find("display_text").text = "Game in progress"
+    production.game.reset
   end
 end
