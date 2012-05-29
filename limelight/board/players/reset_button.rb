@@ -1,6 +1,7 @@
 module ResetButton
   
   def mouse_clicked(event)
+    scene.find("display").text = ""
     clear_board
     production.human_move = nil
     production.play_again = :yes
@@ -10,7 +11,6 @@ module ResetButton
     (1..9).each do |n|
       scene.find("square#{n}").text = ""
     end
-    scene.find("display_text").text = ""
   end
   
 end

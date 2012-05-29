@@ -13,6 +13,33 @@ limelight_board {
   padding 20
 }
 
+info_panel {
+  width 300
+  height 60
+  top_margin 10
+  horizontal_alignment :center
+}
+
+display_text {
+  font_size 12
+  text_color :black
+}
+
+ttt_board {
+  height 300
+  width 300
+}
+
+square {
+  height 100
+  width 100
+  border_color :black
+  border_width 2
+  horizontal_alignment :center
+  vertical_alignment :center
+  font_size 48
+}
+
 control_row {
   width 300
   height :auto
@@ -31,21 +58,6 @@ selection_text {
   right_margin 5
 }
 
-ttt_board {
-  height 300
-  width 300
-}
-
-square {
-  height 100
-  width 100
-  border_color :black
-  border_width 2
-  horizontal_alignment :center
-  vertical_alignment :center
-  font_size 48
-}
-
 button {
   width 50
   height 30
@@ -60,17 +72,3 @@ button {
   right_margin 5
   left_margin 5
 }
-
-info_panel {
-  width 300
-  height 60
-  top_margin 10
-  padding 10
-  horizontal_alignment :center
-}
-
-display_text {
-  font_size 12
-  text_color :black
-}
-

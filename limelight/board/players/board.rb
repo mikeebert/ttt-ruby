@@ -21,7 +21,7 @@ module Board
   end
   
   def display_instructions
-    update_display("Game in Progress")
+    update_display("Game Starting...")
   end
   
   def display_board(board)
@@ -34,7 +34,7 @@ module Board
   end
   
   def prompt_for_next_move
-    update_display("Click on your next move")
+    update_display("Game in Progress")
   end
   
   def get_input    
@@ -43,20 +43,19 @@ module Board
   end
   
   def invalid_move_message
-    "Not a valid move. Please try again"
   end
   
   def winning_message(winner)
-    update_display("#{winner} Wins!")
+    update_display("Game Over. #{winner} Wins!")
   end
   
   def draw_message
-    update_display("Tie Game.")
+    update_display("Game Over. Tie Game.")
   end
   
   def update_display(string)
-    scene.find("display_text").text = " "
-    scene.find("display_text").text = string
+    scene.find("display").text = " "
+    scene.find("display").text = string
   end
   
   def display_game_in_progress
