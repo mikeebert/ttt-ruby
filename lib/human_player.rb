@@ -1,5 +1,3 @@
-require 'commandlineinterface'
-
 module TTT
   class HumanPlayer < Player
     attr_accessor :ui
