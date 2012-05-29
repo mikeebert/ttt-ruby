@@ -9,18 +9,28 @@ limelight_board {
   horizontal_alignment :center
   vertical_alignment :top
   width 350
-  height 460
+  height 520
   padding 20
 }
 
 control_row {
   width 300
-  height 70
-  top_padding 10
+  height 80
   bottom_padding 10
   left_padding 20
   right_padding 20
   horizontal_alignment :center
+}
+
+button_row {
+  width 300
+  height 40
+  horizontal_alignment :center
+}
+
+selection_text {
+  top_padding 5
+  right_margin 5
 }
 
 ttt_board {
@@ -39,8 +49,8 @@ square {
 }
 
 button {
-  width 80
-  height 50
+  width 50
+  height 30
   rounded_corner_radius 10
   border_color :black
   border_width 1
@@ -53,12 +63,12 @@ button {
 }
 
 info_panel {
-  background_color "#cccccc"
   width 300
   height 60
   top_margin 10
   padding 10
   vertical_alignment :center
+  horizontal_alignment :center
 }
 
 display_text {

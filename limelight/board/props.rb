@@ -6,9 +6,19 @@
 limelight_board :id => "limelight_board" do
   
   control_row do
-    option_button :text => "Human vs Human", :styles => "button", :on_mouse_clicked => "scene.begin_game"
-    option_button :text => "Human vs Computer", :styles => "button", :on_mouse_clicked => "scene.begin_game"
-    reset_button :id => "reset_btn", :styles => "button", :text => "RESET"
+    first_player do
+      first_player_title :text => "Player 1: X", :styles => "selection_text"
+      first_player_options :id => 'first_player', :players => 'combo_box', :choices => ['Human','Computer']
+    end
+    second_player do
+      second_player_title :text => "Player 2: O", :styles => "selection_text"
+      second_player_options :id => 'second_player', :players => 'combo_box', :choices => ['Human','Computer']
+    end
+  end
+
+  button_row do
+    option_button :text => "Start", :styles => "button", :on_mouse_clicked => "scene.begin_game"
+    reset_button :id => "reset_btn", :styles => "button", :text => "Reset"
   end
 
   ttt_board do

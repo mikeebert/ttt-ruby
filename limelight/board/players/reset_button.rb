@@ -1,11 +1,15 @@
 module ResetButton
   
   def mouse_clicked(event)
+    clear_board
+    production.play_again = :yes
+  end
+
+  def clear_board
     (1..9).each do |n|
       scene.find("square#{n}").text = ""
     end
     scene.find("display_text").text = ""
-    production.play_again = :yes
-    scene.begin_game
   end
+  
 end

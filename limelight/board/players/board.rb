@@ -5,6 +5,7 @@ require 'game'
 module Board
   
   def begin_game
+    load_players
     production.game = TTT::Game.new(self)
     production.game.play
   end
@@ -13,16 +14,12 @@ module Board
     display_game_in_progress
   end
 
-  def get_details_for_player(n)    
-    if n == 1
-      return {:type => :computer, :symbol => "X"}
-    else
-      return {:type => :computer, :symbol => "O"}
-    end
+  def get_details_for_player(n)
+    production.player_values.shift   
   end
   
   def display_instructions
-    update_display("Click in a square to move")
+    update_display("Game in Progress")
   end
   
   def display_board(board)
@@ -70,6 +67,18 @@ module Board
   
   def play_again
     return production.play_again
+  end
+  
+private
+
+  def load_players    
+    player1 = Hash.new
+    player2 = Hash.new
+    player1[:type] = scene.find('first_player').value.downcase.to_sym
+    player1[:symbol] = "X"
+    player2[:type] = scene.find('second_player').value.downcase.to_sym
+    player2[:symbol] = "O"
+    production.player_values = [player1,player2]
   end
   
 end
