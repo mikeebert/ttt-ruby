@@ -1,2 +1,10 @@
-This command line tic-tac-toe app is built as part of my apprenticeship at 8th Light. It is a work-in-progress with ever-changing requirements.
+This tic-tac-toe app is built as part of my apprenticeship at 8th Light. It is a work-in-progress with ever-changing requirements.
 
+There is an .rvmrc file at the root level for the command line interface and it uses Ruby 1.9.2 and the specs run using rspec 2.8.0
+
+There is an .rvmrc file in the limelight directory that uses JRuby 1.6.6. You will need to have the Limelight gem installed to play the game and use rspec 1.2.9 to run the specs in this directory. (Specs are run with 'jruby -S spec spec')
+
+To play the game:
+**Command Line**: cd into the root directory (ttt-ruby) and type 'ruby play.rb' in your terminal
+
+**Limelight**: cd into the ttt-ruby/limelight directory and type 'limelight open .
