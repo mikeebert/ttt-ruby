@@ -2,6 +2,7 @@ module ResetButton
   
   def mouse_clicked(event)
     clear_board
+    production.human_move = nil
     production.play_again = :yes
   end
 
