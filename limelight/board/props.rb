@@ -5,28 +5,28 @@
 
 limelight_board :id => "limelight_board" do
   
+  info_panel do
+    display_text :id => 'display_text'
+  end
+  
+  ttt_board do
+    (1..9).each { |n| square :id => "square#{n}", :styles => "square"}
+  end
+  
   control_row do
     first_player do
-      first_player_title :text => "Player 1: X", :styles => "selection_text"
-      first_player_options :id => 'first_player', :players => 'combo_box', :choices => ['Human','Computer']
+      first_player_title :text => "Player 1 Type (X)", :styles => "selection_text"
+      first_player_options :id => 'first_player', :players => 'combo_box', :choices => ['Computer', 'Human']
     end
     second_player do
-      second_player_title :text => "Player 2: O", :styles => "selection_text"
-      second_player_options :id => 'second_player', :players => 'combo_box', :choices => ['Human','Computer']
+      second_player_title :text => "Player 2 Type (O)", :styles => "selection_text"
+      second_player_options :id => 'second_player', :players => 'combo_box', :choices => ['Computer', 'Human']
     end
   end
 
   button_row do
     option_button :text => "Start", :styles => "button", :on_mouse_clicked => "scene.begin_game"
     reset_button :id => "reset_btn", :styles => "button", :text => "Reset"
-  end
-
-  ttt_board do
-    (1..9).each { |n| square :id => "square#{n}", :styles => "square"}
-  end
-  
-  info_panel do
-    display_text :id => 'display_text', :text => "Welcome to Tic Tac Toe."
   end
 
 end
