@@ -10,7 +10,8 @@ module TTT
     end
 
     def random_move(board)
-      position = board.available_spaces.sample
+      spaces = board.available_spaces
+      position = spaces[rand(spaces.size)]
     end
 
     def get_minimax_move(board)
@@ -55,9 +56,10 @@ module TTT
   
     def chosen_move
       if @possible_moves.any? {|n| n.odd?}
-        @possible_moves.select{|n| n.odd?}.sample
+        moves = @possible_moves.select{|n| n.odd?}
+        moves[rand(moves.size)]
       else
-        @possible_moves.sample
+        @possible_moves[rand(@possible_moves.size)]
       end
     end
 
