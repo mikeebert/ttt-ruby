@@ -3,7 +3,6 @@ require 'player_factory'
 
 module TTT
   class Game
-  
     attr_accessor :board, :ui, :player1, :player2
   
     def initialize(ui)
