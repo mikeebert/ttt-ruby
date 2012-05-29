@@ -9,13 +9,13 @@ limelight_board {
   horizontal_alignment :center
   vertical_alignment :top
   width 350
-  height "100%"
+  height 460
   padding 20
 }
 
 control_row {
   width 300
-  height 140
+  height 70
   top_padding 10
   bottom_padding 10
   left_padding 20
@@ -39,7 +39,7 @@ square {
 }
 
 button {
-  width 90
+  width 80
   height 50
   rounded_corner_radius 10
   border_color :black
@@ -50,7 +50,6 @@ button {
   horizontal_alignment :center
   vertical_alignment :center
   right_margin 5
-  left_margin 5
 }
 
 info_panel {
