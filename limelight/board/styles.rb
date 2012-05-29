@@ -17,11 +17,10 @@ info_panel {
   width 300
   height 60
   top_margin 10
-  horizontal_alignment :center
 }
 
 display_text {
-  font_size 12
+  font_size 18
   text_color :black
 }
 

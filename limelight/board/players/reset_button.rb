@@ -1,7 +1,7 @@
 module ResetButton
   
   def mouse_clicked(event)
-    scene.find("display").text = ""
+    scene.find('display').remove_all
     clear_board
     production.human_move = nil
     production.play_again = :yes
