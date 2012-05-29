@@ -4,24 +4,21 @@ describe "Default Scene" do
 
   uses_limelight :scene => "board", :hidden => true
 
-  before(:each) do
-    scene.begin_game
-  end
-
-  it "should create a board" do
-    production.game.board.should_not be_nil
-  end
+  # it "should create a board" do
+  #   scene.begin_game
+  #   production.game.should_not be_nil
+  # end
   
-  it "should change the square when clicked" do
+  it "should change the production square when clicked" do
     square = scene.find("square1")
     square.mouse_clicked(nil)
-    square.text.should_not == ""
+    production.human_move.should == 1
   end
   
   it "should clear the value of all squares " do
-    square1 = scene.find("square1")
-    square2 = scene.find("square2")
-    square5 = scene.find("square5")
+    square1 = scene.find("square1").text = "X"
+    square2 = scene.find("square2").text = "X"
+    square5 = scene.find("square5").text = "X"
     test_squares = [square1, square2, square5]
 
     reset_button = scene.find("reset_btn")
