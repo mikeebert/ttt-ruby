@@ -7,7 +7,9 @@ module Board
   def begin_game
     load_players
     production.game = TTT::Game.new(self)
-    production.game.play
+    Thread.new do
+      production.game.play
+    end
   end
   
   def welcome_message
@@ -36,7 +38,7 @@ module Board
   end
   
   def get_input    
-    return production.human_move if production.human_move != nil
+    return production.human_move unless production.human_move.nil?
     #should return the move the player clicked
   end
   
