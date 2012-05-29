@@ -9,6 +9,7 @@ module TTT
   
     def get_move(board)
       @ui.prompt_for_next_move
+      sleep 0.3
       move = @ui.get_input
       if board.valid_move(move)
         return move
