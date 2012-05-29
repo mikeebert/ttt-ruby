@@ -15,16 +15,14 @@ limelight_board {
 
 control_row {
   width 300
-  height 80
-  bottom_padding 10
-  left_padding 20
-  right_padding 20
+  height :auto
+  padding 10
   horizontal_alignment :center
 }
 
 button_row {
   width 300
-  height 40
+  height :auto
   horizontal_alignment :center
 }
 
@@ -60,6 +58,7 @@ button {
   horizontal_alignment :center
   vertical_alignment :center
   right_margin 5
+  left_margin 5
 }
 
 info_panel {
@@ -67,13 +66,11 @@ info_panel {
   height 60
   top_margin 10
   padding 10
-  vertical_alignment :center
   horizontal_alignment :center
 }
 
 display_text {
   font_size 12
   text_color :black
-  horizontal_alignment :center
 }
 
