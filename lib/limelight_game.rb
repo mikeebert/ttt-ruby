@@ -9,8 +9,6 @@ module TTT
     def initialize(ui)
       @ui = ui
       @board = Board.new(3)
-      @board.player1_symbol = "X"
-      @board.player2_symbol = "O"
     end
     
     def update_board(symbol, space)
