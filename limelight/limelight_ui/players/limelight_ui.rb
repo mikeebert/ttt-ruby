@@ -2,22 +2,14 @@ require 'board'
 require 'limelight_game'
 require 'game'
 
-module Board
+module LimelightUi
   
-  def begin_game
-    load_players
-    production.game = TTT::Game.new(self)
-    Thread.new do
-      production.game.play
-    end
+  def get_details_for_player(n)
+    production.player_values.shift   
   end
   
   def welcome_message
     display_game_in_progress
-  end
-
-  def get_details_for_player(n)
-    production.player_values.shift   
   end
   
   def display_instructions
@@ -28,7 +20,9 @@ module Board
     index = 0
     (1..9).to_a.each do |n|
       space = board.grid.flatten[index]
-      scene.find("square#{n}").text = space unless space.class == Fixnum
+      if space == "X" || space == "O"
+        scene.find("square#{n}").text = space 
+      end
       index += 1
     end
   end
@@ -38,8 +32,7 @@ module Board
   end
   
   def get_input    
-    return production.human_move unless production.human_move.nil?
-    #should return the move the player clicked
+    return production.human_move
   end
   
   def invalid_move_message
@@ -68,18 +61,6 @@ module Board
   
   def play_again
     return production.play_again
-  end
-  
-private
-
-  def load_players    
-    player1 = Hash.new
-    player2 = Hash.new
-    player1[:type] = scene.find('first_player').value.downcase.to_sym
-    player1[:symbol] = "X"
-    player2[:type] = scene.find('second_player').value.downcase.to_sym
-    player2[:symbol] = "O"
-    production.player_values = [player1,player2]
   end
   
 end

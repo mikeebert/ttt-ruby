@@ -1,9 +1,8 @@
 module ResetButton
   
   def mouse_clicked(event)
-    scene.find('display').remove_all
-    clear_board
-    production.human_move = nil
+    scene.update_display("Press Start to Begin Game")
+    clear_board    
     production.play_again = :yes
   end
 

@@ -25,7 +25,7 @@ limelight_board :id => "limelight_board" do
   end
 
   button_row do
-    option_button :text => "Start", :styles => "button", :on_mouse_clicked => "scene.begin_game"
+    start_button :text => "Start", :styles => "button"
     reset_button :id => "reset_btn", :styles => "button", :text => "Reset"
   end
 

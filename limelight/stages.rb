@@ -10,7 +10,7 @@
 #  end
 
 stage "default" do
-  default_scene "board"
+  default_scene "limelight_ui"
   title "Limelight"
   location [200, 25]
   size :auto, :auto

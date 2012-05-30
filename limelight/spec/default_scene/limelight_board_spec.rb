@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
 describe "Default Scene" do
 
-  uses_limelight :scene => "board", :hidden => true
+  uses_limelight :scene => "limelight_ui", :hidden => true
 
   # it "should create a board" do
   #   scene.begin_game
