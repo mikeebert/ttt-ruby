@@ -1,4 +1,6 @@
-module StartButton
+require 'game'
+
+module StartGame
   
   def mouse_clicked(event)
     reset_human_move

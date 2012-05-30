@@ -25,7 +25,7 @@ limelight_board :id => "limelight_board" do
   end
 
   button_row do
-    start_button :text => "Start", :styles => "button"
+    start_game :text => "Start", :styles => "button"
     reset_button :id => "reset_btn", :styles => "button", :text => "Reset"
   end
 
