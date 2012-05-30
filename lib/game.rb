@@ -3,11 +3,12 @@ require 'player_factory'
 
 module TTT
   class Game
-    attr_accessor :board, :ui, :player1, :player2
+    attr_accessor :board, :ui, :player_factory, :player1, :player2
   
     def initialize(ui)
       @board = Board.new(3)
       @ui = ui
+      @player_factory = PlayerFactory
     end
   
     def play
@@ -19,7 +20,7 @@ module TTT
     end
   
     def play_script
-      @ui.display_board(@board)
+      @ui.display_board(@board.grid)
       next_player_move
       game_over_scenario if game_is_over
     end
@@ -34,7 +35,7 @@ module TTT
       else
         @ui.draw_message
       end
-      @ui.display_board(@board)
+      @ui.display_board(@board.grid)
       @board.reset_board
       ask_to_play_again
       play_script unless exit_game
@@ -47,7 +48,7 @@ module TTT
   
     def set_player(n)
       input = @ui.get_details_for_player(n)
-      player = PlayerFactory.create(input, @ui)
+      player = @player_factory.create(input, @ui)
       n == 1 ? @player1 = player : @player2 = player
     end
     

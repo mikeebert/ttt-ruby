@@ -8,8 +8,8 @@ module TTT
       puts "Welcome to Tic Tac Toe."
     end
     
-    def display_board(board)
-      board.grid.each do |line| 
+    def display_board(grid)
+      grid.each do |line| 
         line.each do |value|
           if value.class != Fixnum
             print "#{value}|"

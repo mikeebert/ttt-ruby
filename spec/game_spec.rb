@@ -81,7 +81,7 @@ module TTT
       it "should tell the UI class to display the board" do
         @ui.play_again = :no
         @game.play_script
-        @ui.displayed_board.should == @game.board
+        @ui.displayed_board.should == @game.board.grid
       end
 
       it "should know the game is over when the board returns a winner" do
