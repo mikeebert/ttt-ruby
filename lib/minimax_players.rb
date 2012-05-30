@@ -1,19 +1,23 @@
 module TTT
-  class MinimaxPlayer
+  class MinPlayer
     attr_accessor :symbol, :starting_score
     def initialize(symbol, score)
       @symbol = symbol
       @starting_score = score
     end
-  end
-
-  class MinPlayer < MinimaxPlayer
+    
     def compare(best_score,new_score)
       new_score < best_score ? new_score : best_score
     end
   end
 
-  class MaxPlayer < MinimaxPlayer
+  class MaxPlayer
+    attr_accessor :symbol, :starting_score
+    def initialize(symbol, score)
+      @symbol = symbol
+      @starting_score = score
+    end
+    
     def compare(best_score, new_score)
       new_score > best_score ? new_score : best_score
     end
