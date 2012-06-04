@@ -13,10 +13,9 @@ module StartGame
   end
   
   def load_players    
-    player1 = Hash.new
+    player1,player2 = Hash.new,Hash.new
     player1[:type] = scene.find('first_player').value.downcase.to_sym
     player1[:symbol] = "X"
-    player2 = Hash.new
     player2[:type] = scene.find('second_player').value.downcase.to_sym
     player2[:symbol] = "O"
     production.player_values = [player1,player2]
