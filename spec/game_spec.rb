@@ -86,18 +86,18 @@ module TTT
 
       it "should know the game is over when the board returns a winner" do
         @board.game_won = true
-        @game.game_is_over.should == true
+        @game.is_over?.should == true
       end 
 
       it "should know the game is over when the board returns a draw" do
         @board.is_draw = true
-        @game.game_is_over.should == true
+        @game.is_over?.should == true
       end
 
       it "should know that the game is not over when there is no win or draw" do
         @board.is_draw = false
         @board.game_won = false
-        @game.game_is_over.should_not == true
+        @game.is_over?.should_not == true
       end
 
       it "should send game over messages if a game is over" do
