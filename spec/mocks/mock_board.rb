@@ -54,6 +54,9 @@ class FakeBoard
     @received_move = move
   end
   
+  def moves
+  end
+
   def available_spaces
     @checked_spaces_for_computer = true
     @provided_spaces = true

@@ -32,7 +32,7 @@ module TTT
           @game.set_competitors
           @ui.requested_player_details.should == true
         end
-                  
+        
         it "should set up player1 and player2" do
           @game.set_competitors
           @game.player1.symbol.should == "X"
@@ -81,7 +81,7 @@ module TTT
       it "should tell the UI class to display the board" do
         @ui.play_again = :no
         @game.play_script
-        @ui.displayed_board.should == @game.board.grid
+        @ui.displayed_board.should == @game.board.moves
       end
 
       it "should know the game is over when the board returns a winner" do
