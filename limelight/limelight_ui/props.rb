@@ -6,7 +6,7 @@
 limelight_board :id => "limelight_board" do
   
   info_panel do
-    display_text :id => 'display', :styles => 'display_text'
+    display_text :id => 'display', :styles => 'display_text', :text => "Select Players & Press Start"
   end
   
   ttt_board do
