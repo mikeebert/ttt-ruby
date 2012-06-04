@@ -23,6 +23,8 @@ module TTT
       end
 
       it "should send a welcome message to the user" do
+        @ui.input_values = [:valid_move]
+        @board.game_won = true
         @game.play
         @ui.message_contents.should include(:welcome_message)
       end

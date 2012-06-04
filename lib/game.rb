@@ -16,13 +16,18 @@ module TTT
       set_competitors
       @board.set_players(@player1.symbol,@player2.symbol)
       @ui.display_instructions
-      play_script until exit_game
+      play_script until exit_game 
     end
   
     def play_script
       @ui.display_board(@board.moves)
       next_player_move
       game_over_scenario if is_over?
+      #if is_over?
+      #  game_over_scenario 
+      #else
+      #  play_script
+      #end
     end
   
     def next_player_move
