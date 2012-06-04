@@ -7,23 +7,25 @@ module TTT
     def welcome_message
       puts "Welcome to Tic Tac Toe."
     end
-    
-    def display_board(grid)
-      grid.each do |line| 
+
+    def display_board(moves)
+      number = 1
+      moves.each do |line|
         line.each do |value|
-          if value.class != Fixnum
-            print "#{value}|"
-          else
+          if value.empty?
             print "_|"
+          else
+            print "#{value}|"
           end
         end
-        print " "
-        line.each do |value|
-          if value.class == Fixnum
-            print "#{value} "
+        print "   "
+        line.each do |n|
+          if n.empty? 
+            print "#{number}"
           else
-            print "  "
+            print " "
           end
+          number += 1
         end
         print "\n"
       end
@@ -36,7 +38,7 @@ module TTT
       @input[:symbol] = prompt_for_symbol(n)
       return @input
     end
-  
+
     def prompt_for_type(n)
       puts "Should Player #{n} be a human or computer?\n1. Human \n2.Computer\n(Please enter 1 or 2)"
       input = gets.chomp
@@ -49,7 +51,7 @@ module TTT
         prompt_for_type(n)
       end
     end
-  
+
     def prompt_for_symbol(n)
       puts "What alphanumeric symbol would you like to represent Player #{n}?"
       input = gets.slice(0)
