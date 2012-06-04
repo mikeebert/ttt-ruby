@@ -74,7 +74,7 @@ module TTT
     
     def moves
       moves = @grid.flatten.map {|space| space.class == Fixnum ? "" : space}
-      displayed_moves = moves.each_slice(@size).to_a
+      displayed_moves = moves.each_slice(Math.sqrt(@size)).to_a
       displayed_moves
     end
   

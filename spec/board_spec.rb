@@ -163,7 +163,6 @@ module TTT
         @board.grid = [["X",2,3],
                        ["X","O",6],
                        [7,8,9]]
-        @board.size = 3
         @board.moves.should == [["X","",""],
                                 ["X","O",""],
                                 ["","",""]]

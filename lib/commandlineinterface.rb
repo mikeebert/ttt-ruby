@@ -19,11 +19,11 @@ module TTT
           end
         end
         print "   "
-        line.each do |n|
-          if n.empty? 
-            print "#{number}"
+        line.each do |value|
+          if value.empty? 
+            print "#{number} "
           else
-            print " "
+            print "  "
           end
           number += 1
         end
