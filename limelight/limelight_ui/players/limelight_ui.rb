@@ -1,28 +1,26 @@
 module LimelightUi
-  
+
   def welcome_message
     display_game_in_progress
   end
-  
+
   def display_instructions
     update_display("Game Starting...")
   end
-  
+
   def get_details_for_player(n)
-    production.player_values.shift   
+    production.player_values.shift
   end
-  
-  def display_board(grid)
+
+  def display_board(moves)
     index = 0
     (1..9).to_a.each do |n|
-      space = grid.flatten[index]
-      if space == "X" || space == "O"
-        scene.find("square#{n}").text = space 
-      end
+      space = moves.flatten[index]
+      scene.find("square#{n}").text = space unless space.empty?
       index += 1
     end
   end
-  
+
   def prompt_for_next_move
     update_display("Game in Progress")
   end
