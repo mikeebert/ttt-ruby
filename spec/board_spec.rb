@@ -159,6 +159,16 @@ module TTT
         @board.available_spaces.should == [2,3,4,5,6,7,8,9]
       end
 
+      it "should provide an array of player moves and blank spaces" do
+        @board.grid = [["X",2,3],
+                       ["X","O",6],
+                       [7,8,9]]
+        @board.size = 3
+        @board.moves.should == [["X","",""],
+                                ["X","O",""],
+                                ["","",""]]
+      end
+
       it "should reset the board" do
         @board.place_move(@player1,1)
         old_grid = @board.grid

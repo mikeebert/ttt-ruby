@@ -71,6 +71,12 @@ module TTT
     def move_count
       @size - available_spaces.count
     end
+    
+    def moves
+      moves = @grid.flatten.map {|space| space.class == Fixnum ? "" : space}
+      displayed_moves = moves.each_slice(@size).to_a
+      displayed_moves
+    end
   
     def is_draw
       move_count == @size && has_winner != true
