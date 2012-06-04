@@ -20,9 +20,9 @@ module TTT
     end
   
     def play_script
-      @ui.display_board(@board.grid)
+      @ui.display_board(@board.moves)
       next_player_move
-      game_over_scenario if game_is_over
+      game_over_scenario if is_over?
     end
   
     def next_player_move
@@ -35,7 +35,7 @@ module TTT
       else
         @ui.draw_message
       end
-      @ui.display_board(@board.grid)
+      @ui.display_board(@board.moves)
       @board.reset_board
       ask_to_play_again
       play_script unless exit_game
@@ -52,7 +52,7 @@ module TTT
       n == 1 ? @player1 = player : @player2 = player
     end
     
-    def game_is_over
+    def is_over?
       @board.has_winner || @board.is_draw
     end
   
