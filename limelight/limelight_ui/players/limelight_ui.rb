@@ -25,7 +25,7 @@ module LimelightUi
     update_display("Game in Progress")
   end
   
-  def get_input    
+  def get_input
     return production.human_move
   end
   

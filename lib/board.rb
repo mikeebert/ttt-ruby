@@ -63,25 +63,25 @@ module TTT
     def valid_move(move)
       available_spaces.include?(move)
     end
-  
+
     def available_spaces
       @grid.flatten.select {|value| value.class == Fixnum}
     end
-  
+
     def move_count
       @size - available_spaces.count
     end
-    
+
     def moves
       moves = @grid.flatten.map {|space| space.class == Fixnum ? "" : space}
       displayed_moves = moves.each_slice(Math.sqrt(@size)).to_a
       displayed_moves
     end
-  
+
     def is_draw
       move_count == @size && has_winner != true
     end
-      
+
     def has_winner
       return true if horizontal_winner == true
       return true if vertical_winner == true

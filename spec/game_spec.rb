@@ -8,8 +8,8 @@ require 'mocks/mock_human'
 module TTT
   describe Game do
     before(:each) do    
-      ui = FakeUI.new
-      @game = Game.new(ui)
+      @game = Game.new
+      @game.ui = FakeUI.new
       @ui = @game.ui
       @board = FakeBoard.new
       @game.board = @board
@@ -112,7 +112,7 @@ module TTT
         @board.game_won = false
         @game.play_script
         @ui.message_contents.should_not include(:draw)
-        @ui.message_contents.should_not include(:winner)      
+        @ui.message_contents.should_not include(:winner)
       end
 
       it "should not prompt a user for the next move if the game is over" do
@@ -167,14 +167,14 @@ module TTT
     end
   
     describe "a game in which the Ai plays itself" do
-      before(:each) do
-        @game = Game.new
-        @ui = FakeUI.new
-        @game.ui = @ui  
-        @board = FakeBoard.new
-        @game.board = @board
-        @ui.input_values = [:valid_move, :valid_move]
-      end
+      # before(:each) do
+      #   @game = Game.new
+      #   @ui = FakeUI.new
+      #   @game.ui = @ui  
+      #   @board = FakeBoard.new
+      #   @game.board = @board
+      #   @ui.input_values = [:valid_move, :valid_move]
+      # end
 
     end
   end

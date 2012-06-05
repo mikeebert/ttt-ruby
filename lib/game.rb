@@ -1,13 +1,14 @@
 require 'board'
 require 'player_factory'
+require 'commandlineinterface'
 
 module TTT
   class Game
     attr_accessor :board, :ui, :player_factory, :player1, :player2
   
-    def initialize(ui)
+    def initialize
       @board = Board.new(3)
-      @ui = ui
+      @ui = CommandLineInterface.new
       @player_factory = PlayerFactory
     end
   
@@ -16,18 +17,17 @@ module TTT
       set_competitors
       @board.set_players(@player1.symbol,@player2.symbol)
       @ui.display_instructions
-      play_script until exit_game 
+      play_script unless exit_game 
     end
   
     def play_script
       @ui.display_board(@board.moves)
       next_player_move
-      game_over_scenario if is_over?
-      #if is_over?
-      #  game_over_scenario 
-      #else
-      #  play_script
-      #end
+      if is_over?
+        game_over_scenario 
+      else
+        play_script
+      end
     end
   
     def next_player_move
@@ -35,11 +35,7 @@ module TTT
     end
   
     def game_over_scenario
-      if @board.has_winner
-        @ui.winning_message(@board.winner) 
-      else
-        @ui.draw_message
-      end
+      game_over_message
       @ui.display_board(@board.moves)
       @board.reset_board
       ask_to_play_again
@@ -59,6 +55,14 @@ module TTT
     
     def is_over?
       @board.has_winner || @board.is_draw
+    end
+
+    def game_over_message
+      if @board.has_winner
+        @ui.winning_message(@board.winner) 
+      else
+        @ui.draw_message
+      end
     end
   
     def ask_to_play_again

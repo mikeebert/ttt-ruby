@@ -1,0 +1,3 @@
+class FakeGame
+  
+end
