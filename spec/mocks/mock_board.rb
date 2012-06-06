@@ -11,8 +11,7 @@ class FakeBoard
                 :loop_counter,
                 :reset_the_grid,
                 :next_player,
-                :opposite_player,
-                :winner,
+                :winning_symbol,
                 :received_symbol,
                 :received_move,
                 :received_players,                
@@ -28,7 +27,7 @@ class FakeBoard
     @checked_for_winner = []
     @spaces_values = [[:valid_move], [1]]
     @loop_counter = 0
-    @winner = []
+    @winning_symbol = []
     @next_player = :player1
   end
 

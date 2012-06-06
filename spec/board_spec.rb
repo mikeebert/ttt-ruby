@@ -27,12 +27,12 @@ module TTT
         @board.grid[2][2].should == 9
       end
 
-      it "should know the next player and the opposite_player player by their symbol" do
-        @board.next_player = "X"
-        @board.opposite_player = "O"
-        @board.next_player.should == "X"
-        @board.opposite_player.should == "O"
-      end
+      # it "should know the next player and the opposite_player player by their symbol" do
+      #   @board.next_player = "X"
+      #   @board.opposite_player = "O"
+      #   @board.next_player.should == "X"
+      #   @board.opposite_player.should == "O"
+      # end
 
       # it "should swap the next player and the opposite_player" do
       #   @board.next_player = "X"
@@ -87,7 +87,6 @@ module TTT
 
       it "should switch the next player after placing a move on a board" do
         @board.next_player = :player1
-        @board.opposite_player = @player2
         @board.place_move(@player1, 1)
         @board.next_player.should == :player2
       end
@@ -97,7 +96,7 @@ module TTT
         @board.grid[0][1] = @player1
         @board.grid[0][2] = @player1
         @board.has_winner.should == true
-        @board.winner.should ==  @player1
+        @board.winning_symbol.should ==  @player1
       end
 
       it "should check for a column of the same symbols" do
@@ -105,7 +104,7 @@ module TTT
         @board.grid[1][0] = @player2
         @board.grid[2][0] = @player2
         @board.has_winner.should == true
-        @board.winner.should == @player2
+        @board.winning_symbol.should == @player2
       end
 
       it "should check for a vertical winner in the last column" do
@@ -113,7 +112,7 @@ module TTT
         @board.grid[1][2] = @player1
         @board.grid[2][2] = @player1
         @board.has_winner.should == true
-        @board.winner.should == @player1
+        @board.winning_symbol.should == @player1
       end
 
       it "should check for a forward-slash diagonal win" do
@@ -121,7 +120,7 @@ module TTT
         @board.place_move(@player1,5)
         @board.place_move(@player1,9)
         @board.has_winner.should == true
-        @board.winner.should == @player1
+        @board.winning_symbol.should == @player1
       end
 
       it "should check for a backward-slash diagonal win" do
@@ -129,21 +128,21 @@ module TTT
         @board.place_move(@player1,5)
         @board.place_move(@player1,7)
         @board.has_winner.should == true
-        @board.winner.should == @player1
+        @board.winning_symbol.should == @player1
       end
 
       it "should not say there is a winner if there isn't one" do
         @board.place_move(@player1,1)
         @board.place_move(@player1,2)
         @board.has_winner.should_not == true
-        @board.winner.should == nil
+        @board.winning_symbol.should == nil
       end
 
       it "should check for a draw" do
         [1,3,6,7,8].each {|n| @board.place_move(@player1,n)}
         [2,4,5,9].each {|n| @board.place_move(@player2,n)}
         @board.is_draw.should == true
-        @board.winner.should == nil
+        @board.winning_symbol.should == nil
       end
 
       it "should not return a draw when a player wins" do
@@ -151,7 +150,7 @@ module TTT
         @board.place_move(@player1,2)
         @board.place_move(@player1,3)
         @board.is_draw.should == false
-        @board.winner.should == nil
+        @board.winning_symbol.should == nil
       end
 
       it "should return an array of available spaces to play in" do
@@ -173,7 +172,7 @@ module TTT
         old_grid = @board.grid
         @board.reset_board
         @board.grid.flatten.should_not == old_grid.flatten
-        @board.winner.should == nil
+        @board.winning_symbol.should == nil
         @board.next_player.should == :player1
       end
     end

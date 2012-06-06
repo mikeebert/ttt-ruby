@@ -3,11 +3,11 @@ BOARD_SIZE = 3
 module TTT
   class Board
   
-    attr_accessor :grid
-    attr_accessor :size
-    attr_accessor :winner
-    attr_accessor :next_player, :opposite_player
-    attr_accessor :player1_symbol, :player2_symbol
+    attr_accessor :grid,
+                  :size,
+                  :winning_symbol,
+                  :next_player,
+                  :player1_symbol, :player2_symbol
   
     def initialize(*n)
       size = n[0]
@@ -96,7 +96,7 @@ module TTT
     def horizontal_winner
       @grid.each do |row|
         if row.uniq.count == 1 && row.uniq != nil
-          @winner = row.uniq[0]
+          @winning_symbol = row.uniq[0]
           return true
         end
       end
@@ -105,7 +105,7 @@ module TTT
     def vertical_winner
       @grid.transpose.each do |column|
         if column.uniq.count == 1 && column.uniq != nil
-          @winner = column.uniq[0]
+          @winning_symbol = column.uniq[0]
           return true
         end
       end
@@ -121,7 +121,7 @@ module TTT
       end
     
       if forward_slash.uniq.count == 1 && forward_slash.uniq != nil
-        @winner = forward_slash.uniq[0]
+        @winning_symbol = forward_slash.uniq[0]
         return true
       end
     end
@@ -135,14 +135,14 @@ module TTT
         @column -= 1
       end
       if backward_slash.uniq.count == 1 && backward_slash.uniq != nil
-        @winner = backward_slash.uniq[0]
+        @winning_symbol = backward_slash.uniq[0]
         return true
       end
     end
 
     def reset_board
       @grid = fresh_grid(@grid.count)
-      @winner = nil
+      @winning_symbol = nil
       @next_player = :player1
     end
   

@@ -38,7 +38,7 @@ module TTT
   
     def game_over_scenario
       if @board.has_winner
-        @ui.winning_message(@board.winner) 
+        @ui.winning_message(@board.winning_symbol) 
       else
         @ui.draw_message
       end

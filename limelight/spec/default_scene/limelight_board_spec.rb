@@ -33,6 +33,6 @@ describe "Default Scene" do
   it "should reset the production board" do
     reset_button = scene.find("reset_btn")
     reset_button.mouse_clicked(nil)
-    production.game.board.winner.should == nil
+    production.game.board.winning_symbol.should == nil
   end
 end
