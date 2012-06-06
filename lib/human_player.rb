@@ -2,8 +2,7 @@ module TTT
   class HumanPlayer 
     attr_accessor :symbol, :ui
   
-    def initialize(symbol, ui)
-      @ui = ui
+    def initialize(symbol)
       @symbol = symbol
     end
   

@@ -4,6 +4,8 @@ class FakeUI
                 :calling_play_script,
                 :displayed_board,
                 :displayed_instructions,
+                :displayed_draw_message,
+                :displayed_winning_message,
                 :input,
                 :input_values,
                 :message_contents,
@@ -49,11 +51,12 @@ class FakeUI
   end
   
   def winning_message(winner)
+    @displayed_winning_message = true
     @message_contents << :winner
   end
   
   def draw_message
-    @message_contents << :draw
+    @displayed_draw_message = true
   end
   
   def prompt_for_next_move

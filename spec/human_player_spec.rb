@@ -7,7 +7,8 @@ module TTT
   describe HumanPlayer do  
     before(:each) do
       @ui = FakeUI.new
-      @human = HumanPlayer.new("x", @ui)
+      @human = HumanPlayer.new("x")
+      @human.ui = @ui
       @ui.input_values = [:move_prompt_stub, :valid_move]
       @board = FakeBoard.new
     end

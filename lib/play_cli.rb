@@ -28,8 +28,8 @@ class PlayCli
   
   def next_player_move
     player = next_player
-    move = player.get_move(@game.current_board)
-    @game.make_move(next_player.symbol, move)
+    move = get_player_move(player)
+    @game.make_move(player.symbol, move)
   end
   
   def next_player
@@ -44,7 +44,7 @@ class PlayCli
   def create_player(n)
     input = @ui.get_details_for_player(n)
     if input[:type] == :human
-      player = TTT::HumanPlayer.new(input[:symbol], @ui)
+      player = TTT::HumanPlayer.new(input[:symbol])
     elsif input[:type] == :computer
       player = TTT::ComputerPlayer.new(input[:symbol])
     end
@@ -58,6 +58,39 @@ class PlayCli
   def setup_game_board
     @game.set_board_symbols(@player1.symbol,@player2.symbol)    
   end
+  
+  #demeter violation in sending @game.board?
+  def get_player_move(player)
+    human?(player) ? @ui.get_human_move(moves_left) : player.get_move(@game.board)
+  end
+  
+  #checking the class... doesn't feel right, why?
+  def human?(player)
+    player.class == TTT::HumanPlayer
+  end
+  
+  def moves_left
+    @game.current_board
+  end
+  
+  def game_over_scenario
+    @ui.display_board(@game.current_board)
+    game_over_message
+    # ask_to_play_again
+    # play_game unless exit_game?
+  end
+
+  def game_over_message
+    if @game.winner.nil?
+      @ui.draw_message
+    else
+      @ui.winning_message(@game.winner)
+    end    
+  end
+  
+  # def ask_to_play_again
+  #   @ui.prompt_to_play_again
+  # end
   
   def exit_game?
     @ui.play_again == :no

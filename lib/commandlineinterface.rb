@@ -1,7 +1,7 @@
 class CommandLineInterface
 
-  attr_accessor :input
-  attr_accessor :play_again
+  attr_accessor :input,
+                :play_again
 
   def welcome_message
     puts "Welcome to Tic Tac Toe."

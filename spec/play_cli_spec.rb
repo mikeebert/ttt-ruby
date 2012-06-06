@@ -121,5 +121,44 @@ describe PlayCli do
         @game.received_move_symbol.should == :some_symbol
       end    
     end
+    
+    describe "#game_over_scenario" do
+      
+      it "should display the board one last time" do
+        @game.board = :some_board
+        @cli_runner.game_over_scenario
+        @ui.displayed_board.should == :some_board
+      end
+
+      describe "#game_over_scenario draw" do
+        it "should display the draw message if no game winner is present" do
+          @cli_runner.game_over_scenario
+          @ui.displayed_draw_message.should == true
+        end
+        
+        it "should not display the draw message if a winner is present" do
+          @game.board_winning_symbol = :winner
+          @cli_runner.game_over_scenario
+          @ui.displayed_draw_message.should be_nil
+        end
+      end
+      
+      describe "#game_over_scenario winner" do
+        before(:each) do
+          @game.board_winning_symbol = :winner
+        end
+        
+        it "should tell the UI to display a winning message" do
+          @cli_runner.game_over_scenario
+          @ui.displayed_winning_message.should == true
+        end
+        
+        it "should pass the winning symbol to the UI for the winning message" do        
+          @cli_runner.game_over_scenario        
+          @ui.message_contents.should include(:winner)
+        end
+      end
+      
+    end
   end
 end

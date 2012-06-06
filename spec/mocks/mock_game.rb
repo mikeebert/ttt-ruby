@@ -4,6 +4,7 @@ class FakeGame
                 :board_next_player,
                 :board_player1_symbol,
                 :board_player2_symbol,
+                :board_winning_symbol,
                 :created_board,
                 :moves_made,
                 :over,
@@ -39,5 +40,9 @@ class FakeGame
   
   def is_over?
     return @over
+  end
+  
+  def winner
+    return @board_winning_symbol if @board_winning_symbol != nil
   end
 end
