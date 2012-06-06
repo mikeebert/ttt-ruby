@@ -1,7 +1,9 @@
 require 'game'
 require 'player_factory'
+require 'human_player'
+require 'computer_player'
 
-class CliPlay
+class PlayCli
   
   attr_accessor :game, :ui, :player_factory, :player1, :player2
   
@@ -35,7 +37,11 @@ class CliPlay
 
   def set_player(n)
     input = @ui.get_details_for_player(n)
-    player = @player_factory.create(input, @ui)
+    if input[:type] == :human
+      player = TTT::HumanPlayer.new(input[:symbol], @ui)
+    elsif input[:type] == :computer
+      player = TTT::ComputerPlayer.new(input[:symbol])
+    end
     n == 1 ? @player1 = player : @player2 = player
   end
     
