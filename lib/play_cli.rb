@@ -1,5 +1,4 @@
 require 'game'
-require 'player_factory'
 require 'human_player'
 require 'computer_player'
 
@@ -10,41 +9,52 @@ class PlayCli
   def initialize(ui)    
     @ui = ui
     @game = TTT::Game.new
-    @player_factory = TTT::PlayerFactory.new
   end
   
   def setup_game
     @ui.welcome_message
     set_players
     setup_game_board
-    play_game unless exit_game? #exit_game? really just for testing. Should get rid of it
+    play_game
   end
   
   def play_game
-    @ui.display_board(@game.current_board)
-    next_player_move 
-    play_game unless game.is_over?
+    until @game.is_over?
+      @ui.display_board(@game.current_board)
+      next_player_move 
+    end
+    #game_over_scenario
   end
   
   def next_player_move
-    
+    player = next_player
+    move = player.get_move(@game.current_board)
+    @game.make_move(next_player.symbol, move)
+  end
+  
+  def next_player
+    @game.next_player == :player1 ? @player1 : @player2
   end
     
   def set_players
-    set_player(1)
-    set_player(2)
+    create_player(1)
+    create_player(2)
   end
 
-  def set_player(n)
+  def create_player(n)
     input = @ui.get_details_for_player(n)
     if input[:type] == :human
       player = TTT::HumanPlayer.new(input[:symbol], @ui)
     elsif input[:type] == :computer
       player = TTT::ComputerPlayer.new(input[:symbol])
     end
-    n == 1 ? @player1 = player : @player2 = player
+    set_player(n,player)
   end
     
+  def set_player(n,player)
+    n == 1 ? @player1 = player : @player2 = player
+  end
+  
   def setup_game_board
     @game.set_board_symbols(@player1.symbol,@player2.symbol)    
   end

@@ -1,10 +1,10 @@
-require 'cli_play'
+require 'play_cli'
 require 'human_player'
 require 'mocks/mock_game'
 require 'mocks/mock_ui'
-require 'mocks/mock_player_factory'
 require 'mocks/mock_board'
-
+require 'mocks/mock_human'
+require 'mocks/mock_computer'
 
 describe PlayCli do
   before(:each) do
@@ -12,7 +12,6 @@ describe PlayCli do
     @cli_runner = PlayCli.new(@ui)
     @game = FakeGame.new
     @cli_runner.game = @game
-    @player_factory = MockPlayerFactory.new
     @cli_runner.player_factory = @player_factory
     @ui.player_details = [{type: :human, symbol: "X"},
                           {type: :computer, symbol: "O"}]
@@ -20,7 +19,7 @@ describe PlayCli do
 
   describe "setting up the game" do
     before(:each) do
-      @ui.play_again == :no
+      @game.over = true
     end
 
     it "should create a new Game" do
@@ -30,7 +29,6 @@ describe PlayCli do
 
 
     it "should welcome the competitors" do
-      @game.over = true
       @cli_runner.setup_game
       @ui.welcomed_competitors.should == true
     end
@@ -60,13 +58,68 @@ describe PlayCli do
     end
   end
     
-  describe "Playing the Game" do
-    it "should pass the Game's current board to the ui to display" do
-      @game.over = true
+  describe "#play_game" do
+    before(:each) do
       @game.board = :some_board
+      @cli_runner.game.board_next_player = :player1
+      @human = TTT::MockHuman.new
+      @cli_runner.player1 = @human
+    end
+
+    it "should pass the Game's current board to the ui to display" do
+      @game.over_values = [true]*2
       @cli_runner.play_game
       @ui.displayed_board.should == :some_board
     end
     
+    it "should repeat the board display and next_player_move until the game is over" do
+      @game.over_values = [false,false,false,false,false,true]
+      @game.moves_made = 0
+      @cli_runner.play_game
+      @game.moves_made.should == 3
+    end
+
+    describe "#next_player_move" do 
+      before(:each) do
+        @human = TTT::MockHuman.new
+        @computer = TTT::MockComputer.new
+      end
+    
+      it "should get the next player from the game" do
+        @cli_runner.next_player
+        @game.provided_next_player.should == true
+      end
+    
+      it "should get a move from a human player" do
+        @cli_runner.game.board_next_player = :player1
+        @cli_runner.player1 = @human
+        @cli_runner.next_player_move
+        @human.received_move_request.should == true
+      end
+
+      it "should get a move from a computer player" do
+        @cli_runner.game.board_next_player = :player1
+        @cli_runner.player1 = @computer
+        @cli_runner.player1.get_move(:some_board)
+        @computer.received_move_request.should == true
+      end
+    
+      it "should get a move from a second player" do
+        @cli_runner.game.board_next_player = :player2
+        @cli_runner.player2 = @human
+        @cli_runner.next_player_move
+        @human.received_move_request.should == true      
+      end
+    
+      it "should send a move and the player symbol to the game to make the move" do
+        @cli_runner.game.board_next_player = :player1
+        @human.move = :some_space
+        @human.symbol = :some_symbol
+        @cli_runner.player1 = @human
+        @cli_runner.next_player_move
+        @game.received_move_space.should == :some_space
+        @game.received_move_symbol.should == :some_symbol
+      end    
+    end
   end
 end
