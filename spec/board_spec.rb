@@ -10,7 +10,7 @@ module TTT
         @player1.symbol = "X"
         @player2 = FakePlayer.new
         @player2.symbol = "O"
-        @board = Board.new(3)
+        @board = Board.new
       end
 
 
