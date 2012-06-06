@@ -1,32 +1,33 @@
 class FakeUI
-  attr_accessor :displayed_board,
-                :displayed_instructions,
-                :message_contents,
-                :user_input,
-                :input_values,
-                :prompted_user,
-                :input,
-                :play_again,
-                :asked_for_input,
+  attr_accessor :asked_for_input,
                 :asked_to_play_first,
+                :calling_play_script,
+                :displayed_board,
+                :displayed_instructions,
+                :input,
+                :input_values,
+                :message_contents,
+                :prompted_counter,
+                :prompted_user,                
+                :play_again,
                 :play_first,
                 :player_details,
                 :requested_player_details,
-                :prompted_counter,
-                :calling_play_script
+                :user_input,
+                :welcomed_competitors
   
   def initialize
     @message_contents = []
     @user_input = []
     @prompted_counter = 0
   end
-  
+    
   def display_board(board)
     @displayed_board = board
   end
   
   def welcome_message
-    @message_contents << :welcome_message
+    @welcomed_competitors = true
   end
   
   def display_instructions
