@@ -1,6 +1,6 @@
 module TTT
-  class HumanPlayer < Player
-    attr_accessor :ui
+  class HumanPlayer 
+    attr_accessor :symbol, :ui
   
     def initialize(symbol, ui)
       @ui = ui
@@ -18,5 +18,10 @@ module TTT
         get_move(board)
       end
     end  
+
+    def move(board)
+      move = self.get_move(board)
+      board.place_move(@symbol, move)
+    end
   end
 end
