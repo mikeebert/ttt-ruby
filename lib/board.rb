@@ -1,3 +1,5 @@
+BOARD_SIZE = 3
+
 module TTT
   class Board
   
@@ -7,7 +9,9 @@ module TTT
     attr_accessor :next_player, :opposite_player
     attr_accessor :player1_symbol, :player2_symbol
   
-    def initialize(size)
+    def initialize(*n)
+      size = n[0]
+      size ||= BOARD_SIZE
       @grid = fresh_grid(size)
       @size = size * size
       @next_player = :player1
