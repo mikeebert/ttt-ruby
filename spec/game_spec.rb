@@ -21,36 +21,22 @@ module TTT
                               {type: :computer, symbol: "O"}]
         @ui.play_again = :no
       end
-
-      it "should send a welcome message to the user" do
-        @ui.input_values = [:valid_move]
-        @board.game_won = true
-        @game.play
-        @ui.message_contents.should include(:welcome_message)
+          
+      it "should set up player1 and player2" do
+        @game.set_competitors
+        @game.player1.symbol.should == "X"
+        @game.player2.symbol.should == "O"
       end
     
-      describe "setting up the competitors" do      
-        it "should ask the ui to provide the type and symbol for a player" do
-          @game.set_competitors
-          @ui.requested_player_details.should == true
-        end
-        
-        it "should set up player1 and player2" do
-          @game.set_competitors
-          @game.player1.symbol.should == "X"
-          @game.player2.symbol.should == "O"
-        end
-      
-        it "should send the symbols to the board to set the players" do
-          @game.play
-          @board.received_players.should == true
-        end
-      
-        it "should display the instructions for a user" do
-          @game.play
-          @ui.displayed_instructions.should == true
-        end
-      end    
+      it "should send the symbols to the board to set the players" do
+        @game.play
+        @board.received_players.should == true
+      end
+    
+      it "should display the instructions for a user" do
+        @game.play
+        @ui.displayed_instructions.should == true
+      end
     end
   
     describe "Repeating the Play Script" do
