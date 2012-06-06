@@ -5,7 +5,7 @@ require 'mocks/mock_board'
 module TTT
   describe Player do
     before(:each) do
-      @player1 = Player.new = FakeHuman.new
+      @player1 = Player.new = MockHuman.new
       @player2 = FakeComputer.new
       @board = FakeBoard.new
     end
