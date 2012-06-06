@@ -4,7 +4,7 @@ require 'commandlineinterface'
 
 module TTT
   class Game
-    attr_accessor :board, :ui, :player_factory, :player1, :player2
+    attr_accessor :board, :ui
 
     def initialize
       @board = Board.new
@@ -19,14 +19,6 @@ module TTT
       @board.next_player
     end
     
-    def game_over_scenario
-      game_over_message
-      @ui.display_board(@board.moves)
-      @board.reset_board
-      ask_to_play_again
-      play_script unless exit_game
-    end
-    
     def current_board
       @board.moves
     end
@@ -35,12 +27,8 @@ module TTT
       @board.has_winner || @board.is_draw
     end
 
-    def game_over_message
-      if @board.has_winner
-        @ui.winning_message(@board.winner) 
-      else
-        @ui.draw_message
-      end
+    def winner
+      return @board_winning_symbol if @board_winning_symbol != nil
     end
   
     def ask_to_play_again
