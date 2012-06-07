@@ -11,19 +11,11 @@ class CommandLineInterface
     number = 1
     moves.each do |line|
       line.each do |value|
-        if value.empty?
-          print "_|"
-        else
-          print "#{value}|"
-        end
+        value.empty? ? print("_|") : print("#{value}|")
       end
       print "   "
       line.each do |value|
-        if value.empty? 
-          print "#{number} "
-        else
-          print "  "
-        end
+        value.empty? ? print("#{number} ") : print("  ")
         number += 1
       end
       print "\n"
@@ -78,10 +70,6 @@ class CommandLineInterface
     puts "Below is the tic-tac-toe board.\nNumbers on the right correspond to Spaces on the left."
   end
 
-  def invalid_move_message
-    puts "Not a valid move. Please enter another move:"
-  end
-
   def computer_move_message
     puts "Check out my move."
   end
@@ -94,8 +82,15 @@ class CommandLineInterface
     puts "Tie Game. Game Over."
   end
 
-  def prompt_for_next_move
+  def get_human_move(moves)
     puts "Enter your next move:"
+    move = gets.chomp.to_i
+    if moves.include?(move)
+      return move
+    else
+      puts "Not a valid move entry."
+      get_human_move(moves)
+    end
   end
 
   def prompt_to_play_again
