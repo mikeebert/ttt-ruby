@@ -25,14 +25,11 @@ module TTT
       it "should create a copy of a board" do
         new_board = @ai.copy(@board)
         new_board.grid.should == @board.grid
-        new_board.next_player.should == @board.next_player
       end
 
       describe "ranking minimax moves" do
         before(:each) do
           @board = Board.new(3)
-          @board.player1_symbol = "X"
-          @board.player2_symbol = "O"
         end
 
         it "should return (Max win - depth) if the max player is the winner in one move" do

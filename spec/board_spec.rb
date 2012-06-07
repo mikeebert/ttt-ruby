@@ -27,44 +27,17 @@ module TTT
         @board.grid[2][2].should == 9
       end
 
-      # it "should know the next player and the opposite_player player by their symbol" do
-      #   @board.next_player = "X"
-      #   @board.opposite_player = "O"
-      #   @board.next_player.should == "X"
-      #   @board.opposite_player.should == "O"
+      # it "should check to see if a move is valid on the grid" do
+      #   @board.valid_move(1).should == true
+      #   @board.valid_move(10).should == false
       # end
 
-      # it "should swap the next player and the opposite_player" do
-      #   @board.next_player = "X"
-      #   @board.opposite_player = "O"
-      #   @board.switch_players
-      #   @board.next_player.should == "O"
-      #   @board.opposite_player.should == "X"
+      # it "should say a move is invalid if that space is already taken" do
+      #   @board.grid[0][0] = @player1
+      #   @board.valid_move(1).should == false
+      #   @board.grid[2][2] = @player1
+      #   @board.valid_move(9).should == false
       # end
-
-      # it "should return the next player's opposite_player's symbol" do
-      #   @board.next_player = :player1
-      #   @board.opposite_player_symbol.should == "O"
-      #   @board.next_player = :player2
-      #   @board.opposite_player_symbol.should == "X"
-      # end
-      # 
-      # it "should return the next player's symbol" do
-      #   @board.next_player = :player1
-      #   @board.next_player_symbol.should == "X"
-      # end
-
-      it "should check to see if a move is valid on the grid" do
-        @board.valid_move(1).should == true
-        @board.valid_move(10).should == false
-      end
-
-      it "should say a move is invalid if that space is already taken" do
-        @board.grid[0][0] = @player1
-        @board.valid_move(1).should == false
-        @board.grid[2][2] = @player1
-        @board.valid_move(9).should == false
-      end
 
       it "should know the coordinates of a move" do
         @board.coordinates_of(1).should == {row: 0, column: 0}
@@ -83,12 +56,6 @@ module TTT
         @board.place_move(@player1,7)
         @board.grid[0][0].should == @player1
         @board.grid[2][0].should == @player1
-      end
-
-      it "should switch the next player after placing a move on a board" do
-        @board.next_player = :player1
-        @board.place_move(@player1, 1)
-        @board.next_player.should == :player2
       end
 
       it "should check for a row of the same symbols" do
@@ -173,7 +140,6 @@ module TTT
         @board.reset
         @board.grid.flatten.should_not == old_grid.flatten
         @board.winning_symbol.should == nil
-        @board.next_player.should == :player1
       end
     end
   end

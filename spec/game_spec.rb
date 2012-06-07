@@ -13,12 +13,7 @@ module TTT
       @game.board = @board
       @game.set_board_symbols("X","O")
     end
-    
-    it "should set the board symbols" do
-      @board.player1_symbol.should == "X"
-      @board.player2_symbol.should == "O"
-    end
-    
+        
     it "should set the player symbols" do
       @game.player1_symbol.should == "X"
       @game.player2_symbol.should == "O"      

@@ -5,16 +5,13 @@ module TTT
   
     attr_accessor :grid,
                   :size,
-                  :winning_symbol,
-                  :next_player,
-                  :player1_symbol, :player2_symbol
+                  :winning_symbol
   
     def initialize(*n)
       size = n[0]
       size ||= BOARD_SIZE
       @grid = fresh_grid(size)
       @size = size * size
-      @next_player = :player1
     end
   
     def fresh_grid(size)
@@ -29,27 +26,9 @@ module TTT
       end
     end
   
-    def set_players(p1_symbol, p2_symbol)
-      @player1_symbol = p1_symbol
-      @player2_symbol = p2_symbol    
-    end
-  
     def place_move(symbol, space)
       coordinates_of(space)
       @grid[@row][@column] = symbol
-      switch_next_player
-    end
-  
-    def next_player_symbol
-      @next_player == :player1 ? @player1_symbol : @player2_symbol
-    end
-  
-    def opponent_symbol
-      @next_player == :player1 ? @player2_symbol : @player1_symbol
-    end
-  
-    def switch_next_player
-      @next_player == :player1 ? @next_player = :player2 : @next_player = :player1
     end
   
     def coordinates_of(move)
@@ -64,9 +43,9 @@ module TTT
       return {:row => @row, :column => @column}
     end
   
-    def valid_move(move)
-      available_spaces.include?(move)
-    end
+    # def valid_move(move)
+    #   available_spaces.include?(move)
+    # end
 
     def available_spaces
       @grid.flatten.select {|value| value.class == Fixnum}
@@ -143,7 +122,6 @@ module TTT
     def reset
       @grid = fresh_grid(@grid.count)
       @winning_symbol = nil
-      @next_player = :player1
     end
   
   end

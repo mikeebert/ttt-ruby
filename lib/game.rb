@@ -14,8 +14,8 @@ module TTT
     end
     
     def set_board_symbols(symbol1,symbol2)
-      @board.player1_symbol = symbol1
-      @board.player2_symbol = symbol2
+      # @board.player1_symbol = symbol1
+      # @board.player2_symbol = symbol2
       @player1_symbol = symbol1
       @player2_symbol = symbol2
     end
