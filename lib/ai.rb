@@ -14,17 +14,17 @@ module TTT
       position = spaces[rand(spaces.size)]
     end
 
-    def get_minimax_move(board)
-      set_min_and_max_players(board)
+    def get_minimax_move(board,max_symbol,min_symbol)
+      set_min_and_max_players(max_symbol, min_symbol)
       best_score_for_max = @max.starting_score
       alpha = -100
       beta = 100
       depth = 0
-
+      
       board.available_spaces.each do |space|
         test_board = copy(board)
         test_board.place_move(@max.symbol, space)
-        new_score = minimax_score(test_board, alpha, beta, depth + 1)
+        new_score = minimax_score(test_board, opponent_of(@max), alpha, beta, depth + 1)
         if new_score > best_score_for_max
           best_score_for_max = new_score
           @possible_moves = []
@@ -36,22 +36,25 @@ module TTT
       return chosen_move
     end
 
-    def minimax_score(board, alpha, beta, depth)
+    def minimax_score(board, player, alpha, beta, depth)
       score = game_value(board, depth)
       return score unless score == -1
-      player = set_player(board.next_player_symbol)
       best_score = player.starting_score
-
+    
       board.available_spaces.each do |space|
         test_board = copy(board)
         test_board.place_move(player.symbol, space)
-        new_score = minimax_score(test_board, alpha, beta, depth + 1)
+        new_score = minimax_score(test_board, opponent_of(player), alpha, beta, depth + 1)
         best_score = player.compare(best_score, new_score)      
         is_max?(player) ? alpha = best_score : beta = best_score
         break if alpha >= beta
       end
-
+    
       return best_score
+    end
+    
+    def opponent_of(player)
+      player == @max ? @min : @max
     end
   
     def chosen_move
@@ -87,9 +90,9 @@ module TTT
       end
     end
     
-    def set_min_and_max_players(board)
-      @max = MaxPlayer.new(board.next_player_symbol, -5)
-      @min = MinPlayer.new(board.opponent_symbol, 5)
+    def set_min_and_max_players(max_symbol,min_symbol)
+      @max = MaxPlayer.new(max_symbol, -5)
+      @min = MinPlayer.new(min_symbol, 5)
     end
     
     def copy(board)
@@ -99,9 +102,6 @@ module TTT
         row.replace(board.grid[row_index])
         row_index += 1
       end
-      new_board.next_player = board.next_player
-      new_board.player1_symbol = board.player1_symbol
-      new_board.player2_symbol = board.player2_symbol
       return new_board
     end
   end
