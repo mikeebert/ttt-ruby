@@ -63,6 +63,7 @@ class PlayCli
     if player.human? 
       @ui.get_human_move(moves_left)
     else
+      sleep 0.5
       player.get_move(@game.board, player.symbol, @game.opponent)
     end
   end
