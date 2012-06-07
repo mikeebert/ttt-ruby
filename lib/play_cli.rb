@@ -23,7 +23,7 @@ class PlayCli
       @ui.display_board(@game.current_board)
       next_player_move 
     end
-    #game_over_scenario
+    game_over_scenario
   end
   
   def next_player_move
@@ -70,8 +70,8 @@ class PlayCli
   def game_over_scenario
     @ui.display_board(@game.current_board)
     game_over_message
-    # ask_to_play_again
-    # play_game unless exit_game?
+    ask_to_play_again
+    play_again if @ui.play_again == :yes
   end
 
   def game_over_message
@@ -82,11 +82,12 @@ class PlayCli
     end    
   end
   
-  # def ask_to_play_again
-  #   @ui.prompt_to_play_again
-  # end
+  def ask_to_play_again
+    @ui.prompt_to_play_again
+  end
   
-  def exit_game?
-    @ui.play_again == :no
+  def play_again
+    @game.reset
+    play_game
   end
 end

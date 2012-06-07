@@ -23,8 +23,8 @@ describe PlayCli do
     end
 
     it "should create a new Game" do
-      @cli_runner.ui.should be_an_instance_of(FakeUI)
-      @cli_runner.game.should be_an_instance_of(FakeGame)
+      @cli_runner.ui.should == @ui
+      @cli_runner.game.should == @game
     end
 
 
@@ -123,6 +123,9 @@ describe PlayCli do
     end
     
     describe "#game_over_scenario" do
+      before(:each) do
+        @ui.play_again = :no
+      end
       
       it "should display the board one last time" do
         @game.board = :some_board
@@ -159,6 +162,34 @@ describe PlayCli do
         end
       end
       
-    end
+      describe "playing again" do        
+        it "should tell the UI to ask the user to play again" do
+          @cli_runner.game_over_scenario
+          @ui.prompted_user.should == true
+        end
+
+        #@ui.input_values empties as the mock_ui prompts the user, then sets 
+        #@ui.play_again = :no when completely empty        
+        it "should reset the game if the player wants to play again" do
+          @cli_runner.player1 = @human
+          @cli_runner.player2 = @human
+          @ui.play_again = :yes
+          @game.over = true
+          @ui.input_values = [:some_input]*2
+          @cli_runner.game_over_scenario
+          @game.game_reset.should == true
+        end
+        
+        it "should restart the play loop if a user wants to play again" do
+          @cli_runner.player1 = @human
+          @cli_runner.player2 = @human
+          @ui.play_again = :yes
+          @game.over_values = [true]
+          @ui.input_values = [:some_input]*2
+          @cli_runner.game_over_scenario
+          @ui.play_again.should == :no
+        end
+      end
+    end    
   end
 end

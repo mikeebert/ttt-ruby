@@ -6,6 +6,7 @@ class FakeGame
                 :board_player2_symbol,
                 :board_winning_symbol,
                 :created_board,
+                :game_reset,
                 :moves_made,
                 :over,
                 :over_values,
@@ -23,7 +24,7 @@ class FakeGame
   end
   
   def current_board
-    @over = @over_values.shift if @over_values != nil
+    @over = @over_values.shift unless @over_values.nil?
     return @board    
   end
   
@@ -48,5 +49,9 @@ class FakeGame
   
   def winner
     return @board_winning_symbol if @board_winning_symbol != nil
+  end
+  
+  def reset
+    @game_reset = true
   end
 end

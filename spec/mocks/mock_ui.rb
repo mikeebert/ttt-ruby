@@ -72,8 +72,10 @@ class FakeUI
   
   def prompt_to_play_again
     @prompted_user = true
-    @input = @input_values.shift
-    @play_again = :no if @input_values.empty?
+    if @input_values != nil
+      @input = @input_values.shift
+      @play_again = :no if @input_values.empty?
+    end
   end
   
   def ask_for_type_of_game
