@@ -28,12 +28,16 @@ module TTT
       @board.available_spaces
     end
     
+    def make_move(symbol,move)
+      @board.place_move(symbol,move)
+    end
+    
     def is_over?
       @board.has_winner || @board.is_draw
     end
 
     def winner
-      return @board_winning_symbol if @board_winning_symbol != nil
+      return @board.winning_symbol unless @board.winning_symbol.nil?
     end
     
     def reset

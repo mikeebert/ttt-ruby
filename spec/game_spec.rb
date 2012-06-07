@@ -30,6 +30,12 @@ module TTT
         @board.provided_spaces.should == true
       end
       
+      it "should pass a symbol and move along to the board to place it" do
+        @game.make_move(:some_symbol,:some_move)
+        @board.received_move.should == :some_move
+        @board.received_symbol.should == :some_symbol        
+      end
+      
       it "should know the game is over when the board returns a winner" do
         @board.game_won = true
         @game.is_over?.should == true
