@@ -11,20 +11,25 @@ module TTT
       @game = Game.new
       @board = FakeBoard.new
       @game.board = @board
+      @game.set_board_symbols("X","O")
     end
     
     it "should set the board symbols" do
-      @game.set_board_symbols("X","O")
       @board.player1_symbol.should == "X"
       @board.player2_symbol.should == "O"
     end
+    
+    it "should set the player symbols" do
+      @game.player1_symbol.should == "X"
+      @game.player2_symbol.should == "O"      
+    end
+    
+    it "should return the opponent's symbol" do
+      @game.next_player = :player1
+      @game.opponent.should == "O"
+    end
   
     describe "a game" do      
-      it "should return the next player based on the board" do
-        @board.next_player = :player2
-        @game.next_player.should == :player2
-      end
-      
       it "should return the board's available moves" do
         @game.remaining_moves
         @board.provided_spaces.should == true
@@ -34,6 +39,12 @@ module TTT
         @game.make_move(:some_symbol,:some_move)
         @board.received_move.should == :some_move
         @board.received_symbol.should == :some_symbol        
+      end
+      
+      it "should switch the next player after passing a move to the board" do
+        @game.next_player = :player1
+        @game.make_move(:some_symbol,:some_move)
+        @game.next_player.should == :player2
       end
       
       it "should know the game is over when the board returns a winner" do

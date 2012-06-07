@@ -4,7 +4,9 @@ require 'commandlineinterface'
 
 module TTT
   class Game
-    attr_accessor :board, :next_player
+    attr_accessor :board, 
+                  :next_player,
+                  :player1_symbol, :player2_symbol
 
     def initialize
       @board = Board.new
@@ -14,10 +16,12 @@ module TTT
     def set_board_symbols(symbol1,symbol2)
       @board.player1_symbol = symbol1
       @board.player2_symbol = symbol2
+      @player1_symbol = symbol1
+      @player2_symbol = symbol2
     end
     
-    def next_player
-      @board.next_player
+    def opponent
+      @next_player == :player1 ? @player2_symbol : @player1_symbol
     end
     
     def current_board
@@ -30,6 +34,11 @@ module TTT
     
     def make_move(symbol,move)
       @board.place_move(symbol,move)
+      switch_next_player
+    end
+    
+    def switch_next_player
+      @next_player == :player1 ? @next_player = :player2 : @next_player = :player1
     end
     
     def is_over?
