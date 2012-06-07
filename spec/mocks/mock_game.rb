@@ -8,6 +8,7 @@ class FakeGame
                 :created_board,
                 :game_reset,
                 :moves_made,
+                :next_player,
                 :over,
                 :over_values,
                 :provided_next_player,
@@ -28,9 +29,8 @@ class FakeGame
     return @board    
   end
   
-  def next_player
-    @provided_next_player = true
-    return @board_next_player
+  def opponent
+    
   end
   
   def remaining_moves
