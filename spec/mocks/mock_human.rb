@@ -1,4 +1,3 @@
-require 'player'
 require 'mocks/mock_ui'
 
 module TTT

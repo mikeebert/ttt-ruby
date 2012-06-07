@@ -1,4 +1,3 @@
-require 'player'
 require 'computer_player'
 require 'mocks/mock_ai'
 require 'mocks/mock_board'

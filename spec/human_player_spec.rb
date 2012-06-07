@@ -1,4 +1,3 @@
-require 'player'
 require 'human_player'
 require 'mocks/mock_ui'
 require 'mocks/mock_board'
