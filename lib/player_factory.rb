@@ -5,9 +5,9 @@ require 'computer_player'
 
 module TTT
   class PlayerFactory
-    def create(input, ui)
+    def create(input)
       if input[:type] == :human
-        player = HumanPlayer.new(input[:symbol], ui)
+        player = HumanPlayer.new(input[:symbol])
       elsif input[:type] == :computer
         player = ComputerPlayer.new(input[:symbol])
       else
