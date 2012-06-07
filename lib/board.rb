@@ -140,7 +140,7 @@ module TTT
       end
     end
 
-    def reset_board
+    def reset
       @grid = fresh_grid(@grid.count)
       @winning_symbol = nil
       @next_player = :player1
