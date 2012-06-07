@@ -11,16 +11,9 @@ module TTT
       @computer.ai = @ai
     end
   
-    it "should respond to the move method from the Player superclass by asking the ai for a move" do
-      @computer.move(@board)
-      @ai.received_board.should == true
-    end
-  
-    it "should send the move and it's symbol to a board via the Player move method" do
-      @ai.move = :valid_move
-      @computer.move(@board)
-      @board.received_symbol.should == ("X")
-      @board.received_move.should == :valid_move
+    it "should have a symbol and know it's not human" do
+      @computer.symbol.should == "X"
+      @computer.human?.should == false
     end
   
     it "should get a move from the Ai" do
