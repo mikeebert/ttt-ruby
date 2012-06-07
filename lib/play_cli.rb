@@ -56,11 +56,15 @@ class PlayCli
   end
   
   def setup_game_board
-    @game.set_board_symbols(@player1.symbol,@player2.symbol)    
+    @game.set_board_symbols(@player1.symbol,@player2.symbol)
   end
   
   def get_player_move(player)
-    player.human? ? @ui.get_human_move(moves_left) : player.get_move(@game.board)
+    if player.human? 
+      @ui.get_human_move(moves_left)
+    else
+      player.get_move(@game.board, player.symbol, @game.opponent)
+    end
   end
     
   def moves_left

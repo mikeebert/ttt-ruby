@@ -61,7 +61,7 @@ describe PlayCli do
   describe "#play_game" do
     before(:each) do
       @game.board = :some_board
-      @cli_runner.game.board_next_player = :player1
+      @cli_runner.game.next_player = :player1
       @human = TTT::MockHuman.new
       @cli_runner.player1 = @human
     end
@@ -80,14 +80,10 @@ describe PlayCli do
     end
 
     describe "#next_player_move" do 
-      before(:each) do
-        @human = TTT::MockHuman.new
-        @computer = TTT::MockComputer.new
-      end
     
       it "should get the next player from the game" do
-        @cli_runner.next_player
-        @game.provided_next_player.should == true
+        @game.next_player = :player1
+        @cli_runner.next_player.should == @human
       end
     
       it "should prompt the ui to get a move from a human player" do
@@ -98,9 +94,8 @@ describe PlayCli do
       end
 
       it "should get a move from a computer player" do
-        @cli_runner.game.board_next_player = :player1
-        @cli_runner.player1 = @computer
-        @cli_runner.player1.get_move(:some_board)
+        @computer = TTT::MockComputer.new
+        @cli_runner.get_player_move(@computer)
         @computer.received_move_request.should == true
       end
     
