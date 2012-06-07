@@ -76,7 +76,7 @@ describe PlayCli do
       @game.over_values = [false,false,false,false,false,true]
       @game.moves_made = 0
       @cli_runner.play_game
-      @game.moves_made.should == 3
+      @game.moves_made.should == 6
     end
 
     describe "#next_player_move" do 
@@ -90,11 +90,11 @@ describe PlayCli do
         @game.provided_next_player.should == true
       end
     
-      it "should get a move from a human player" do
+      it "should prompt the ui to get a move from a human player" do
         @cli_runner.game.board_next_player = :player1
         @cli_runner.player1 = @human
         @cli_runner.next_player_move
-        @human.received_move_request.should == true
+        @ui.prompted_user.should == true
       end
 
       it "should get a move from a computer player" do
@@ -108,12 +108,12 @@ describe PlayCli do
         @cli_runner.game.board_next_player = :player2
         @cli_runner.player2 = @human
         @cli_runner.next_player_move
-        @human.received_move_request.should == true      
+        @ui.prompted_user.should == true      
       end
     
       it "should send a move and the player symbol to the game to make the move" do
         @cli_runner.game.board_next_player = :player1
-        @human.move = :some_space
+        @ui.input = :some_space
         @human.symbol = :some_symbol
         @cli_runner.player1 = @human
         @cli_runner.next_player_move

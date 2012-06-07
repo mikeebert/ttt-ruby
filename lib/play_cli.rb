@@ -59,18 +59,12 @@ class PlayCli
     @game.set_board_symbols(@player1.symbol,@player2.symbol)    
   end
   
-  #demeter violation in sending @game.board?
   def get_player_move(player)
-    human?(player) ? @ui.get_human_move(moves_left) : player.get_move(@game.board)
+    player.human? ? @ui.get_human_move(moves_left) : player.get_move(@game.board)
   end
-  
-  #checking the class... doesn't feel right, why?
-  def human?(player)
-    player.class == TTT::HumanPlayer
-  end
-  
+    
   def moves_left
-    @game.current_board
+    @game.remaining_moves
   end
   
   def game_over_scenario
