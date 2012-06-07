@@ -23,16 +23,16 @@ module TTT
       @board.moves
     end
     
+    def remaining_moves
+      @board.available_spaces
+    end
+    
     def is_over?
       @board.has_winner || @board.is_draw
     end
 
     def winner
       return @board_winning_symbol if @board_winning_symbol != nil
-    end
-  
-    def ask_to_play_again
-      @ui.prompt_to_play_again
     end
   end
 end

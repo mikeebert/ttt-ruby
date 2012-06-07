@@ -20,29 +20,18 @@ module TTT
       @board.player1_symbol.should == "X"
       @board.player2_symbol.should == "O"
     end
-    
-    it "should return the next player based on the board" do
-      @board.next_player = :player2
-      @game.next_player.should == :player2
-    end
-
-
   
-    describe "playing the game" do      
-      before(:each) do
-        @player1 = MockHuman.new
-        @player2 = MockHuman.new
-        # @game.player1 = @player1
-        # @game.player2 = @player2
-        @board = FakeBoard.new
-        @game.board = @board
-        # @ui = FakeUI.new
-        # @game.ui = @ui
-        # @player1.ui = @ui
-        # @player2.ui = @ui        
-        # @ui.input_values = [:valid_move]
+    describe "a game" do      
+      it "should return the next player based on the board" do
+        @board.next_player = :player2
+        @game.next_player.should == :player2
       end
-
+      
+      it "should return the board's available moves" do
+        @game.remaining_moves
+        @board.provided_spaces.should == true
+      end
+      
       it "should know the game is over when the board returns a winner" do
         @board.game_won = true
         @game.is_over?.should == true
