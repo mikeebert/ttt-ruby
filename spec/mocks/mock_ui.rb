@@ -42,6 +42,11 @@ class FakeUI
     @input_values.shift
   end
   
+  def get_human_move(spaces)
+    @prompted_user = true
+    @input
+  end
+  
   def invalid_move_message
     @message_contents << :error_message
   end
