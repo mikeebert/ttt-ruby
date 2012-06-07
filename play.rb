@@ -1,7 +1,7 @@
 $: << File.expand_path(File.dirname(__FILE__) + "/lib")
-require 'game'
+require 'play_cli'
 require 'commandlineinterface'
 
-ui = TTT::CommandLineInterface.new
-game = TTT::Game.new(ui)
-game.play
+ui = CommandLineInterface.new
+cli_game = PlayCli.new(ui)
+cli_game.setup_game
