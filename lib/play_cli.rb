@@ -4,7 +4,7 @@ require 'computer_player'
 
 class PlayCli
   
-  attr_accessor :game, :ui, :player_factory, :player1, :player2
+  attr_accessor :game, :ui, :player1, :player2
   
   def initialize(ui)    
     @ui = ui

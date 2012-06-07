@@ -12,7 +12,6 @@ describe PlayCli do
     @cli_runner = PlayCli.new(@ui)
     @game = FakeGame.new
     @cli_runner.game = @game
-    @cli_runner.player_factory = @player_factory
     @ui.player_details = [{type: :human, symbol: "X"},
                           {type: :computer, symbol: "O"}]
   end
