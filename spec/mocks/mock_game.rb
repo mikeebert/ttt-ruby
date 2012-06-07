@@ -32,8 +32,12 @@ class FakeGame
     return @board_next_player
   end
   
+  def remaining_moves
+    @board    
+  end
+  
   def make_move(symbol,move)
-    @moves_made += 1 if @moves_made != nil
+    @moves_made += 1 unless @moves_made.nil?
     @received_move_symbol = symbol
     @received_move_space = move
   end
