@@ -170,7 +170,7 @@ module TTT
       it "should reset the board" do
         @board.place_move(@player1,1)
         old_grid = @board.grid
-        @board.reset_board
+        @board.reset
         @board.grid.flatten.should_not == old_grid.flatten
         @board.winning_symbol.should == nil
         @board.next_player.should == :player1
