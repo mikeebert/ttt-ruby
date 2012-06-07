@@ -4,10 +4,11 @@ require 'commandlineinterface'
 
 module TTT
   class Game
-    attr_accessor :board, :ui
+    attr_accessor :board, :next_player
 
     def initialize
       @board = Board.new
+      @next_player = :player1
     end
     
     def set_board_symbols(symbol1,symbol2)
@@ -33,6 +34,11 @@ module TTT
 
     def winner
       return @board_winning_symbol if @board_winning_symbol != nil
+    end
+    
+    def reset
+      @board.reset
+      @next_player = :player1
     end
   end
 end

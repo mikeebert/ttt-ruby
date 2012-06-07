@@ -9,8 +9,6 @@ module TTT
   describe Game do
     before(:each) do    
       @game = Game.new
-      @game.ui = FakeUI.new
-      @ui = @game.ui
       @board = FakeBoard.new
       @game.board = @board
     end
