@@ -7,9 +7,8 @@ module TTT
                   :size,
                   :winning_symbol
   
-    def initialize(*n)
-      size = n[0]
-      size ||= BOARD_SIZE
+    def initialize(board_size = BOARD_SIZE)
+      size = board_size
       @grid = fresh_grid(size)
       @size = size * size
     end
