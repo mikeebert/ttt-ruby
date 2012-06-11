@@ -1,6 +1,6 @@
 require 'board'
 require 'player_factory'
-require 'commandlineinterface'
+require 'command_line_interface'
 
 module TTT
   class Game
@@ -13,14 +13,16 @@ module TTT
       @next_player = :player1
     end
     
-    def set_board_symbols(symbol1,symbol2)
-      # @board.player1_symbol = symbol1
-      # @board.player2_symbol = symbol2
+    def set_game_player_symbols(symbol1,symbol2)
       @player1_symbol = symbol1
       @player2_symbol = symbol2
     end
     
-    def opponent
+    def next_player_symbol
+      @next_player == :player1 ? @player1_symbol : @player2_symbol
+    end
+    
+    def opponent_symbol
       @next_player == :player1 ? @player2_symbol : @player1_symbol
     end
     
