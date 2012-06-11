@@ -16,7 +16,7 @@ module TTT
       true      
     end  
     
-    def get_move(board)
+    def get_ai_move(board)
       @received_move_request = true
       return @move
     end

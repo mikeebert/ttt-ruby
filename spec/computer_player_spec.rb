@@ -18,7 +18,7 @@ module TTT
   
     it "should get a move from the Ai" do
       @ai.move = :valid_move
-      @computer.get_move(@board, :player, :opponent).should == :valid_move
+      @computer.get_ai_move(@board, :player, :opponent).should == :valid_move
     end
   end
 end

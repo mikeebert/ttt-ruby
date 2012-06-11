@@ -19,7 +19,7 @@ class FakeGame
     @created_board = true
   end
   
-  def set_board_symbols(symbol1,symbol2)
+  def set_game_player_symbols(symbol1,symbol2)
     @board_player1_symbol = symbol1
     @board_player2_symbol = symbol2
   end
@@ -29,7 +29,7 @@ class FakeGame
     return @board    
   end
   
-  def opponent
+  def opponent_symbol
     
   end
   

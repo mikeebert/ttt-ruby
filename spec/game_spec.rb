@@ -11,7 +11,7 @@ module TTT
       @game = Game.new
       @board = FakeBoard.new
       @game.board = @board
-      @game.set_board_symbols("X","O")
+      @game.set_game_player_symbols("X","O")
     end
         
     it "should set the player symbols" do
@@ -21,7 +21,7 @@ module TTT
     
     it "should return the opponent's symbol" do
       @game.next_player = :player1
-      @game.opponent.should == "O"
+      @game.opponent_symbol.should == "O"
     end
   
     describe "a game" do      
