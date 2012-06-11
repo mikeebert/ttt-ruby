@@ -1,14 +1,15 @@
 require 'game'
-require 'human_player'
-require 'computer_player'
+require 'player_factory'
 
-class PlayCli
+class CommandLineGame
   
-  attr_accessor :game, :ui, :player1, :player2
+  attr_accessor :game, :ui
+  attr_accessor :player_factory, :player1, :player2
   
   def initialize(ui)    
     @ui = ui
     @game = TTT::Game.new
+    @player_factory = TTT::PlayerFactory.new
   end
   
   def setup_game
@@ -43,20 +44,16 @@ class PlayCli
 
   def create_player(n)
     input = @ui.get_details_for_player(n)
-    if input[:type] == :human
-      player = TTT::HumanPlayer.new(input[:symbol])
-    elsif input[:type] == :computer
-      player = TTT::ComputerPlayer.new(input[:symbol])
-    end
+    player = @player_factory.create(input)
     set_player(n,player)
   end
-    
+  
   def set_player(n,player)
     n == 1 ? @player1 = player : @player2 = player
   end
   
   def setup_game_board
-    @game.set_board_symbols(@player1.symbol,@player2.symbol)
+    @game.set_game_player_symbols(@player1.symbol,@player2.symbol)
   end
   
   def get_player_move(player)
@@ -64,7 +61,7 @@ class PlayCli
       @ui.get_human_move(moves_left)
     else
       sleep 0.5
-      player.get_move(@game.board, player.symbol, @game.opponent)
+      player.get_ai_move(@game.board, player.symbol, @game.opponent_symbol)
     end
   end
     
