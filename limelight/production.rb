@@ -4,7 +4,7 @@
 
 module Production
   
-  attr_accessor :game, :player_values, :play_again, :human_move 
+  attr_accessor :game
 
 #  # Define this method if you want the production name to be different from the default, directory name.
 #  def name
