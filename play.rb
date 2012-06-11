@@ -1,7 +1,7 @@
 $: << File.expand_path(File.dirname(__FILE__) + "/lib")
-require 'play_cli'
-require 'commandlineinterface'
+require 'command_line_game'
+require 'command_line_interface'
 
 ui = CommandLineInterface.new
-cli_game = PlayCli.new(ui)
+cli_game = CommandLineGame.new(ui)
 cli_game.setup_game
