@@ -13,7 +13,7 @@ module TTT
       false
     end
   
-    def get_move(board, player, opponent)
+    def get_ai_move(board, player, opponent)
       # @ai.random_move(board)    
       @ai.get_minimax_move(board, player, opponent)
     end
