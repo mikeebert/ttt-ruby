@@ -1,6 +1,7 @@
 module ResetButton
   
   def mouse_clicked(event)
-    scene.reset
+    production.game.reset_game    
   end
+    
 end
