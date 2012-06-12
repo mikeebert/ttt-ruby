@@ -5,8 +5,8 @@ module LimelightUi
     production.game.begin
   end
 
-  def make_move(n)
-    production.game.update_game(n)
+  def make_move(space)
+    production.game.update_game(space)
   end
 
   def get_details_for_player(n)
