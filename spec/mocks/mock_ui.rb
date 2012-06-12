@@ -4,6 +4,7 @@ class FakeUI
                 :calling_play_script,
                 :displayed_board,
                 :displayed_instructions,
+                :displayed_in_progress,
                 :displayed_draw_message,
                 :displayed_winning_message,
                 :input,
@@ -34,6 +35,10 @@ class FakeUI
   
   def display_instructions
     @displayed_instructions = true
+  end
+  
+  def display_game_in_progress
+    @displayed_in_progress = true
   end
   
   def get_input

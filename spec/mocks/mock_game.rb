@@ -5,12 +5,15 @@ class FakeGame
                 :board_player1_symbol,
                 :board_player2_symbol,
                 :board_winning_symbol,
+                :checked_status,
                 :created_board,
                 :game_reset,
                 :moves_made,
                 :next_player,
                 :over,
                 :over_values,
+                :player1_symbol,
+                :player2_symbol,
                 :provided_next_player,
                 :received_move_space,
                 :received_move_symbol
@@ -29,8 +32,10 @@ class FakeGame
     return @board    
   end
   
-  def opponent_symbol
-    
+  def next_player_symbol
+  end
+  
+  def opponent_symbol    
   end
   
   def remaining_moves
@@ -44,6 +49,7 @@ class FakeGame
   end
   
   def is_over?
+    @checked_status = true
     return @over
   end
   
