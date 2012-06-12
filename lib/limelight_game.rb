@@ -1,6 +1,5 @@
 require 'game'
-require 'human_player'
-require 'computer_player'
+require 'player_factory'
 
 class LimelightGame
   attr_accessor :game, :ui
