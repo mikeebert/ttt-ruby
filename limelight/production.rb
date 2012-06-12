@@ -3,9 +3,9 @@
 # You may define serveral hooks and initialization steps here.
 
 module Production
-  
-  attr_accessor :game
 
+  attr_accessor :game
+  
 #  # Define this method if you want the production name to be different from the default, directory name.
 #  def name
 #    return Limelight
