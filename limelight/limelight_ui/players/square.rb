@@ -1,15 +1,14 @@
 module Square
   
   def mouse_clicked(event)    
-    if available?
-      n = self.id.match(/\d/)[0]
-      scene.make_move(n.to_i)
+    if self.text.empty?
+      move = self.id.match(/\d/)[0]
+      pass_to_adapter(move.to_i)
     end
   end
-  
-  def available?
-    self.text.empty?
+    
+  def pass_to_adapter(move)
+    production.game.update_game(move)
   end
-  
 
 end
