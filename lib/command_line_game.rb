@@ -15,7 +15,7 @@ class CommandLineGame
   def setup_game
     @ui.welcome_message
     set_players
-    setup_game_board
+    set_game_symbols
     play_game
   end
   
@@ -52,7 +52,7 @@ class CommandLineGame
     n == 1 ? @player1 = player : @player2 = player
   end
   
-  def setup_game_board
+  def set_game_symbols
     @game.set_game_player_symbols(@player1.symbol,@player2.symbol)
   end
   
