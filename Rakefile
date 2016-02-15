@@ -1,3 +1,3 @@
-task :spec do
+task :default do
   sh 'rspec spec'
 end
